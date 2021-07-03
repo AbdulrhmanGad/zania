@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+
+
+	<template id="_assets_primary_variables_custom" name="_assets_primary_variables_custom" inherit_id="web._assets_primary_variables" >
+		<xpath expr="." position="inside">
+      			<link rel="stylesheet" type="text/scss" href="/legion_enterprise_theme/static/src/scss/primary_variables_custom.scss"/>
+        </xpath>
+
+    </template>
+
+    <template id="assets_backend_custom" name="assets_backend_custom" inherit_id="web.assets_backend" >
+		<xpath expr="." position="inside">
+      			<link rel="stylesheet" type="text/scss" href="/legion_enterprise_theme/static/src/scss/fields_extra_custom.scss"/>
+        </xpath>
+
+    </template>
+
+</odoo>
