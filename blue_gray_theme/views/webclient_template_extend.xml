@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+
+
+	<template id="_assets_primary_variables_custom" name="_assets_primary_variables_custom" inherit_id="web._assets_primary_variables" >
+		<xpath expr="." position="inside">
+      			<link rel="stylesheet" type="text/scss" href="/blue_gray_theme/static/src/scss/primary_variables_custom.scss"/>
+        </xpath>
+
+    </template>
+
+    <template id="assets_backend_custom" name="assets_backend_custom" inherit_id="web.assets_backend" >
+		<xpath expr="." position="inside">
+      			<link rel="stylesheet" type="text/scss" href="/blue_gray_theme/static/src/css/theme.css"/>
+<!--      			<link rel="stylesheet"  href="/blue_gray_theme/static/src/css/theme.css"/>-->
+        </xpath>
+
+    </template>
+
+
+<!--    <template id="namaa_web_assets" inherit_id="website.assets_frontend" name="website_scholarship_assets">
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" href="/namaa_scholarship/static/src/css/theme.css"/>
+            <link rel="stylesheet" type="text/scss" href="/blue_gray_theme/static/src/css/theme.css"/>
+        </xpath>
+    </template>-->
+
+
+    <template id="namaa_common_assets" inherit_id="web.assets_common" name="website_scholarship_assets">
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" href="/blue_gray_theme/static/src/css/theme.css"/>
+            <link rel="stylesheet" type="text/scss" href="/blue_gray_theme/static/src/scss/ui.scss"/>
+        </xpath>
+<!--        <xpath expr="//link[@href='/web_enterprise/static/src/scss/ui.scss']" position="replace">
+            <link rel="stylesheet" type="text/scss" href="/blue_gray_theme/static/src/scss/ui.scss"/>
+        </xpath>-->
+
+    </template>
+</odoo>

@@ -1,0 +1,10 @@
+// Shared with web client and login screen
+.o_home_menu_background {
+//     background: url(/blue_gray_theme/static/img/theme_background.jpg);
+    background: url(/web_enterprise/static/src/img/home-menu-bg-overlay.svg),
+        linear-gradient(to right bottom, #1983C0, #444);
+    background-size: cover;
+}
+.o_web_client {
+    background-color: #444;
+}
