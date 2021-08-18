@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="zenia_view_account_journal_form" model="ir.ui.view">
+            <field name="name">account.journal</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']/../.." position="after">
+                    <group  attrs="{'invisible': [('type', 'not in',['cash', 'bank'])]}">
+                        <group string="Send Cheque">
+                            <field name="send_cheque"/>
+                            <field name="vendor_cheque"/>
+                        </group>
+                        <group string="Receive Cheque">
+                            <field name="receive_cheque"/>
+                            <field name="cheque_under_collect"/>
+                            <field name="cheque_collection"/>
+                        </group>
+                        <group string="Cheque States">
+                            <field name="cheque_required"/>
+                            <field name="cheque_return"/>
+                            <field name="cheque_close"/>
+                            <field name="cheque_reject"/>
+                            <field name="cancel_cheque"/>
+                        </group>
+                    </group>
+
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+
+

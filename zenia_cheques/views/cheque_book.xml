@@ -1,0 +1,64 @@
+<odoo>
+    <data>
+
+        <record id="cheque_book_view_tree" model="ir.ui.view">
+            <field name="name">cheque_book_view_tree</field>
+            <field name="model">cheque.book</field>
+            <field name="arch" type="xml">
+                <tree string="cheque_book_tree">
+                    <field name="name"/>
+                    <field name="bank_id"/>
+                    <field name="journal_id"/>
+                    <field name="cheque_first_no"/>
+                    <field name="cheque_no"/>
+                    <field name="cheque_ids" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="cheque_book_view_form" model="ir.ui.view">
+            <field name="name">cheque_book_view_form</field>
+            <field name="model">cheque.book</field>
+            <field name="arch" type="xml">
+                <form string="cheque_book_form">
+                    <header>
+                        <button name="generate_cheques" type="object"
+                                string="Generate Cheques"
+                                class="oe_highlight" attrs="{'invisible':[('state','!=','draft')]}"/>
+                        <field name="state" widget="statusbar" clickable="1"/>
+                    </header>
+
+                    <sheet>
+                        <h1>
+                            <div>
+                                <label for="name" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            </div>
+                            <field name="name" required="1"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="bank_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="journal_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="cheque_first_no" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="cheque_numbers" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="cheque_no" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            </group>
+                            <group>
+                                <field name="cheque_ids" widget="many2many_tags" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="cheque_book_action" model="ir.actions.act_window">
+            <field name="name">Cheque Book</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cheque.book</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="cheque_book_menu" name="Cheque Book" action="cheque_book_action" parent="cheque_root"/>
+
+    </data>
+</odoo>
