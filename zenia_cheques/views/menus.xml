@@ -1,0 +1,60 @@
+<odoo>
+    <data>
+        <!--        <record id="banks_view_tree" model="ir.ui.view">-->
+        <!--            <field name="name">banks_view_tree</field>-->
+        <!--            <field name="model">account.setup.bank.manual.config</field>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <tree string="banks_tree">-->
+        <!--                    <field name="bank_name"/>-->
+        <!--                    <field name="acc_number"/>-->
+        <!--                    <field name="new_journal_name"/>-->
+        <!--                    <field name="partner_id"/>-->
+        <!--                    <field name="res_partner_bank_id"/>-->
+        <!--                </tree>-->
+        <!--            </field>-->
+        <!--        </record>-->
+        <!--        <record id="banks_view_form" model="ir.ui.view">-->
+        <!--            <field name="name">banks_view_form</field>-->
+        <!--            <field name="model">account.setup.bank.manual.config</field>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <form string="banks_form">-->
+        <!--                    <sheet>-->
+        <!--                        <group>-->
+        <!--                            <group>-->
+        <!--                                <field name="bank_name"/>-->
+        <!--                                <field name="acc_number"/>-->
+        <!--                                <field name="linked_journal_id"/>-->
+        <!--                                <field name="company_id" invisible="0"/>-->
+        <!--                                <field name="bank_id"/>-->
+        <!--                                <field name="acc_number"/>-->
+        <!--                                <field name="new_journal_name"/>-->
+        <!--                                <field name="partner_id"/>-->
+        <!--                                <field name="res_partner_bank_id"/>-->
+        <!--                            </group>-->
+        <!--                        </group>-->
+        <!--                    </sheet>-->
+        <!--                </form>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <!--        <record id="banks_action" model="ir.actions.act_window">-->
+        <!--            <field name="name">Banks</field>-->
+        <!--            <field name="type">ir.actions.act_window</field>-->
+        <!--            <field name="res_model">account.setup.bank.manual.config</field>-->
+        <!--            <field name="view_mode">tree,form</field>-->
+        <!--            <field name="view_ids" eval="[(5, 0, 0),-->
+        <!--            (0, 0, {'view_mode': 'tree', 'view_id': ref('banks_view_tree')}),-->
+        <!--            (0, 0, {'view_mode': 'form', 'view_id': ref('banks_view_form')})]"/>-->
+        <!--        </record>-->
+        <record id="banks_action" model="ir.actions.act_window">
+            <field name="name">Banks</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.bank</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="cheque_root" name="Cheques" parent="account.menu_finance"/>
+        <menuitem id="bank_list_menu" name="banks" action="banks_action" parent="cheque_root"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,199 @@
+<odoo>
+    <data>
+        <record id="cheque_search_view" model="ir.ui.view">
+            <field name="name">account.payment</field>
+            <field name="model">account.payment</field>
+            <field name="arch" type="xml">
+                <search string="Cheque">
+                    <field name="cheque_type"/>
+                    <field name="cheque_state"/>
+                    <field name="cheque_no"/>
+                    <field name="due_date"/>
+                    <field name="cheque_bank_id"/>
+                    <field name="collect_journal_id"/>
+                    <field name="return_journal_id"/>
+                    <field name="reject_journal_id"/>
+                    <filter string=" Cheque Type" name="cheque_type" context="{'group_by':'cheque_type'}"/>
+                    <filter string="Cheque State" name="cheque_state" context="{'group_by':'cheque_state'}"/>
+                    <filter string="Cheque no" name="cheque_no" context="{'group_by':'cheque_no'}"/>
+                    <filter string="Due Date" name="due_date" context="{'group_by':'due_date'}"/>
+                    <filter string=" Cheque Bank" name="cheque_bank_id" context="{'group_by':'cheque_bank_id'}"/>
+                    <filter string="Collect Journal" name="collect_journal_id" context="{'group_by':'collect_journal_id'}"/>
+                    <filter string="Return Journal" name="return_journal_id" context="{'group_by':'return_journal_id'}"/>
+                    <filter string="Reject Journal" name="reject_journal_id" context="{'group_by':'reject_journal_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="open_reject_view" model="ir.ui.view">
+            <field name="name">under_collect_view_view_form</field>
+            <field name="model">account.payment</field>
+            <field name="arch" type="xml">
+                <form string="under_collect_view_form">
+                    <group>
+                        <field name="reject_journal_id" domain="[('cheque_reject', '=', True)]" required="1"/>
+                        <field name="reject_date" required="1"/>
+                    </group>
+                    <footer>
+                        <button name="reject_cheque" type="object" string="Reject" class="oe_highlight"/>
+                        OR
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="open_return_view" model="ir.ui.view">
+            <field name="name">under_collect_view_view_form</field>
+            <field name="model">account.payment</field>
+            <field name="arch" type="xml">
+                <form string="under_collect_view_form">
+                    <group>
+                        <field name="return_journal_id" domain="[('cheque_return', '=', True)]" required="1"/>
+                        <field name="return_date" required="1"/>
+                    </group>
+                    <footer>
+                        <button name="return_cheque" type="object" string="Return" class="oe_highlight"/>
+                        OR
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="open_collect_view" model="ir.ui.view">
+            <field name="name">under_collect_view_view_form</field>
+            <field name="model">account.payment</field>
+            <field name="arch" type="xml">
+                <form string="under_collect_view_form">
+                    <group>
+                        <field name="collect_journal_id" domain="[('cheque_collection', '=', True)]" required="1"/>
+                        <field name="collect_date" required="1"/>
+                    </group>
+                    <footer>
+                        <button name="collect" type="object" string="Collect" class="oe_highlight"/>
+                        OR
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="under_collect_view" model="ir.ui.view">
+            <field name="name">under_collect_view_view_form</field>
+            <field name="model">account.payment</field>
+            <field name="arch" type="xml">
+                <form string="under_collect_view_form">
+                    <group>
+                        <field name="under_collect_bank_id" required="1"/>
+                        <field name="under_collect_journal_id" domain="[('cheque_under_collect', '=', True)]"
+                               required="1"/>
+                        <field name="under_collect_date" required="1"/>
+                    </group>
+                    <footer>
+                        <button name="under_collect" type="object" string="Under Collect" class="oe_highlight"/>
+                        OR
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="receivable_view_tree" model="ir.ui.view">
+            <field name="name">account.payment</field>
+            <field name="model">account.payment</field>
+            <field name="arch" type="xml">
+                <tree string="receivable_tree">
+                    <field name="name"/>
+                    <field name="cheque_bank_id"/>
+                    <field name="cheque_no"/>
+                    <field name="state" invisible="1"/>
+                    <field name="journal_id"/>
+                    <field name="partner_id" string="Customer"/>
+                    <field name="amount"/>
+                    <field name="cheque_state"/>
+                    <field name="due_date"/>
+                    <field name="date"/>
+                    <field name="ref"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="receivable_view_form" model="ir.ui.view">
+            <field name="name">account.payment</field>
+            <field name="model">account.payment</field>
+            <field name="arch" type="xml">
+                <form string="receivable_form">
+                    <header>
+                        <button name="confirm" type="object" string="confirm" class="oe_highlight"
+                                attrs="{'invisible':[('cheque_state','!=','draft')]}"/>
+                        <button name="open_under_collect" type="object" string="Under Collect" class="oe_highlight"
+                                attrs="{'invisible':[('cheque_state','not in' ,['confirm'])]}"/>
+                        <button name="open_collect" type="object" string="Collect" class="oe_highlight"
+                                attrs="{'invisible':[('cheque_state','not in' ,['confirm', 'under_collect'])]}"/>
+                        <button name="open_return" type="object" string="Return" class="oe_highlight"
+                                attrs="{'invisible':[('cheque_state','!=','confirm')]}"/>
+                        <button name="transfer" type="object" string="Transfer" class="oe_highlight"
+                                attrs="{'invisible':[('cheque_state','!=','confirm')]}"/>
+                        <button name="confirm" type="object" string="confirm" class="oe_highlight"
+                                attrs="{'invisible':[('cheque_state','!=','confirm')]}"/>
+
+                        <button name="open_reject" type="object" string="Reject"
+                                attrs="{'invisible':[('cheque_state','=','draft')]}"/>
+                        <button name="reset_to_draft" type="object" string="Reset To Draft"
+                                attrs="{'invisible':[('cheque_state','=','draft')]}"/>
+                        <field name="state" invisible="1"/>
+                        <field name="cheque_state" widget="statusbar" clickable="1"/>
+                    </header>
+
+                    <sheet>
+                        <div class="oe_button_box" name="expense_button_box">
+                            <button class="oe_stat_button" name="action_view_moves" type="object" icon="fa-list-ol">
+                                <field string="Journals" name="move_count" widget="statinfo"/>
+                                <field name="move_ids" invisible="1"/>
+                            </button>
+                            <button class="oe_stat_button" name="action_view_moves_lines" type="object"
+                                    icon="fa-list-ol">
+                                <field string="Move Lines" name="move_line_count" widget="statinfo"/>
+                                <field name="move_line_ids" invisible="1"/>
+                            </button>
+                        </div>
+                        <h1>
+                            <div>
+                                <label for="name" attrs="{'readonly':[('cheque_state','!=','draft')]}"/>
+                            </div>
+                            <field name="name" required="1"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="partner_type" attrs="{'readonly':[('cheque_state','!=','draft')]}"/>
+                                <field name="partner_id" string="Customer"/>
+                                <field name="amount"/>
+                                <field name="currency_id"/>
+                                <field name="cheque_no"/>
+                                <field name="due_date"/>
+                                <field name="date"/>
+                                <field name="ref"/>
+                            </group>
+                            <group>
+                                <field name="journal_id" domain="[('receive_cheque', '=', True)]"/>
+                                <field name="cheque_bank_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="receivable_action" model="ir.actions.act_window">
+            <field name="name">Cheque Receivable</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.payment</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_cheque_type': 'receivable'}</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('receivable_view_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('receivable_view_form')})]"/>
+        </record>
+        <menuitem id="receivable_menu" name="Cheque Receivable" action="receivable_action" parent="cheque_root"/>
+
+    </data>
+</odoo>

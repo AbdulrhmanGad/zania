@@ -1,0 +1,95 @@
+<odoo>
+    <data>
+        <record id="send_view_tree" model="ir.ui.view">
+            <field name="name">account.payment</field>
+            <field name="model">account.payment</field>
+            <field name="arch" type="xml">
+                <tree string="send_tree">
+                    <field name="name"/>
+                    <field name="cheque_bank_id"/>
+                    <field name="cheque_no"/>
+                    <field name="state" invisible="1"/>
+                    <field name="journal_id"/>
+                    <field name="partner_id" string="Vendor"/>
+                    <field name="amount"/>
+                    <field name="cheque_state"/>
+                    <field name="due_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="send_view_form" model="ir.ui.view">
+            <field name="name">account.payment</field>
+            <field name="model">account.payment</field>
+            <field name="arch" type="xml">
+                <form string="send_form">
+                    <header>
+                        <button name="confirm" type="object" string="confirm" class="oe_highlight"
+                                attrs="{'invisible':[('cheque_state','!=','draft')]}"/>
+                        <button name="open_collect" type="object" string="Collect" class="oe_highlight"
+                                attrs="{'invisible':[('cheque_state','not in' ,['confirm'])]}"/>
+                        <button name="open_reject" type="object" string="Reject"/>
+
+
+                        <button name="open_reject" type="object" string="Reject"
+                                attrs="{'invisible':[('cheque_state','=','draft')]}"/>
+                        <button name="reset_to_draft" type="object" string="Reset To Draft"
+                                attrs="{'invisible':[('cheque_state','=','draft')]}"/>
+                        <field name="state" invisible="1" widget="statusbar" />
+                        <field name="cheque_state" widget="statusbar" />
+                    </header>
+
+                    <sheet>
+                        <div class="oe_button_box" name="expense_button_box">
+                            <button class="oe_stat_button" name="action_view_moves" type="object" icon="fa-list-ol">
+                                <field string="Journals" name="move_count" widget="statinfo"/>
+                                <field name="move_ids" invisible="1"/>
+                            </button>
+                            <button class="oe_stat_button" name="action_view_moves_lines" type="object"
+                                    icon="fa-list-ol">
+                                <field string="Move Lines" name="move_line_count" widget="statinfo"/>
+                                <field name="move_line_ids" invisible="1"/>
+                            </button>
+                        </div>
+                        <h1>
+                            <div>
+                                <label for="name" attrs="{'readonly':[('cheque_state','!=','draft')]}"/>
+                            </div>
+                            <field name="name" required="1"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="cheque_book"/>
+                                <field name="cheque_cheque_id"/>
+                                <field name="cheque_no"/>
+                                <field name="partner_type"/>
+                                <field name="partner_id" string="Vendor"/>
+                            </group>
+                            <group>
+                                <field name="journal_id" domain="[('send_cheque', '=', True)]"/>
+                                <field name="collect_journal_id" string="Collect Journal"/>
+                                <field name="amount"/>
+                                <field name="currency_id"/>
+                                <field name="due_date"/>
+                                <field name="ref"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="send_action" model="ir.actions.act_window">
+            <field name="name">Cheque send</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.payment</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_cheque_type': 'send','default_partner_type': 'supplier'}</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('send_view_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('send_view_form')})]"/>
+        </record>
+        <menuitem id="send_menu" name="Cheque send" action="send_action" parent="cheque_root"/>
+
+    </data>
+</odoo>
