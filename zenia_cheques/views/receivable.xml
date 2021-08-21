@@ -161,10 +161,11 @@
                             <div>
                                 <label for="name" attrs="{'readonly':[('cheque_state','!=','draft')]}"/>
                             </div>
-                            <field name="name" required="1"/>
+                            <field name="name" readonly="1"/>
                         </h1>
                         <group>
                             <group>
+                                <field name="cheque_type" invisible="1"/>
                                 <field name="partner_type" attrs="{'readonly':[('cheque_state','!=','draft')]}"/>
                                 <field name="partner_id" required="1" string="Customer"/>
                                 <field name="amount"/>

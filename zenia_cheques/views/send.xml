@@ -28,15 +28,15 @@
                                 attrs="{'invisible':[('cheque_state','!=','draft')]}"/>
                         <button name="open_collect" type="object" string="Collect" class="oe_highlight"
                                 attrs="{'invisible':[('cheque_state','not in' ,['confirm'])]}"/>
-<!--                        <button name="open_reject" type="object" string="Reject"/>-->
+                        <!--                        <button name="open_reject" type="object" string="Reject"/>-->
 
 
                         <button name="open_reject" type="object" string="Reject"
                                 attrs="{'invisible':[('cheque_state','=','draft')]}"/>
                         <button name="reset_to_draft" type="object" string="Reset To Draft"
                                 attrs="{'invisible':[('cheque_state','=','draft')]}"/>
-                        <field name="state" invisible="1" widget="statusbar" />
-                        <field name="cheque_state" widget="statusbar" />
+                        <field name="state" invisible="1" widget="statusbar"/>
+                        <field name="cheque_state" widget="statusbar" statusbar_visible="draft,confirm,collect,reject"/>
                     </header>
 
                     <sheet>
@@ -55,10 +55,13 @@
                             <div>
                                 <label for="name" attrs="{'readonly':[('cheque_state','!=','draft')]}"/>
                             </div>
-                            <field name="name" required="1"/>
+                            <field name="name" readonly="1"/>
                         </h1>
                         <group>
-                            <group>
+                            <group> 
+                                <field name="cheque_type" invisible="1"/>
+                                <field name="available_payment_method_ids" invisible="1"/>
+                                <field name="payment_method_id"  invisible="1"/>
                                 <field name="cheque_book"/>
                                 <field name="cheque_cheque_id"/>
                                 <field name="cheque_no" invisible="1"/>
@@ -67,7 +70,8 @@
                             </group>
                             <group>
                                 <field name="journal_id" domain="[('send_cheque', '=', True)]"/>
-                                <field name="collect_journal_id" domain="[('cheque_collection', '=', True)]" string="Collect Journal"/>
+                                <field name="collect_journal_id" domain="[('cheque_collection', '=', True)]"
+                                       string="Collect Journal"/>
                                 <field name="amount"/>
                                 <field name="currency_id"/>
                                 <field name="due_date"/>
@@ -85,12 +89,59 @@
             <field name="res_model">account.payment</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[('cheque_type', '=', 'send'),('partner_type', '=', 'supplier')]</field>
-            <field name="context">{'default_cheque_type': 'send','default_partner_type': 'supplier'}</field>
+            <field name="context">{'default_name': False,'default_journal_id': False,'default_cheque_type': 'send','default_partner_type':
+                'supplier'}
+            </field>
             <field name="view_ids" eval="[(5, 0, 0),
             (0, 0, {'view_mode': 'tree', 'view_id': ref('send_view_tree')}),
             (0, 0, {'view_mode': 'form', 'view_id': ref('send_view_form')})]"/>
         </record>
         <menuitem id="send_menu" name="Cheque send" action="send_action" parent="cheque_root"/>
+
+        <record id="account.action_account_payments_payable" model="ir.actions.act_window">
+            <field name="name">Payments</field>
+            <field name="res_model">account.payment</field>
+            <field name="view_mode">tree,kanban,form,graph</field>
+            <field name="context">{
+                'default_payment_type': 'outbound',
+                'default_partner_type': 'supplier',
+                'search_default_outbound_filter': 1,
+                'default_move_journal_types': ('bank', 'cash'),
+                }
+            </field>
+            <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('account.view_account_supplier_payment_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('account.view_account_payment_form')})]"/>
+
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Register a payment
+                </p>
+                <p>
+                    Payments are used to register liquidity movements. You can process those payments by your own means
+                    or by using installed facilities.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_move_journal_line_new" model="ir.actions.act_window">
+            <field name="name">Journal Entries</field>
+            <field name="res_model">account.move</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="view_id" ref="account.view_move_tree"/>
+            <field name="context">{'default_move_type': 'entry', 'view_no_maturity':True}
+            </field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a journal entry
+                </p>
+                <p>
+                    A journal entry consists of several journal items, each of
+                    which is either a debit or a credit transaction.
+                </p>
+            </field>
+        </record>
+
 
     </data>
 </odoo>

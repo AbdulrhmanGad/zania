@@ -6,7 +6,7 @@
     'summary': 'Handle Receive and send Cheques',
     'author': 'Zenia',
     'company': 'Zenia', 
-    'depends': ['base', 'account'],
+    'depends': ['base', 'account', 'account_check_printing'],
     'category': 'Accounting',  
     'data': [
         'security/ir.model.access.csv',

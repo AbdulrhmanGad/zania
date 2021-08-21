@@ -50,9 +50,35 @@ class AccountPayment(models.Model):
             rec.move_line_count = len(rec.move_line_ids.ids)
 
     def action_view_moves(self):
-        action = self.env.ref("account.action_move_journal_line").read()[0]
+        action = self.env.ref("zenia_cheques.action_move_journal_line_new").read()[0]
         action["domain"] = [("id", "in", self.move_ids.ids)]
         return action
+
+
+    # @api.model
+    # def create(self, values):
+    #     res = super(AccountPayment, self).create(values)
+    #     print("XXXXXXXXXXXXXXXXXXXX ", values)
+    #     print("XXXXXXXXXXXXXXXXXXXX ", values['cheque_type'])
+    #     if values['cheque_type'] in ['receivable', 'send']:
+    #         print("XXXXXXXXXXXXXXXXXXXX ", values['cheque_type'])
+    #
+    #     if values['cheque_type']:
+    #         payment_method = self.env['account.payment.method'].search([('code', '=', 'Checks')])
+    #         print(">>>>>>>>>>>>>", payment_method)
+    #         values['payment_method_id'] = payment_method.id
+    #     return res
+
+    # def create(self, vals):
+    #     print("XXXXXXXXXXXXXXXXXXXX ", vals)
+    #     if vals['cheque_type'] in ['receivable', 'send']:
+    #         print("XXXXXXXXXXXXXXXXXXXX ", vals['cheque_type'])
+    #         vals['payment_method_id'] = self.env['account.payment.method'].search([
+    #         ('name', '=', 'Checks')
+    #     ], limit=1).id
+    #     return super(AccountPayment, self).create(vals)
+
+
 
     def action_view_moves_lines(self):
         action = self.env.ref("account.action_account_moves_all").read()[0]
@@ -65,6 +91,7 @@ class AccountPayment(models.Model):
         self.cheque_state = 'draft'
 
     def confirm(self):
+        self.action_post()
         if self.cheque_type == 'send':
             if self.amount <= 0:
                 raise ValidationError(_("Enter Positive Amount"))
@@ -73,7 +100,7 @@ class AccountPayment(models.Model):
                 'journal_id': self.journal_id.id,
                 "partner_id": self.partner_id.id,
                 'move_type': 'entry',
-                'ref': "Send Cheque, "+self.name
+                'ref': "Send Cheque, " + self.name if self.name else ""
             })
             self.env['account.move.line'].with_context(check_move_validity=False).create({
                 "move_id": move_id.id,
@@ -95,8 +122,10 @@ class AccountPayment(models.Model):
                 "credit": self.amount,
             })
             move_id.action_post()
+            move_id._compute_name()
+            self.move_id = move_id.id
             self.cheque_state = 'confirm'
-        if self.cheque_type == 'receivable' :
+        if self.cheque_type == 'receivable':
             if self.amount <= 0:
                 raise ValidationError(_("Enter Positive Amount"))
             move_id = self.env['account.move'].create({
@@ -126,6 +155,8 @@ class AccountPayment(models.Model):
                 "credit": 0,
                 "debit": self.amount,
             })
+            move_id.action_post()
+            self.move_id = move_id.id
             self.cheque_state = 'confirm'
 
     def open_under_collect(self):
@@ -161,7 +192,7 @@ class AccountPayment(models.Model):
             move_id = self.env['account.move'].create({
                 'payment_cheque_id': self.id,
                 'date': self.under_collect_date,
-                'journal_id': self.journal_id.id,
+                'journal_id': self.under_collect_journal_id.id,
                 "partner_id": self.partner_id.id,
                 'move_type': 'entry',
                 'ref': "Under Collect " + self.name,
@@ -172,8 +203,8 @@ class AccountPayment(models.Model):
                 "account_id": self.under_collect_journal_id.default_account_id.id,
                 "name": self.under_collect_journal_id.name,
                 "ref": self.under_collect_journal_id.name,
-                "debit": 0,
-                "credit": self.amount,
+                "credit": 0,
+                "debit": self.amount,
                 "partner_id": self.partner_id.id,
             })
             self.env['account.move.line'].with_context(check_move_validity=False).create({
@@ -182,8 +213,8 @@ class AccountPayment(models.Model):
                 "account_id": self.journal_id.default_account_id.id,
                 "name": self.journal_id.name,
                 "ref": self.journal_id.name,
-                "credit": 0,
-                "debit": self.amount,
+                "debit": 0,
+                "credit": self.amount,
             })
             move_id.action_post()
         self.cheque_state = 'under_collect'
@@ -204,8 +235,8 @@ class AccountPayment(models.Model):
                 "account_id": self.under_collect_journal_id.default_account_id.id,
                 "name": self.under_collect_journal_id.name,
                 "ref": self.under_collect_journal_id.name,
-                "credit": 0,
-                "debit": self.amount,
+                "debit": 0,
+                "credit": self.amount,
                 "partner_id": self.partner_id.id,
             })
             self.env['account.move.line'].with_context(check_move_validity=False).create({
@@ -214,8 +245,8 @@ class AccountPayment(models.Model):
                 "account_id": self.collect_journal_id.default_account_id.id,
                 "name": self.collect_journal_id.name,
                 "ref": self.collect_journal_id.name,
-                "debit": 0,
-                "credit": self.amount,
+                "credit": 0,
+                "debit": self.amount,
             })
             move_id.action_post()
         if self.cheque_type == 'send':
@@ -331,7 +362,7 @@ class AccountPayment(models.Model):
             self.env['account.move.line'].with_context(check_move_validity=False).create({
                 "move_id": move_id.id,
                 'payment_cheque_id': self.id,
-                "account_id": self.rejejournal_idct_journal_id.default_account_id.id,
+                "account_id": self.reject_journal_id.default_account_id.id,
                 "name": self.reject_journal_id.name,
                 "ref": self.reject_journal_id.name,
                 "credit": 0,
@@ -343,7 +374,7 @@ class AccountPayment(models.Model):
                 'payment_cheque_id': self.id,
                 "account_id": self.under_collect_journal_id.default_account_id.id,
                 "name": self.under_collect_journal_id.name,
-                "ref": self.reject_journal_id.name,
+                "ref": self.under_collect_journal_id.name,
                 "debit": 0,
                 "credit": self.amount,
             })
