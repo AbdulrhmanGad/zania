@@ -28,7 +28,7 @@
                                 attrs="{'invisible':[('cheque_state','!=','draft')]}"/>
                         <button name="open_collect" type="object" string="Collect" class="oe_highlight"
                                 attrs="{'invisible':[('cheque_state','not in' ,['confirm'])]}"/>
-                        <button name="open_reject" type="object" string="Reject"/>
+<!--                        <button name="open_reject" type="object" string="Reject"/>-->
 
 
                         <button name="open_reject" type="object" string="Reject"
@@ -67,7 +67,7 @@
                             </group>
                             <group>
                                 <field name="journal_id" domain="[('send_cheque', '=', True)]"/>
-                                <field name="collect_journal_id" string="Collect Journal"/>
+                                <field name="collect_journal_id" domain="[('cheque_collection', '=', True)]" string="Collect Journal"/>
                                 <field name="amount"/>
                                 <field name="currency_id"/>
                                 <field name="due_date"/>
