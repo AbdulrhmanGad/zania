@@ -124,7 +124,7 @@ class AccountPayment(models.Model):
                 raise ValidationError(_("Enter Positive Amount"))
             move_id = self.env['account.move'].create({
                 'payment_cheque_id': self.id,
-                'journal_id': self.journal_id.id,
+                'journal_id': self.reject_journal_id.id,
                 "partner_id": self.partner_id.id,
                 'move_type': 'entry',
                 'ref': "Reject Cheque, " + self.name
@@ -150,3 +150,5 @@ class AccountPayment(models.Model):
             })
             move_id.action_post()
             self.cheque_state = 'confirm'
+
+        self.cheque_state = 'reject'
