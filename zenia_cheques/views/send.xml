@@ -9,7 +9,8 @@
                     <field name="cheque_bank_id"/>
                     <field name="cheque_no" invisible="1"/>
                     <field name="state" invisible="1"/>
-                    <field name="journal_id"/>
+                    <field name="journal_id" invisible="1"/>
+                    <field name="current_journal_id"/>
                     <field name="partner_id" string="Vendor"/>
                     <field name="amount"/>
                     <field name="cheque_state"/>
@@ -58,7 +59,7 @@
                             <field name="name" readonly="1"/>
                         </h1>
                         <group>
-                            <group> 
+                            <group>
                                 <field name="cheque_type" invisible="1"/>
                                 <field name="available_payment_method_ids" invisible="1"/>
                                 <field name="payment_method_id"  invisible="1"/>
@@ -73,6 +74,7 @@
                                 <field name="collect_journal_id" domain="[('cheque_collection', '=', True)]"
                                        string="Collect Journal"/>
                                 <field name="amount"/>
+                                <field name="current_journal_id" invisible="1"/>
                                 <field name="currency_id"/>
                                 <field name="due_date"/>
                                 <field name="ref"/>

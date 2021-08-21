@@ -42,6 +42,33 @@ class AccountPayment(models.Model):
 
     reject_journal_id = fields.Many2one("account.journal", string="Journal")
     reject_date = fields.Date(string='Date')
+    current_journal_id = fields.Many2one("account.journal", string="Current Journal")
+
+    @api.onchange('journal_id')
+    def change_journal_id1(self):
+        print("Journal")
+        self.current_journal_id = self.journal_id.id
+
+    @api.onchange('under_collect_journal_id')
+    def change_under_collect_journal_id(self):
+        print("under_collect_journal_id")
+        self.current_journal_id = self.under_collect_journal_id.id
+
+    @api.onchange('collect_journal_id')
+    def change_collect_journal_id(self):
+        print("collect_journal_id")
+        self.current_journal_id = self.collect_journal_id.id
+
+    @api.onchange('return_journal_id')
+    def change_return_journal_id(self):
+        print("return_journal_id")
+        self.current_journal_id = self.return_journal_id.id
+
+    @api.onchange('reject_journal_id')
+    def change_reject_journal_id(self):
+        print("reject_journal_id")
+        self.current_journal_id = self.reject_journal_id.id
+
 
     @api.depends('move_ids')
     def compute_move_count(self):
@@ -91,7 +118,6 @@ class AccountPayment(models.Model):
         self.cheque_state = 'draft'
 
     def confirm(self):
-        self.action_post()
         if self.cheque_type == 'send':
             if self.amount <= 0:
                 raise ValidationError(_("Enter Positive Amount"))
@@ -122,7 +148,6 @@ class AccountPayment(models.Model):
                 "credit": self.amount,
             })
             move_id.action_post()
-            move_id._compute_name()
             self.move_id = move_id.id
             self.cheque_state = 'confirm'
         if self.cheque_type == 'receivable':

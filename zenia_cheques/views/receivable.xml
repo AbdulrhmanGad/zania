@@ -109,7 +109,8 @@
                     <field name="cheque_bank_id"/>
                     <field name="cheque_no"/>
                     <field name="state" invisible="1"/>
-                    <field name="journal_id"/>
+                    <field name="current_journal_id"/>
+                    <field name="journal_id" invisible="1"/>
                     <field name="partner_id" string="Customer"/>
                     <field name="amount"/>
                     <field name="cheque_state"/>
@@ -169,6 +170,7 @@
                                 <field name="partner_type" attrs="{'readonly':[('cheque_state','!=','draft')]}"/>
                                 <field name="partner_id" required="1" string="Customer"/>
                                 <field name="amount"/>
+                                <field name="current_journal_id" invisible="1"/>
                                 <field name="currency_id"/>
                                 <field name="cheque_no"/>
                                 <field name="due_date"/>
