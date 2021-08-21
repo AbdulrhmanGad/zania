@@ -134,17 +134,15 @@
                                 attrs="{'invisible':[('cheque_state','not in' ,['confirm', 'under_collect'])]}"/>
                         <button name="open_return" type="object" string="Return" class="oe_highlight"
                                 attrs="{'invisible':[('cheque_state','!=','confirm')]}"/>
-                        <button name="transfer" type="object" string="Transfer" class="oe_highlight"
-                                attrs="{'invisible':[('cheque_state','!=','confirm')]}"/>
-                        <button name="confirm" type="object" string="confirm" class="oe_highlight"
-                                attrs="{'invisible':[('cheque_state','!=','confirm')]}"/>
+                        <!--                        <button name="transfer" type="object" string="Transfer" class="oe_highlight"-->
+                        <!--                                attrs="{'invisible':[('cheque_state','!=','confirm')]}"/>-->
 
                         <button name="open_reject" type="object" string="Reject"
                                 attrs="{'invisible':[('cheque_state','=','draft')]}"/>
                         <button name="reset_to_draft" type="object" string="Reset To Draft"
                                 attrs="{'invisible':[('cheque_state','=','draft')]}"/>
                         <field name="state" invisible="1"/>
-                        <field name="cheque_state" widget="statusbar" clickable="1"/>
+                        <field name="cheque_state" widget="statusbar"/>
                     </header>
 
                     <sheet>
@@ -168,7 +166,7 @@
                         <group>
                             <group>
                                 <field name="partner_type" attrs="{'readonly':[('cheque_state','!=','draft')]}"/>
-                                <field name="partner_id" string="Customer"/>
+                                <field name="partner_id" required="1" string="Customer"/>
                                 <field name="amount"/>
                                 <field name="currency_id"/>
                                 <field name="cheque_no"/>

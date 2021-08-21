@@ -65,7 +65,38 @@ class AccountPayment(models.Model):
         self.cheque_state = 'draft'
 
     def confirm(self):
-        if self.cheque_type == 'receivable'  :
+        if self.cheque_type == 'send':
+            if self.amount <= 0:
+                raise ValidationError(_("Enter Positive Amount"))
+            move_id = self.env['account.move'].create({
+                'payment_cheque_id': self.id,
+                'journal_id': self.journal_id.id,
+                "partner_id": self.partner_id.id,
+                'move_type': 'entry',
+                'ref': "Send Cheque, "+self.name
+            })
+            self.env['account.move.line'].with_context(check_move_validity=False).create({
+                "move_id": move_id.id,
+                'payment_cheque_id': self.id,
+                "account_id": self.partner_id.property_account_payable_id.id,
+                "name": self.partner_id.name,
+                "ref": self.partner_id.name,
+                "credit": 0,
+                "debit": self.amount,
+                "partner_id": self.partner_id.id,
+            })
+            self.env['account.move.line'].with_context(check_move_validity=False).create({
+                "move_id": move_id.id,
+                'payment_cheque_id': self.id,
+                "account_id": self.journal_id.default_account_id.id,
+                "name": self.journal_id.name,
+                "ref": self.journal_id.name,
+                "debit": 0,
+                "credit": self.amount,
+            })
+            move_id.action_post()
+            self.cheque_state = 'confirm'
+        if self.cheque_type == 'receivable' :
             if self.amount <= 0:
                 raise ValidationError(_("Enter Positive Amount"))
             move_id = self.env['account.move'].create({
@@ -187,6 +218,36 @@ class AccountPayment(models.Model):
                 "credit": self.amount,
             })
             move_id.action_post()
+        if self.cheque_type == 'send':
+            print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            move_id = self.env['account.move'].create({
+                'payment_cheque_id': self.id,
+                'date': self.collect_date,
+                'journal_id': self.collect_journal_id.id,
+                "partner_id": self.partner_id.id,
+                'move_type': 'entry',
+                'ref': "Collect " + self.name,
+            })
+            self.env['account.move.line'].with_context(check_move_validity=False).create({
+                "move_id": move_id.id,
+                'payment_cheque_id': self.id,
+                "account_id": self.journal_id.default_account_id.id,
+                "name": self.journal_id.name,
+                "ref": self.journal_id.name,
+                "credit": 0,
+                "debit": self.amount,
+                "partner_id": self.partner_id.id,
+            })
+            self.env['account.move.line'].with_context(check_move_validity=False).create({
+                "move_id": move_id.id,
+                'payment_cheque_id': self.id,
+                "account_id": self.collect_journal_id.default_account_id.id,
+                "name": self.collect_journal_id.name,
+                "ref": self.collect_journal_id.name,
+                "debit": 0,
+                "credit": self.amount,
+            })
+            move_id.action_post()
         self.cheque_state = 'collect'
 
     def transfer(self):
@@ -287,4 +348,35 @@ class AccountPayment(models.Model):
                 "credit": self.amount,
             })
             move_id.action_post()
-            self.cheque_state = 'reject'
+        if self.cheque_type == 'send':
+            if self.amount <= 0:
+                raise ValidationError(_("Enter Positive Amount"))
+            move_id = self.env['account.move'].create({
+                'payment_cheque_id': self.id,
+                'journal_id': self.reject_journal_id.id,
+                "partner_id": self.partner_id.id,
+                'move_type': 'entry',
+                'ref': "Reject Cheque, " + self.name
+            })
+            self.env['account.move.line'].with_context(check_move_validity=False).create({
+                "move_id": move_id.id,
+                'payment_cheque_id': self.id,
+                "account_id": self.partner_id.property_account_receivable_id.id,
+                "name": self.partner_id.name,
+                "ref": self.partner_id.name,
+                "debit": 0,
+                "credit": self.amount,
+                "partner_id": self.partner_id.id,
+            })
+            self.env['account.move.line'].with_context(check_move_validity=False).create({
+                "move_id": move_id.id,
+                'payment_cheque_id': self.id,
+                "account_id": self.journal_id.default_account_id.id,
+                "name": self.journal_id.name,
+                "ref": self.journal_id.name,
+                "credit": 0,
+                "debit": self.amount,
+            })
+            move_id.action_post()
+            self.cheque_state = 'confirm'
+        self.cheque_state = 'reject'
