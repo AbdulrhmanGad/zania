@@ -91,7 +91,7 @@ class AccountPayment(models.Model):
             move_id = self.env['account.move'].create({
                 'payment_cheque_id': self.id,
                 'date': self.collect_date,
-                'journal_id': self.journal_id.id,
+                'journal_id': self.collect_journal_id.id,
                 "partner_id": self.partner_id.id,
                 'move_type': 'entry',
                 'ref': "Collect " + self.name,

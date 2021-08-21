@@ -61,7 +61,7 @@
                             <group>
                                 <field name="cheque_book"/>
                                 <field name="cheque_cheque_id"/>
-                                <field name="cheque_no"/>
+                                <field name="cheque_no" invisible="1"/>
                                 <field name="partner_type"/>
                                 <field name="partner_id" string="Vendor"/>
                             </group>
