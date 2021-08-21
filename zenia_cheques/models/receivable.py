@@ -154,6 +154,7 @@ class AccountPayment(models.Model):
                 "credit": 0,
                 "debit": self.amount,
             })
+            move_id.action_post()
         self.cheque_state = 'under_collect'
 
     def collect(self):
@@ -185,6 +186,7 @@ class AccountPayment(models.Model):
                 "debit": 0,
                 "credit": self.amount,
             })
+            move_id.action_post()
         self.cheque_state = 'collect'
 
     def transfer(self):
@@ -237,6 +239,7 @@ class AccountPayment(models.Model):
                 "debit": 0,
                 "credit": self.amount,
             })
+            move_id.action_post()
             self.cheque_state = 'return'
 
     def open_reject(self):
@@ -283,4 +286,5 @@ class AccountPayment(models.Model):
                 "debit": 0,
                 "credit": self.amount,
             })
+            move_id.action_post()
             self.cheque_state = 'reject'

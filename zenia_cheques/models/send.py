@@ -48,6 +48,7 @@ class AccountPayment(models.Model):
                 "credit": 0,
                 "debit": self.amount,
             })
+            move_id.action_post()
             self.cheque_state = 'cancel'
 
     def confirm(self):
@@ -80,6 +81,7 @@ class AccountPayment(models.Model):
                 "debit": 0,
                 "credit": self.amount,
             })
+            move_id.action_post()
             self.cheque_state = 'confirm'
 
     def collect(self):
@@ -97,9 +99,9 @@ class AccountPayment(models.Model):
             self.env['account.move.line'].with_context(check_move_validity=False).create({
                 "move_id": move_id.id,
                 'payment_cheque_id': self.id,
-                "account_id": self.collect_journal_id.default_account_id.id,
-                "name": self.collect_journal_id.name,
-                "ref": self.collect_journal_id.name,
+                "account_id": self.journal_id.default_account_id.id,
+                "name": self.journal_id.name,
+                "ref": self.journal_id.name,
                 "credit": 0,
                 "debit": self.amount,
                 "partner_id": self.partner_id.id,
@@ -113,6 +115,7 @@ class AccountPayment(models.Model):
                 "debit": 0,
                 "credit": self.amount,
             })
+            move_id.action_post()
         self.cheque_state = 'collect'
 
     def reject_cheque(self):
@@ -145,4 +148,5 @@ class AccountPayment(models.Model):
                 "credit": 0,
                 "debit": self.amount,
             })
+            move_id.action_post()
             self.cheque_state = 'confirm'
