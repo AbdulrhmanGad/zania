@@ -162,7 +162,7 @@ class AccountPayment(models.Model):
             move_id = self.env['account.move'].create({
                 'payment_cheque_id': self.id,
                 'date': self.collect_date,
-                'journal_id': self.journal_id.id,
+                'journal_id': self.collect_journal_id.id,
                 "partner_id": self.partner_id.id,
                 'move_type': 'entry',
                 'ref': "Collect " + self.name,
@@ -215,7 +215,7 @@ class AccountPayment(models.Model):
                 raise ValidationError(_("Enter Positive Amount"))
             move_id = self.env['account.move'].create({
                 'payment_cheque_id': self.id,
-                'journal_id': self.journal_id.id,
+                'journal_id': self.return_journal_id.id,
                 "partner_id": self.partner_id.id,
                 'move_type': 'entry',
                 'ref': self.name
@@ -262,7 +262,7 @@ class AccountPayment(models.Model):
                 raise ValidationError(_("Enter Positive Amount"))
             move_id = self.env['account.move'].create({
                 'payment_cheque_id': self.id,
-                'journal_id': self.journal_id.id,
+                'journal_id': self.reject_journal_id.id,
                 "partner_id": self.partner_id.id,
                 'move_type': 'entry',
                 'ref': self.name
@@ -270,7 +270,7 @@ class AccountPayment(models.Model):
             self.env['account.move.line'].with_context(check_move_validity=False).create({
                 "move_id": move_id.id,
                 'payment_cheque_id': self.id,
-                "account_id": self.reject_journal_id.default_account_id.id,
+                "account_id": self.rejejournal_idct_journal_id.default_account_id.id,
                 "name": self.reject_journal_id.name,
                 "ref": self.reject_journal_id.name,
                 "credit": 0,
