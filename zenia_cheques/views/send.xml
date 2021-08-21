@@ -84,6 +84,7 @@
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">account.payment</field>
             <field name="view_mode">tree,form</field>
+            <field name="domain">[('cheque_type', '=', 'send'),('partner_type', '=', 'supplier')]</field>
             <field name="context">{'default_cheque_type': 'send','default_partner_type': 'supplier'}</field>
             <field name="view_ids" eval="[(5, 0, 0),
             (0, 0, {'view_mode': 'tree', 'view_id': ref('send_view_tree')}),

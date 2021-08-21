@@ -64,7 +64,7 @@ class AccountPayment(models.Model):
             self.env['account.move.line'].with_context(check_move_validity=False).create({
                 "move_id": move_id.id,
                 'payment_cheque_id': self.id,
-                "account_id": self.partner_id.property_account_receivable_id.id,
+                "account_id": self.partner_id.property_account_payable_id.id,
                 "name": self.partner_id.name,
                 "ref": self.partner_id.name,
                 "credit": 0,

@@ -65,7 +65,7 @@ class AccountPayment(models.Model):
         self.cheque_state = 'draft'
 
     def confirm(self):
-        if self.cheque_type == 'receivable':
+        if self.cheque_type == 'receivable'  :
             if self.amount <= 0:
                 raise ValidationError(_("Enter Positive Amount"))
             move_id = self.env['account.move'].create({
