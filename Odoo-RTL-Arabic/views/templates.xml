@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <template id="RTL_Arabic_Direction" inherit_id="web.layout" name="RTL Direction">
+        <xpath expr="//html/head/t" position="after">
+            <link t-if="lang_direction == 'rtl'" href="/RTL_Arabic/static/src/css/bootstrap-rtl.min.css" rel="stylesheet"/>
+            <link t-if="lang_direction == 'rtl'" href="/RTL_Arabic/static/src/css/arabic.css" rel="stylesheet"/>
+        </xpath>
+    </template>
+</odoo>

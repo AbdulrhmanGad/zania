@@ -1,0 +1,93 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * construction_module_base
+#
+# Translators:
+# Imre Kristoffer Eilertsen <imreeil42@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-23 03:43+0000\n"
+"PO-Revision-Date: 2016-12-23 03:43+0000\n"
+"Last-Translator: Imre Kristoffer Eilertsen <imreeil42@gmail.com>, 2016\n"
+"Language-Team: Norwegian Bokmål (Norway) (https://www.transifex.com/oca/"
+"teams/23907/nb_NO/)\n"
+"Language: nb_NO\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: construction_module_base
+#: model:ir.model.fields,field_description:construction_module_base.field_construction_module_base__create_uid
+msgid "Created by"
+msgstr "Laget av"
+
+#. module: construction_module_base
+#: model:ir.model.fields,field_description:construction_module_base.field_construction_module_base__create_date
+msgid "Created on"
+msgstr "Laget den"
+
+#. module: construction_module_base
+#: model:ir.model.fields,field_description:construction_module_base.field_construction_module_base__display_name
+msgid "Display Name"
+msgstr "Vis navn"
+
+#. module: construction_module_base
+#: model:ir.model.fields,field_description:construction_module_base.field_construction_module_base__id
+msgid "ID"
+msgstr "ID"
+
+#. module: construction_module_base
+#: model:ir.model.fields,field_description:construction_module_base.field_construction_module_base____last_update
+msgid "Last Modified on"
+msgstr "Sist endret den"
+
+#. module: construction_module_base
+#: model:ir.model.fields,field_description:construction_module_base.field_construction_module_base__write_uid
+msgid "Last Updated by"
+msgstr "Sist oppdatert av"
+
+#. module: construction_module_base
+#: model:ir.model.fields,field_description:construction_module_base.field_construction_module_base__write_date
+msgid "Last Updated on"
+msgstr "Sist oppdatert den"
+
+#. module: construction_module_base
+#: model_terms:ir.ui.view,arch_db:construction_module_base.view_project_task_form_material
+msgid "Material"
+msgstr ""
+
+#. module: construction_module_base
+#: model:ir.model.fields,field_description:construction_module_base.field_project_task__material_ids
+#: model_terms:ir.ui.view,arch_db:construction_module_base.view_project_task_form_material
+msgid "Material Used"
+msgstr ""
+
+#. module: construction_module_base
+#: model:ir.model.fields,field_description:construction_module_base.field_construction_module_base__product_id
+msgid "Product"
+msgstr ""
+
+#. module: construction_module_base
+#: model:ir.model.fields,field_description:construction_module_base.field_construction_module_base__quantity
+msgid "Quantity"
+msgstr ""
+
+#. module: construction_module_base
+#: code:addons/construction_module_base/models/project.py:40
+#, python-format
+msgid "Quantity of material consumed must be greater than 0."
+msgstr ""
+
+#. module: construction_module_base
+#: model:ir.model,name:construction_module_base.model_project_task
+#: model:ir.model.fields,field_description:construction_module_base.field_construction_module_base__task_id
+msgid "Task"
+msgstr ""
+
+#. module: construction_module_base
+#: model:ir.model,name:construction_module_base.model_construction_module_base
+msgid "Task Material Used"
+msgstr ""
