@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+        <record id="account_payment_group_seq" model="ir.sequence">
+            <field name="name">account.payment.group</field>
+            <field name="code">account.payment.group</field>
+            <field name="prefix">PAY/GP/</field>
+            <field eval="5" name="padding"/>
+        </record>
+    </data>
+</odoo>

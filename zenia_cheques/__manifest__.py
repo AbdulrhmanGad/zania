@@ -10,6 +10,7 @@
     'category': 'Accounting',  
     'data': [
         'security/ir.model.access.csv',
+        'data/sequence.xml',
         'views/menus.xml',
         'views/journal.xml',
         'views/cheque_book.xml',
