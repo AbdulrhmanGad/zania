@@ -13,6 +13,7 @@
         'data/sequence.xml',
         'views/menus.xml',
         'views/journal.xml',
+        'views/cheque_group.xml',
         'views/cheque_book.xml',
         'views/receivable.xml',
         'views/send.xml',

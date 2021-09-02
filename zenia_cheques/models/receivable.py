@@ -5,70 +5,14 @@ from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
 
-class AccountPaymentGroup(models.Model):
-    _name = 'account.payment.group'
-
-    def unlink(self):
-        if self.cheque_ids:
-            raise ValidationError(_('Delete All Payments First'))
-        super(AccountPaymentGroup, self).unlink()
-
-    @api.model
-    def create(self, vals):
-        vals['name'] = self.env['ir.sequence'].get('account.payment.group') or ''
-        return super(AccountPaymentGroup, self).create(vals)
-
-    name = fields.Char('Group Name')
-    cheques_no = fields.Integer("Cheques Numbers", required=True)
-    cheques_total = fields.Float("Total Amount", required=True)
-    partner_id = fields.Many2one('res.partner', string='Partner')
-    journal_id = fields.Many2one('account.journal', string='Journal')
-    date = fields.Date('Date')
-    ref = fields.Char('Ref')
-    cheque_ids = fields.One2many(comodel_name='account.payment', inverse_name='cheque_group_id', )
-
-    state = fields.Selection(
-        string='Status ', selection=[
-            ('draft', 'Draft'),
-            ('confirm', 'Confirm'), ], default='draft')
-
-    def confirm_group(self):
-        #
-        payment_ids = []
-        count = self.cheques_no
-        total = 0
-        for i in range(count):
-            payment = self.env['account.payment'].create({
-                'partner_type': 'customer',
-                'cheque_type': 'receivable',
-                'partner_id': self.partner_id.id,
-                'journal_id': self.journal_id.id,
-                'date': self.date,
-                'ref': self.ref,
-                'amount': round(self.cheques_total / self.cheques_no, 2),
-            })
-            print(self.cheques_total / self.cheques_no)
-            total += round(self.cheques_total / self.cheques_no, 2)
-            payment_ids.append(payment.id)
-            print(">>>>>>>>>>>>>>>>> ", payment)
-        print(self.cheques_total, "==", total, "Differe>> ", self.cheques_total - total)
-        if (self.cheques_total - total) > 0:
-            payment = self.env['account.payment'].create({
-                'partner_type': 'customer',
-                'cheque_type': 'receivable',
-                'partner_id': self.partner_id.id,
-                'journal_id': self.journal_id.id,
-                'date': self.date,
-                'ref': self.ref,
-                'amount': self.cheques_total - total,
-            })
-            payment_ids.append(payment.id)
-        self.cheque_ids = [(6, 0, payment_ids)]
-        self.state = 'confirm'
-
-
 class AccountPayment(models.Model):
     _inherit = 'account.payment'
+
+    def unlink(self):
+        for rec in self:
+            if rec.cheque_state !='draft':
+                raise  ValidationError(_("TO Delete cheque, State Must Be Draft !!"))
+        return super(AccountPayment, self).unlink()
 
     cheque_group_id = fields.Many2one('account.payment.group')
     cheque_type = fields.Selection(
