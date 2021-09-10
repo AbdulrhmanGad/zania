@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="quzmar_custom.product_normal_form_view">
+        <field name="name">wk.product.dimensions.product.product.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[1]" position="inside">
+                <group>
+                    <group string="Type">
+                        <field name="quzmar_type"/>
+                        <field name="length" attrs="{'required':[('quzmar_type','in', ['1', '3'])]}"/>
+                        <field name="height" attrs="{'required':[('quzmar_type','in', ['2', '3'])]}"/>
+                        <field name="width" attrs="{'required':[('quzmar_type','in', ['2', '3'])]}"/>
+                    </group>
+                    <group>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="quzmar_custom.product_template_form_view">
+        <field name="name">wk.product.dimensions.product.template.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[1]" position="inside">
+                <group>
+                    <group string="Type">
+                        <field name="quzmar_type"/>
+                        <field name="length" attrs="{'required':[('quzmar_type','in', ['1', '3'])]}"/>
+                        <field name="height" attrs="{'required':[('quzmar_type','in', ['2', '3'])]}"/>
+                        <field name="width" attrs="{'required':[('quzmar_type','in', ['2', '3'])]}"/>
+                    </group>
+                    <group>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

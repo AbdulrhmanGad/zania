@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="wk_product_dimensions.product_template_form_view">
+            <field name="name">wk.product.dimensions.product.template.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='general_information']/group[1]" position="after">
+                    <group name="wk_product_dimension" string=" Other Dimensions">
+                        <group>
+                            <field name="length"/>
+                            <field name="width"/>
+                            <field name="height"/>
+                        </group>
+                        <group>
+                            <field name="dimensions_uom_id"/>
+                            <field name="weight_uom_id"/>                
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
