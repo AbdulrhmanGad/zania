@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="quzmar_view_move_form" model="ir.ui.view">
+            <field name="name">account.move</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='quantity']" position="after">
+                    <field name="quzmar_type" invisble="0"/>
+                    <field name="quzmar_length" optional="show" attrs="{'readonly':[('quzmar_type','not in',['length', 'width_height_length'])]}"/>
+                    <field name="quzmar_width" optional="show" attrs="{'readonly':[('quzmar_type','not in',['width_height', 'width_height_length'])]}"/>
+                    <field name="quzmar_height"  optional="show"  attrs="{'readonly':[('quzmar_type','not in',['width_height', 'width_height_length'])]}"/>
+                    <field name="size"/>
+                    <field name="total_size"/>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='quantity']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='quantity']" position="after">
+                    <field name="new_quantity"  optional="show" />
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="after">
+                    <field name="new_price"  optional="show" />
+                </xpath>
+
+<!--                <xpath expr="//field[@name='line_ids']/tree/field[@name='account_id']" position="after">-->
+<!--                    <field name="new_price" invisible="1"/>-->
+<!--                    <field name="new_quantity" invisible="1"/>-->
+<!--                    <field name="quzmar_length" invisible="1"/>-->
+<!--                    <field name="quzmar_width" invisible="1"/>-->
+<!--                    <field name="quzmar_height" invisible="1"/>-->
+<!--                    <field name="size" invisible="1"/>-->
+<!--                    <field name="total_size" invisible="1"/>-->
+<!--                </xpath>-->
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
-#################################################################################
-#################################################################################
 {
-    "name": "quzmar Product Dimensions",
-    "summary": "Provide Product Dimensions Option for  products.",
+    "name": "quzmar_custom",
+    "summary": "quzmar Product Dimensions, Provide Product Dimensions Option for products.",
     "category": "Website",
     "version": "0.1",
     "sequence": 1,
@@ -12,8 +10,9 @@
     "description": """ """,
     "depends": ['product', 'sale'],
     "data": [
+        'views/invoice.xml',
+        'views/product.xml',
         'views/sale.xml',
-        'views/views.xml',
     ],
     "installable": True,
 }
