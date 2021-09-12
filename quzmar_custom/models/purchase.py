@@ -1,8 +1,8 @@
 from odoo import fields, models, api
 
 
-class SaleOrderLine(models.Model):
-    _inherit = 'sale.order.line'
+class PurchaseOrderLine(models.Model):
+    _inherit = 'purchase.order.line'
 
     quzmar_type = fields.Selection(related="product_id.quzmar_type")
     new_quantity = fields.Float('Quantity')
@@ -54,6 +54,16 @@ class SaleOrderLine(models.Model):
 
     def _prepare_invoice_line(self, **optional_values):
         res = super(SaleOrderLine, self)._prepare_invoice_line(**optional_values)
+        res.update({
+            'quzmar_height': self.quzmar_height,
+            'quzmar_width': self.quzmar_width,
+            'quzmar_length': self.quzmar_length
+        })
+        return res
+
+
+    def _prepare_account_move_line(self, move=False):
+        res = super(PurchaseOrderLine, self)._prepare_account_move_line(move)
         res.update({
             'quzmar_height': self.quzmar_height,
             'quzmar_width': self.quzmar_width,

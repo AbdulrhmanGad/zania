@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="quzmar_purchase_order_form" model="ir.ui.view">
+            <field name="name">purchase.order</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']" position="after">
+<!--                    <field name="quzmar" invisble="0"/>-->
+                    <field name="quzmar_type" invisble="0"/>
+                    <field name="quzmar_length" optional="show" attrs="{'readonly':[('quzmar_type','not in',['length', 'width_height_length'])]}"/>
+                    <field name="quzmar_width"  optional="show"  attrs="{'readonly':[('quzmar_type','not in',['width_height', 'width_height_length'])]}"/>
+                    <field name="quzmar_height"  optional="show"  attrs="{'readonly':[('quzmar_type','not in',['width_height', 'width_height_length'])]}"/>
+                    <field name="size"/>
+                    <field name="total_size"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']" position="after">
+                    <field name="new_quantity" optional="show" />
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+                    <field name="new_price"  optional="show" />
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="attributes">
+                    <Attribute name="optional">hide</Attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

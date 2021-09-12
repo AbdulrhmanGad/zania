@@ -12,6 +12,7 @@
     "data": [
         'views/invoice.xml',
         'views/product.xml',
+        'views/purchase.xml',
         'views/sale.xml',
     ],
     "installable": True,
