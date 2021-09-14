@@ -13,7 +13,7 @@ class ProductTemplate(models.Model):
         ('No', 'Nothing'),
         ('length', 'Length'),
         ('width_height', 'Width * Height'),
-        ('width_height_length', 'Width * Height * Length')], required=True, )
+        ('width_height_length', 'Width * Height * Length')], required=True, default='No')
 
     @api.model
     def create(self, values):
@@ -71,4 +71,4 @@ class ProductProduct(models.Model):
         ('No', 'Nothing'),
         ('length', 'Length'),
         ('width_height', 'Width * Height'),
-        ('width_height_length', 'Width * Height * Length')], required=True, )
+        ('width_height_length', 'Width * Height * Length')], required=True, default='No')
