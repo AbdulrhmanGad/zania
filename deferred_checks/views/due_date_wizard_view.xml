@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model='ir.ui.view' id='due_date_wizard_form'>
+            <field name="name">due.date.report.form</field>
+            <field name="model">due.date.report</field>
+            <field name="arch" type="xml">
+                <form string="Check Report">
+                    <group>
+                        <field name="check_type"/>
+                        <field name="due_date_exceed" attrs="{'invisible': [('daily_report','=',True)]}"/>
+                        <field name="daily_report" attrs="{'invisible': [('due_date_exceed','=',True)]}"/>
+                    </group>
+                    <group>
+                        <field name="due_date" attrs="{'invisible': ['|', ('due_date_exceed','=',True), ('daily_report','=',True)]}"/>
+                    </group>
+                    <footer>
+                        <button name="export_xls" type="object" default_focus="1"
+                                string="Export Check Info" class="oe_highlight"
+                                context="{'xls_export':1}" icon="fa-download"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model='ir.actions.act_window' id='due_date_wizard_act'>
+            <field name="name">Export Check Info in Excel</field>
+            <field name="res_model">due.date.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="due_date_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem name="Check Due Date Report" parent="deferred_checks.check_report" id="check_due_date_report" action="due_date_wizard_act" sequence="2"/>
+    </data>
+</odoo>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model='ir.ui.view' id='wizard_form'>
+            <field name="name">wizard.check.report.form</field>
+            <field name="model">wizard.check.report</field>
+            <field name="arch" type="xml">
+                <form string="Check Report">
+                    <group>
+                        <field name="check_type"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="state" attrs="{'invisible': [('check_type','=','issued_check')]}"/>
+                        </group>
+                        <group>
+                            <field name="date_to"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="export_xls" type="object" default_focus="1"
+                                string="Export Check Info" class="oe_highlight"
+                                context="{'xls_export':1}" icon="fa-download"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model='ir.actions.act_window' id='wizard_act'>
+            <field name="name">Export Check Info in Excel</field>
+            <field name="res_model">wizard.check.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem name="Check Reports" parent="account.menu_finance_reports" id="check_report" sequence="6"/>
+        <menuitem name="Check State Report" parent="deferred_checks.check_report" id="check_state_report" action="wizard_act" sequence="1"/>
+    </data>
+</odoo>

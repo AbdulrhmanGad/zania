@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         <record id="view_differed_check_pivot1" model="ir.ui.view">
+            <field name="name">report.differed.check.pivot1</field>
+            <field name="model">report.differed.check</field>
+            <field name="arch" type="xml">
+                <pivot string="Differed Check Analysis" display_quantity="true" disable_linking="True">
+                     <field name="name" type="row"/>
+                 </pivot>
+             </field>
+        </record>
+
+        <record id="action_differed_check_analysis" model="ir.actions.act_window">
+            <field name="name">Differed Check Analysis</field>
+            <field name="res_model">report.differed.check</field>
+            <field name="view_mode">pivot</field>
+            <field name="context">{'group_by_no_leaf':1,'group_by':[]}</field>
+            <field name="help">This report allows you to analyse the performance of your Differed Checks. </field>
+        </record>
+
+        <menuitem name="Differed Checks Analysis" action="action_differed_check_analysis" id="menu_differed_check_analysis" parent="deferred_checks.check_report" sequence="1"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="account_payment_method_check_erpsmart" model="account.payment.method">
+            <field name="name">Check</field>
+            <field name="code">check_printing</field>
+            <field name="payment_type">inbound</field>
+        </record>
+
+        <record id="check_box_erpsmart" model="account.account">
+            <field name="code">C100201</field>
+            <field name="name">Check box</field>
+            <field name="user_type_id" ref="account.data_account_type_liquidity"/>
+        </record>
+
+        <record id="post_dated_check_erpsmart" model="account.account">
+            <field name="code">C100204</field>
+            <field name="name">Post Dated Checks</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+        </record>
+
+        <record id="differed_check_erpsmart" model="account.account">
+            <field name="code">C100202</field>
+            <!--field name="name">Differed Check</field-->
+            <field name="name">Check Under Collection </field>
+            <field name="user_type_id" ref="account.data_account_type_liquidity"/>
+        </record>
+        <record id="dipositess_check_erpsmart" model="account.account">
+            <field name="code">C100212</field>
+            <field name="name">Deposit Check</field>
+            <field name="user_type_id" ref="account.data_account_type_liquidity"/>
+        </record>
+
+        <record id="rejected_check_erpsmart" model="account.account">
+            <field name="code">C100203</field>
+            <field name="name">Rejected Checks</field>
+            <field name="user_type_id" ref="account.data_account_type_liquidity"/>
+        </record>
+         <record id="check_journal" model="account.journal">
+            <field name="name">Checks</field>
+            <field name="code">CHK11</field>
+            <field name="type">bank</field>
+            <!--
+            <field name="default_credit_account_id" ref="post_dated_check_erpsmart"/>
+            <field name="default_debit_account_id" ref="differed_check_erpsmart"/>
+            <field name="refund_sequence" eval="True"/>
+            -->
+        </record>
+        
+        <record id="check_journal_cybro" model="account.journal">
+            <field name="name">Checks</field>
+            <field name="code">CHK1</field>
+            <field name="type">bank</field>
+            <!--
+            <field name="default_debit_account_id" ref="post_dated_check_erpsmart"/>
+            <field name="default_credit_account_id" ref="check_box_erpsmart"/>
+            -->
+        </record>
+    </data>
+</odoo>

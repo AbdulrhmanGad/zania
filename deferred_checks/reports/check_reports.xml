@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="due_date_xlsx"
+        model="checks.paid"
+        string=" "
+        report_type="xlsx"
+        name="deferred_checks.due_date_check_report_xls.xlsx"
+        file="deferred_checks.due_date_check_report_xls.xlsx"
+        attachment_use="False"
+        menu="False"
+        />
+
+    <report
+        id="stock_xlsx"
+        model="checks.paid"
+        string=" "
+        report_type="xlsx"
+        name="deferred_checks.check_report_xls.xlsx"
+        file="deferred_checks.check_report_xls.xlsx"
+        attachment_use="False"
+        menu="False"
+    />
+
+</odoo>

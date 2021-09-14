@@ -1,0 +1,1529 @@
+
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* deferred_checks
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0+e-20180909\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-13 08:03+0000\n"
+"PO-Revision-Date: 2018-10-13 08:03+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: deferred_checks
+#: model:ir.actions.act_window,name:deferred_checks.action_issue_check_operation
+msgid " Check Operation"
+msgstr "عمليات الشيكات"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_customer_bank_acc_rel
+msgid " Payment Customer Bank Account"
+msgstr " Payment Customer Bank Account"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_due_date_rel
+msgid " Payment Due Date"
+msgstr " Payment Due Date"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:143
+#: code:addons/deferred_checks/models/payment_form.py:172
+#: code:addons/deferred_checks/models/payment_form.py:314
+#, python-format
+msgid "%s Maximum Checks Amount is %s ILS and current not deposited checks %s ILS and you try to add %s %s"
+msgstr "%s Maximum Checks Amount is %s ILS and current not deposited checks %s ILS and you try to add %s %s"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_deposit_accnt_no
+msgid "Account No"
+msgstr "رقم الحساب"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_acc_number
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_details_acc_number
+msgid "Account Number"
+msgstr "رقم الحساب"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.issue_check_operation_form_view
+msgid "Add to list"
+msgstr "أضف إلى القائمة"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_amount
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_details_amount
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_amount
+#: model:ir.model.fields,field_description:deferred_checks.field_report_differed_check_amount
+#: model:ir.model.fields,field_description:deferred_checks.field_selected_check_operation_details_amount
+msgid "Amount"
+msgstr "المبلغ"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_reject_wizard_form_view
+msgid "Are you Want to Sure Reject All the Check as on the List."
+msgstr "هل تريد بالتأكيد رفض كل الاختيار كما في القائمة."
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_account_payment_avg_days
+msgid "Average Days"
+msgstr "متوسط ​​الأيام"
+
+#. module: deferred_checks
+#: selection:account.move.line,check_state:0
+#: selection:check.operation,state_search:0
+#: selection:check.operation.details,state:0
+#: selection:checks.paid,state:0
+#: selection:receive.check.log,state:0
+#: selection:selected.check.operation.details,state:0
+msgid "BACK TO ORIGIN"
+msgstr "عودة إلى الأصل"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_form_view
+msgid "Back To Origin"
+msgstr "عودة إلى الأصل"
+
+#. module: deferred_checks
+#: model:ir.model,name:deferred_checks.model_res_bank
+#: model:ir.model.fields,field_description:deferred_checks.field_account_payment_bank_account
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_bank_id
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_details_bank_id
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_bank_account_rel
+#: model:ir.model.fields,field_description:deferred_checks.field_report_differed_check_bank_name
+#: model:ir.model.fields,field_description:deferred_checks.field_selected_check_operation_details_bank_id
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_search_erpsmart
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_search_erpsmart1
+msgid "Bank"
+msgstr "المصرف"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_bank_account
+#: model:ir.model.fields,field_description:deferred_checks.field_report_differed_check_bank_account
+msgid "Bank Account"
+msgstr "الحساب البنكي"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_bank_name
+msgid "Bank Name"
+msgstr "Bank Name"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_account_payment_branch_name
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_details_branch_name
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_branch_name
+#: model:ir.model.fields,field_description:deferred_checks.field_res_bank_branch_name
+#: model:ir.model.fields,field_description:deferred_checks.field_selected_check_operation_details_branch_name
+msgid "Branch Name"
+msgstr "إسم الفرع"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_account_payment_branch_no
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_branch_no
+msgid "Branch No"
+msgstr "رقم الفرع"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_report_differed_check_branch_name
+msgid "Branch and Name"
+msgstr "فرع واسم"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_form_view
+msgid "C.Bank.Transfer"
+msgstr "C.Bank.Transfer"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_form_view
+msgid "C.Vendor.Transfer"
+msgstr "C.Vendor.Transfer"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:1109
+#: code:addons/deferred_checks/models/payment_form.py:1111
+#, python-format
+msgid "Can not delete ckeck (%s) there is some moves related to it."
+msgstr "Can not delete ckeck (%s) there is some moves related to it."
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:128
+#, python-format
+msgid "Can not delete posted payment"
+msgstr "Can not delete posted payment"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.account_checks_paid_deposit_view
+#: model:ir.ui.view,arch_db:deferred_checks.account_checks_paid_reject_view
+#: model:ir.ui.view,arch_db:deferred_checks.account_checks_paid_transfer_view
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_deposit_wizard_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_redeposit_wizard_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_reject_wizard_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_transfer_back_wizard_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_transfer_wizard_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_withdraw_wizard_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.due_date_wizard_form
+#: model:ir.ui.view,arch_db:deferred_checks.wizard_form
+#: model:ir.ui.view,arch_db:deferred_checks.wizard_payment_form
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: deferred_checks
+#: selection:report.differed.check,state:0
+msgid "Cancelled"
+msgstr "ألغيت"
+
+#. module: deferred_checks
+#: model:account.payment.method,name:deferred_checks.account_payment_method_check_erpsmart
+#: model:ir.model.fields,field_description:deferred_checks.field_report_differed_check_name
+msgid "Check"
+msgstr "الشيك"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/check_operation.py:212
+#, python-format
+msgid "Check  the CheckState plz should be Transferred"
+msgstr "Check  the CheckState plz should be Transferred"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/check_operation.py:255
+#, python-format
+msgid "Check  the CheckState plz should be transfer_to_vendor"
+msgstr "Check  the CheckState plz should be transfer_to_vendor"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/wizard/transfer_check.py:47
+#, python-format
+msgid "Check (%s) can not be transfered"
+msgstr "Check (%s) can not be transfered"
+
+#. module: deferred_checks
+#: model:ir.actions.act_window,name:deferred_checks.check_operation_transfer_back_wizard_action
+msgid "Check Back to origin Type"
+msgstr "Check Back to origin Type"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_form_erpsmart
+msgid "Check Details"
+msgstr "تحقق من التفاصيل"
+
+#. module: deferred_checks
+#: model:ir.ui.menu,name:deferred_checks.check_due_date_report
+msgid "Check Due Date Report"
+msgstr "تحقق من تاريخ الاستحقاق"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_check_number
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_details_check_name
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_name
+#: model:ir.model.fields,field_description:deferred_checks.field_selected_check_operation_details_check_name
+msgid "Check Number"
+msgstr "رقم الشيك"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_selected_check_operation_details_check_op_id
+msgid "Check Op id"
+msgstr "تحقق من معرف المرجع"
+
+#. module: deferred_checks
+#: model:ir.actions.act_window,name:deferred_checks.action_check_operation
+#: model:ir.ui.menu,name:deferred_checks.check_operation_menu
+#: model:ir.ui.menu,name:deferred_checks.issued_check_operation_menu
+msgid "Check Operation"
+msgstr "عمليات الشيكات"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.issue_check_operation_form_view
+msgid "Check Operation Form"
+msgstr "تحقق من نموذج العملية"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_receive_check_log_check_paid_id
+msgid "Check Paid"
+msgstr "تحقق المدفوعة"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_details_checks_id
+#: model:ir.model.fields,field_description:deferred_checks.field_selected_check_operation_details_checks_id
+msgid "Check Paid ID"
+msgstr "تحقق من الرقم التعريفي المدفوع"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_redeposit_wizard_form_view
+msgid "Check Redeposit To"
+msgstr "Check Redeposit To"
+
+#. module: deferred_checks
+#: model:ir.model,name:deferred_checks.model_due_date_report
+#: model:ir.model,name:deferred_checks.model_wizard_check_report
+#: model:ir.ui.view,arch_db:deferred_checks.due_date_wizard_form
+#: model:ir.ui.view,arch_db:deferred_checks.wizard_form
+msgid "Check Report"
+msgstr "تحقق من التقرير"
+
+#. module: deferred_checks
+#: model:ir.ui.menu,name:deferred_checks.check_report
+msgid "Check Reports"
+msgstr "تحقق من التقارير"
+
+#. module: deferred_checks
+#: model:ir.ui.menu,name:deferred_checks.check_state_report
+msgid "Check State Report"
+msgstr "تحقق من تقرير الولاية"
+
+#. module: deferred_checks
+#: model:ir.actions.act_window,name:deferred_checks.check_operation_transfer_wizard_action
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_transfer_wizard_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_withdraw_wizard_form_view
+msgid "Check Transfer To"
+msgstr "تحقق من نقل إلى"
+
+#. module: deferred_checks
+#: model:ir.actions.act_window,name:deferred_checks.check_operation_withdraw_wizard_action
+msgid "Check Withdraw To"
+msgstr "حدد سحب إلى"
+
+#. module: deferred_checks
+#: model:ir.actions.act_window,name:deferred_checks.check_operation_deposit_wizard_action
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_deposit_wizard_form_view
+msgid "Check deposit To"
+msgstr "تحقق من إيداع"
+
+#. module: deferred_checks
+#: model:ir.actions.act_window,name:deferred_checks.check_operation_redeposit_wizard_action
+msgid "Check redeposit To"
+msgstr "Check redeposit To"
+
+#. module: deferred_checks
+#: model:ir.actions.act_window,name:deferred_checks.check_operation_reject_wizard_action
+msgid "Check reject"
+msgstr "تحقق من رفض"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_reject_wizard_form_view
+msgid "Check reject To"
+msgstr "Check reject To"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/check_operation.py:545
+#: code:addons/deferred_checks/models/payment_form.py:907
+#, python-format
+msgid "Check with number (%s) can not be back to origin"
+msgstr "Check with number (%s) can not be back to origin"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/check_operation.py:448
+#, python-format
+msgid "Check with number (%s) can not be draw cash"
+msgstr "Check with number (%s) can not be draw cash"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/check_operation.py:489
+#, python-format
+msgid "Check with number (%s) can not be recollect"
+msgstr "Check with number (%s) can not be recollect"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/check_operation.py:201
+#, python-format
+msgid "Check with number (%s) can not be rejected"
+msgstr "Check with number (%s) can not be rejected"
+
+#. module: deferred_checks
+#: model:ir.model,name:deferred_checks.model_checks_paid
+#: model:ir.model.fields,field_description:deferred_checks.field_account_payment_checks_paid
+#: model:ir.model.fields,field_description:deferred_checks.field_account_payment_transferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_checks_paid_ids
+msgid "Checks"
+msgstr "Checks"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:145
+#, python-format
+msgid "Checks Amount"
+msgstr "Checks Amount"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_form_erpsmart
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_form_erpsmart1
+msgid "Checks Form"
+msgstr "Checks Form"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:670
+#: code:addons/deferred_checks/models/payment_form.py:721
+#: code:addons/deferred_checks/models/payment_form.py:792
+#, python-format
+msgid "Choosed Account can not be debit account"
+msgstr "Choosed Account can not be debit account"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_res_bank_company_id
+msgid "Company"
+msgstr "المؤسسة"
+
+#. module: deferred_checks
+#: selection:check.operation,state:0
+msgid "Confirm"
+msgstr "Confirm"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.issue_check_operation_form_view
+msgid "Confirm Operations"
+msgstr "Confirm Operations"
+
+#. module: deferred_checks
+#: model:ir.model,name:deferred_checks.model_account_abstract_payment
+msgid "Contains the logic shared between models which allows to register payments"
+msgstr "يحتوي علي المنطق المشترك بين الموديلات مما يسمح بتسجيل الدفع"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:219
+#, python-format
+msgid "Counterpart"
+msgstr "Counterpart"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_create_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_deposit_wizard_create_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_details_create_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_redeposit_wizard_create_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_reject_wizard_create_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_transfer_backtoorigin_wizard_create_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_transfer_wizard_create_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_withdraw_wizard_create_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_create_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_deposit_create_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_reject_create_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_transfer_create_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_due_date_report_create_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_receive_check_log_create_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_selected_check_operation_details_create_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_wizard_check_report_create_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_wizard_payment_create_uid
+msgid "Created by"
+msgstr "أنشئ بواسطة"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_create_date
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_deposit_wizard_create_date
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_details_create_date
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_redeposit_wizard_create_date
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_reject_wizard_create_date
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_transfer_backtoorigin_wizard_create_date
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_transfer_wizard_create_date
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_withdraw_wizard_create_date
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_create_date
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_deposit_create_date
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_reject_create_date
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_transfer_create_date
+#: model:ir.model.fields,field_description:deferred_checks.field_due_date_report_create_date
+#: model:ir.model.fields,field_description:deferred_checks.field_receive_check_log_create_date
+#: model:ir.model.fields,field_description:deferred_checks.field_selected_check_operation_details_create_date
+#: model:ir.model.fields,field_description:deferred_checks.field_wizard_check_report_create_date
+#: model:ir.model.fields,field_description:deferred_checks.field_wizard_payment_create_date
+msgid "Created on"
+msgstr "أنشئ في"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_currency_code
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_details_currency_code
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_currency_id
+#: model:ir.model.fields,field_description:deferred_checks.field_selected_check_operation_details_currency_code
+msgid "Currency"
+msgstr "العملة"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_account_payment_customer_bank_acc
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_customer_bank_acc
+msgid "Customer Bank Account"
+msgstr "حساب مصرفي للزبون"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_partner_id
+msgid "Customer Name"
+msgstr "اسم الزبون"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:562
+#, python-format
+msgid "Customer Payment"
+msgstr "Customer Payment"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:564
+#, python-format
+msgid "Customer Refund"
+msgstr "Customer Refund"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_due_date_report_daily_report
+msgid "Daily Report"
+msgstr "Daily Report"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_receive_check_log_date
+msgid "Date"
+msgstr "التاريخ"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_date_transaction
+msgid "Date of Transaction"
+msgstr "Date of Transaction"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.issue_check_operation_form_view
+msgid "Delete"
+msgstr "حذف"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.account_checks_paid_deposit_view
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_deposit_wizard_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_form_erpsmart
+msgid "Deposit"
+msgstr "Deposit"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_deposit_wizard_deposite_account
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_redeposit_wizard_deposite_account
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_deposit_accnt
+msgid "Deposit Account"
+msgstr "Deposit Account"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_deposit_wizard_deposite_journal_id
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_redeposit_wizard_deposite_journal_id
+msgid "Deposit Account Journal"
+msgstr "Deposit Account Journal"
+
+#. module: deferred_checks
+#: model:ir.actions.act_window,name:deferred_checks.action_check_payment1
+#: model:ir.ui.view,arch_db:deferred_checks.account_checks_paid_deposit_view
+msgid "Deposit Checks"
+msgstr "Deposit Checks"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_deposit_deposit_journal
+msgid "Deposit Journal"
+msgstr "Deposit Journal"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_form_view
+msgid "Deposit To Account"
+msgstr "Deposit To Account"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_deposit_wizard_deposite_bank_account
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_redeposit_wizard_deposite_bank_account
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_deposit_usr_account
+msgid "Deposit User Account"
+msgstr "Deposit User Account"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_deposit_date
+#: model:ir.model.fields,field_description:deferred_checks.field_report_differed_check_deposit_date
+msgid "Deposited Date"
+msgstr "Deposited Date"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_deposited_journal
+#: model:ir.model.fields,field_description:deferred_checks.field_report_differed_check_deposited_journal
+msgid "Deposited Journal"
+msgstr "Deposited Journal"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_search_erpsmart
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_search_erpsmart1
+msgid "Differed Check"
+msgstr "Differed Check"
+
+#. module: deferred_checks
+#: model:ir.actions.act_window,name:deferred_checks.action_differed_check_analysis
+#: model:ir.model,name:deferred_checks.model_report_differed_check
+#: model:ir.ui.view,arch_db:deferred_checks.view_differed_check_pivot1
+msgid "Differed Check Analysis"
+msgstr "Differed Check Analysis"
+
+#. module: deferred_checks
+#: model:ir.ui.menu,name:deferred_checks.menu_differed_check_analysis
+msgid "Differed Checks Analysis"
+msgstr "Differed Checks Analysis"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_deposit_wizard_display_name
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_details_display_name
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_display_name
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_redeposit_wizard_display_name
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_reject_wizard_display_name
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_transfer_backtoorigin_wizard_display_name
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_transfer_wizard_display_name
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_withdraw_wizard_display_name
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_deposit_display_name
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_display_name
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_reject_display_name
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_transfer_display_name
+#: model:ir.model.fields,field_description:deferred_checks.field_due_date_report_display_name
+#: model:ir.model.fields,field_description:deferred_checks.field_receive_check_log_display_name
+#: model:ir.model.fields,field_description:deferred_checks.field_report_differed_check_display_name
+#: model:ir.model.fields,field_description:deferred_checks.field_selected_check_operation_details_display_name
+#: model:ir.model.fields,field_description:deferred_checks.field_wizard_check_report_display_name
+#: model:ir.model.fields,field_description:deferred_checks.field_wizard_payment_display_name
+msgid "Display Name"
+msgstr "اسم العرض"
+
+#. module: deferred_checks
+#: selection:account.move.line,check_state:0
+#: selection:check.operation,state_search:0
+#: selection:check.operation.details,state:0
+#: selection:receive.check.log,state:0
+#: selection:selected.check.operation.details,state:0
+msgid "Draw Cash"
+msgstr "Draw Cash"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_due_date_report_due_date_exceed
+msgid "Duded Checks"
+msgstr "Duded Checks"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_account_payment_due_date
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_details_due_date
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_due_date
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_due_date
+#: model:ir.model.fields,field_description:deferred_checks.field_due_date_report_due_date
+#: model:ir.model.fields,field_description:deferred_checks.field_selected_check_operation_details_due_date
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_search_erpsmart
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_search_erpsmart1
+msgid "Due Date"
+msgstr "تاريخ الاستحقاق"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_report_differed_check_due_date
+msgid "Due date"
+msgstr "تاريخ الاستحقاق"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:684
+#, python-format
+msgid "Enter Account No For Deposit Check"
+msgstr "Enter Account No For Deposit Check"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_search_erpsmart
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_search_erpsmart1
+msgid "Expired Checks"
+msgstr "Expired Checks"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.due_date_wizard_form
+#: model:ir.ui.view,arch_db:deferred_checks.wizard_form
+msgid "Export Check Info"
+msgstr "Export Check Info"
+
+#. module: deferred_checks
+#: model:ir.actions.act_window,name:deferred_checks.due_date_wizard_act
+#: model:ir.actions.act_window,name:deferred_checks.wizard_act
+msgid "Export Check Info in Excel"
+msgstr "Export Check Info in Excel"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_wizard_check_report_date_from
+msgid "From Date"
+msgstr "من تاريخ"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_search_erpsmart
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_search_erpsmart1
+msgid "Group By"
+msgstr "تجميع حسب"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_deposit_wizard_id
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_details_id
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_id
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_redeposit_wizard_id
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_reject_wizard_id
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_transfer_backtoorigin_wizard_id
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_transfer_wizard_id
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_withdraw_wizard_id
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_deposit_id
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_id
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_reject_id
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_transfer_id
+#: model:ir.model.fields,field_description:deferred_checks.field_due_date_report_id
+#: model:ir.model.fields,field_description:deferred_checks.field_receive_check_log_id
+#: model:ir.model.fields,field_description:deferred_checks.field_report_differed_check_id
+#: model:ir.model.fields,field_description:deferred_checks.field_selected_check_operation_details_id
+#: model:ir.model.fields,field_description:deferred_checks.field_wizard_check_report_id
+#: model:ir.model.fields,field_description:deferred_checks.field_wizard_payment_id
+msgid "ID"
+msgstr "المعرف"
+
+#. module: deferred_checks
+#: selection:check.operation,state:0
+msgid "Issued"
+msgstr "Issued"
+
+#. module: deferred_checks
+#: selection:check.operation,check_type:0
+#: selection:checks.paid,check_type:0
+#: selection:due.date.report,check_type:0
+#: selection:report.differed.check,check_type:0
+#: selection:wizard.check.report,check_type:0
+msgid "Issued Check"
+msgstr "الشيكات الصادرة"
+
+#. module: deferred_checks
+#: model:ir.actions.act_window,name:deferred_checks.action_issued_checks
+#: model:ir.ui.menu,name:deferred_checks.issued_checks_menu
+msgid "Issued Checks"
+msgstr "الشيكات الصادرة"
+
+#. module: deferred_checks
+#: selection:account.move.line,check_state:0
+#: selection:check.operation,state_search:0
+#: selection:check.operation.details,state:0
+#: selection:checks.paid,state:0
+#: selection:receive.check.log,state:0
+#: selection:selected.check.operation.details,state:0
+msgid "Issued Deferred"
+msgstr "Issued Deferred"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/wizard/transfer_check.py:187
+#, python-format
+msgid "Issued check (%s)"
+msgstr "Issued check (%s)"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_form_erpsmart1
+msgid "Issued date"
+msgstr "Issued date"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_details_issuer_display_names
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_details_issuer_names
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_issuer_id
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_issuer_name
+#: model:ir.model.fields,field_description:deferred_checks.field_report_differed_check_issuer_name
+#: model:ir.model.fields,field_description:deferred_checks.field_selected_check_operation_details_issuer_display_names
+#: model:ir.model.fields,field_description:deferred_checks.field_selected_check_operation_details_issuer_names
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_search_erpsmart
+msgid "Issuer Name"
+msgstr "مصدر الشيك"
+
+#. module: deferred_checks
+#: model:ir.model,name:deferred_checks.model_account_move_line
+msgid "Journal Item"
+msgstr "عنصر يومية"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:1219
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_form_erpsmart
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_form_erpsmart1
+#, python-format
+msgid "Journal Items"
+msgstr "عناصر اليومية"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation___last_update
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_deposit_wizard___last_update
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_details___last_update
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_redeposit_wizard___last_update
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_reject_wizard___last_update
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_transfer_backtoorigin_wizard___last_update
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_transfer_wizard___last_update
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_withdraw_wizard___last_update
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid___last_update
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_deposit___last_update
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_reject___last_update
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_transfer___last_update
+#: model:ir.model.fields,field_description:deferred_checks.field_due_date_report___last_update
+#: model:ir.model.fields,field_description:deferred_checks.field_receive_check_log___last_update
+#: model:ir.model.fields,field_description:deferred_checks.field_report_differed_check___last_update
+#: model:ir.model.fields,field_description:deferred_checks.field_selected_check_operation_details___last_update
+#: model:ir.model.fields,field_description:deferred_checks.field_wizard_check_report___last_update
+#: model:ir.model.fields,field_description:deferred_checks.field_wizard_payment___last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_deposit_wizard_write_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_details_write_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_redeposit_wizard_write_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_reject_wizard_write_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_transfer_backtoorigin_wizard_write_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_transfer_wizard_write_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_withdraw_wizard_write_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_write_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_deposit_write_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_reject_write_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_transfer_write_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_write_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_due_date_report_write_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_receive_check_log_write_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_selected_check_operation_details_write_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_wizard_check_report_write_uid
+#: model:ir.model.fields,field_description:deferred_checks.field_wizard_payment_write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_deposit_wizard_write_date
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_details_write_date
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_redeposit_wizard_write_date
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_reject_wizard_write_date
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_transfer_backtoorigin_wizard_write_date
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_transfer_wizard_write_date
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_withdraw_wizard_write_date
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_write_date
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_deposit_write_date
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_reject_write_date
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_transfer_write_date
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_write_date
+#: model:ir.model.fields,field_description:deferred_checks.field_due_date_report_write_date
+#: model:ir.model.fields,field_description:deferred_checks.field_receive_check_log_write_date
+#: model:ir.model.fields,field_description:deferred_checks.field_selected_check_operation_details_write_date
+#: model:ir.model.fields,field_description:deferred_checks.field_wizard_check_report_write_date
+#: model:ir.model.fields,field_description:deferred_checks.field_wizard_payment_write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/check_operation.py:72
+#, python-format
+msgid "Make sure that all selected ckeckes have same state"
+msgstr "Make sure that all selected ckeckes have same state"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_res_partner_max_check_amount
+#: model:ir.model.fields,field_description:deferred_checks.field_res_users_max_check_amount
+msgid "Maximum Checks Amount"
+msgstr "Maximum Checks Amount"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_move_line_ids
+msgid "Move line ids"
+msgstr "معرف بند الحركة"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_note
+msgid "Note"
+msgstr "الملاحظة"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_number_check
+msgid "Number of checks"
+msgstr "Number of checks"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.account_checks_paid_reject_view
+msgid "Once selected checks are confirmed to reject it will\n"
+"                        directly rejected the checks."
+msgstr "Once selected checks are confirmed to reject it will\n"
+"                        directly rejected the checks."
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:325
+#, python-format
+msgid "Only a draft payment can be posted. Trying to post a payment in state %s."
+msgstr "Only a draft payment can be posted. Trying to post a payment in state %s."
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_details_operation_id
+#: model:ir.model.fields,field_description:deferred_checks.field_selected_check_operation_details_operation_id
+msgid "Operation"
+msgstr "العملية"
+
+#. module: deferred_checks
+#: model:ir.model,name:deferred_checks.model_res_partner
+msgid "Partner"
+msgstr "شريك"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.wizard_payment_form
+msgid "Pay"
+msgstr "Pay"
+
+#. module: deferred_checks
+#: model:ir.actions.act_window,name:deferred_checks.wizard_payment_act
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_form_erpsmart
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_form_erpsmart1
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_search_erpsmart
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_search_erpsmart1
+#: model:ir.ui.view,arch_db:deferred_checks.wizard_payment_form
+msgid "Payment"
+msgstr "السداد"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_branch_name_rel
+msgid "Payment Branch Name"
+msgstr "اسم فرع السداد"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_branch_no_rel
+msgid "Payment Branch No"
+msgstr "رقم فرع السداد"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_issuer_names
+msgid "Payment Issuer Name"
+msgstr "اسم مصدر السداد"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_wizard_payment_payment_journal
+msgid "Payment Journal"
+msgstr "يومية السداد"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_check_type_test
+msgid "Payment Type"
+msgstr "نوع السداد"
+
+#. module: deferred_checks
+#: model:ir.model,name:deferred_checks.model_account_payment
+msgid "Payments"
+msgstr "الدفعات"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:284
+#: code:addons/deferred_checks/models/payment_form.py:293
+#: code:addons/deferred_checks/models/payment_form.py:321
+#, python-format
+msgid "Please fill check list! Or flag this as cash payment"
+msgstr "Please fill check list! Or flag this as cash payment"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_receive_checks
+msgid "Receive Check State"
+msgstr "حالة الشيكات المستلمة"
+
+#. module: deferred_checks
+#: selection:account.move.line,check_state:0
+#: selection:check.operation,state:0
+#: selection:check.operation,state_search:0
+#: selection:check.operation.details,state:0
+#: selection:checks.paid,state:0
+#: selection:receive.check.log,state:0
+#: selection:report.differed.check,state:0
+#: selection:selected.check.operation.details,state:0
+#: selection:wizard.check.report,state:0
+msgid "Received"
+msgstr "المستلمة"
+
+#. module: deferred_checks
+#: selection:check.operation,check_type:0
+#: selection:checks.paid,check_type:0
+#: selection:due.date.report,check_type:0
+#: selection:report.differed.check,check_type:0
+#: selection:wizard.check.report,check_type:0
+msgid "Received Check"
+msgstr "الشيكات المستلمة"
+
+#. module: deferred_checks
+#: model:ir.actions.act_window,name:deferred_checks.action_received_checks
+#: model:ir.ui.menu,name:deferred_checks.received_checks_menu
+msgid "Received Checks"
+msgstr "الشيكات المستلمة"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_received_date
+#: model:ir.model.fields,field_description:deferred_checks.field_report_differed_check_received_date
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_search_erpsmart
+msgid "Received Date"
+msgstr "تاريخ الاستلام "
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_form_view
+msgid "Recollect"
+msgstr "Recollect"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_redeposit_wizard_form_view
+msgid "Redeposit"
+msgstr "Redeposit"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.account_checks_paid_reject_view
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_reject_wizard_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_form_erpsmart
+msgid "Reject"
+msgstr "Reject"
+
+#. module: deferred_checks
+#: model:ir.actions.act_window,name:deferred_checks.action_check_payment_reject
+#: model:ir.ui.view,arch_db:deferred_checks.account_checks_paid_reject_view
+msgid "Reject Checks"
+msgstr "Reject Checks"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_reject_date
+msgid "Reject Date"
+msgstr "Reject Date"
+
+#. module: deferred_checks
+#: selection:account.move.line,check_state:0
+#: selection:check.operation,state_search:0
+#: selection:check.operation.details,state:0
+#: selection:checks.paid,state:0
+#: selection:receive.check.log,state:0
+#: selection:report.differed.check,state:0
+#: selection:selected.check.operation.details,state:0
+#: selection:wizard.check.report,state:0
+msgid "Rejected"
+msgstr "Rejected"
+
+#. module: deferred_checks
+#: selection:check.operation.transfer.backtoorigin.wizard,origin_type:0
+msgid "Rejected Checks"
+msgstr "Rejected Checks"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.issue_check_operation_form_view
+msgid "Rejects"
+msgstr "Rejects"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_payment_form
+#: model:ir.model.fields,field_description:deferred_checks.field_report_differed_check_payment_form
+msgid "Related Payment"
+msgstr "Related Payment"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_states
+msgid "Related State"
+msgstr "Related State"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_form_erpsmart
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_form_erpsmart1
+msgid "Return"
+msgstr "مرتجع"
+
+#. module: deferred_checks
+#: selection:account.move.line,check_state:0
+#: selection:check.operation,state_search:0
+#: selection:check.operation.details,state:0
+#: selection:checks.paid,state:0
+#: selection:receive.check.log,state:0
+#: selection:selected.check.operation.details,state:0
+#: selection:wizard.check.report,state:0
+msgid "Returned"
+msgstr "Returned"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.issue_check_operation_form_view
+msgid "Search"
+msgstr "بحث"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_search_view
+msgid "Search Check Operation"
+msgstr "Search Check Operation"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_search_erpsmart
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_search_erpsmart1
+msgid "Search Differed Checks"
+msgstr "Search Differed Checks"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_details_selected_check
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_transfer_back_wizard_form_view
+msgid "Select"
+msgstr "Select"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:631
+#, python-format
+msgid "Select Bank For Transfer Check"
+msgstr "Select Bank For Transfer Check"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_deposit_transfer_bnk
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_transfer_transfer_bnk
+msgid "Select Bank for Transfer Check"
+msgstr "Select Bank for Transfer Check"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/check_operation.py:530
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_transfer_backtoorigin_wizard_origin_type
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_transfer_back_wizard_form_view
+#, python-format
+msgid "Select Reason"
+msgstr "Select Reason"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_details_select_all
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_select_all
+msgid "Select all"
+msgstr "Select all"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.issue_check_operation_form_view
+msgid "Selected Checkes"
+msgstr "Selected Checkes"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_selected_checks_detail_ids
+msgid "Selected Checks"
+msgstr "Selected Checks"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:1320
+#: code:addons/deferred_checks/models/payment_form.py:1347
+#: code:addons/deferred_checks/wizard/transfer_check.py:177
+#, python-format
+msgid "Selected checks cannot be deposit."
+msgstr "Selected checks cannot be deposit."
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/wizard/transfer_check.py:227
+#, python-format
+msgid "Selected checks cannot be redeposit."
+msgstr "Selected checks cannot be redeposit."
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:1377
+#, python-format
+msgid "Selected checks cannot be reject."
+msgstr "Selected checks cannot be reject."
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/wizard/transfer_check.py:257
+#, python-format
+msgid "Selected checks cannot be rejected."
+msgstr "Selected checks cannot be rejected."
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_account_move_line_check_state
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_details_state
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_state
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_state_search
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_state
+#: model:ir.model.fields,field_description:deferred_checks.field_receive_check_log_state
+#: model:ir.model.fields,field_description:deferred_checks.field_report_differed_check_state
+#: model:ir.model.fields,field_description:deferred_checks.field_selected_check_operation_details_state
+#: model:ir.model.fields,field_description:deferred_checks.field_wizard_check_report_state
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_search_erpsmart
+msgid "State"
+msgstr "المحافظة"
+
+#. module: deferred_checks
+#: selection:account.move.line,check_state:0
+#: selection:check.operation,state_search:0
+#: selection:check.operation.details,state:0
+#: selection:checks.paid,state:0
+#: selection:receive.check.log,state:0
+#: selection:report.differed.check,state:0
+#: selection:selected.check.operation.details,state:0
+#: selection:wizard.check.report,state:0
+msgid "Success"
+msgstr "Success"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:1186
+#, python-format
+msgid "The following check %s Details must have valid amount (grater than 0)!"
+msgstr "The following check %s Details must have valid amount (grater than 0)!"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:1189
+#, python-format
+msgid "The following check %s details must be unique!"
+msgstr "The following check %s details must be unique!"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:328
+#, python-format
+msgid "The payment cannot be processed because the invoice is not open!"
+msgstr "The payment cannot be processed because the invoice is not open!"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:302
+#, python-format
+msgid "There is am issued checks in selected list"
+msgstr "There is am issued checks in selected list"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:388
+#: code:addons/deferred_checks/models/payment_form.py:1326
+#: code:addons/deferred_checks/models/payment_form.py:1361
+#: code:addons/deferred_checks/models/payment_form.py:1387
+#: code:addons/deferred_checks/wizard/transfer_check.py:81
+#: code:addons/deferred_checks/wizard/transfer_check.py:237
+#: code:addons/deferred_checks/wizard/transfer_check.py:265
+#, python-format
+msgid "These are Issued Checks."
+msgstr "These are Issued Checks."
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/wizard/transfer_check.py:49
+#, python-format
+msgid "These are Issued Checks. Please check (%s)"
+msgstr "These are Issued Checks. Please check (%s)"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/wizard/transfer_check.py:130
+#, python-format
+msgid "These are Receive Checks."
+msgstr "These are Receive Checks."
+
+#. module: deferred_checks
+#: model:ir.actions.act_window,help:deferred_checks.action_differed_check_analysis
+msgid "This report allows you to analyse the performance of your Differed Checks."
+msgstr "This report allows you to analyse the performance of your Differed Checks."
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_wizard_check_report_date_to
+msgid "To Date"
+msgstr "الى تاريخ"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_search_erpsmart
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_search_erpsmart1
+msgid "Today's Transaction"
+msgstr "Today's Transaction"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_tree_view
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_tree_view1
+msgid "Total"
+msgstr "الإجمالي "
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_total_amount
+msgid "Total amount"
+msgstr "Total amount"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_receive_check_log_transaction
+msgid "Transaction Details"
+msgstr "Transaction Details"
+
+#. module: deferred_checks
+#: selection:check.operation,state_search:0
+#: selection:check.operation.details,state:0
+#: selection:receive.check.log,state:0
+#: selection:selected.check.operation.details,state:0
+msgid "Transfared To Vendor"
+msgstr "Transfared To Vendor"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.account_checks_paid_transfer_view
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_transfer_wizard_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_form_erpsmart
+msgid "Transfer"
+msgstr "نقل"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_transfer_bank
+msgid "Transfer Bank"
+msgstr "التحويل البنكي"
+
+#. module: deferred_checks
+#: model:ir.actions.act_window,name:deferred_checks.action_check_transfer
+#: model:ir.ui.view,arch_db:deferred_checks.account_checks_paid_transfer_view
+msgid "Transfer Checks"
+msgstr "تحويل الشيكات"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_transfer_date
+#: model:ir.model.fields,field_description:deferred_checks.field_report_differed_check_transfer_date
+msgid "Transfer Date"
+msgstr "تاريخ التحويل"
+
+#. module: deferred_checks
+#: selection:checks.paid,state:0
+msgid "Transfer To  Vendor"
+msgstr "Transfer To  Vendor"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_transfer_wizard_transfer_account
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_form_view
+msgid "Transfer To Bank"
+msgstr "Transfer To Bank"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.checks_paid_form_erpsmart
+msgid "Transfer and Deposit Details"
+msgstr "Transfer and Deposit Details"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:520
+#, python-format
+msgid "Transfer to %s"
+msgstr "Transfer to %s"
+
+#. module: deferred_checks
+#: selection:account.move.line,check_state:0
+#: selection:check.operation,state:0
+#: selection:check.operation,state_search:0
+#: selection:check.operation.details,state:0
+#: selection:checks.paid,state:0
+#: selection:receive.check.log,state:0
+#: selection:report.differed.check,state:0
+#: selection:selected.check.operation.details,state:0
+#: selection:wizard.check.report,state:0
+msgid "Transferred"
+msgstr "Transferred"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_transfer_bank
+msgid "Transferred Bank"
+msgstr "Transferred Bank"
+
+#. module: deferred_checks
+#: selection:check.operation,check_type:0
+#: selection:checks.paid,check_type:0
+#: model:ir.model.fields,field_description:deferred_checks.field_account_payment_transferred_check
+msgid "Transferred Check"
+msgstr "Transferred Check"
+
+#. module: deferred_checks
+#: selection:account.move.line,check_state:0
+msgid "Transferred To Vendor"
+msgstr "Transferred To Vendor"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_transfer_user_bank
+msgid "Transferred User Account"
+msgstr "Transferred User Account"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_transfer_wizard_trans_user_account
+msgid "Transfet To Account"
+msgstr "Transfet To Account"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_check_type
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_check_type
+#: model:ir.model.fields,field_description:deferred_checks.field_due_date_report_check_type
+#: model:ir.model.fields,field_description:deferred_checks.field_report_differed_check_check_type
+#: model:ir.model.fields,field_description:deferred_checks.field_wizard_check_report_check_type
+msgid "Type of Check"
+msgstr "نوع الشيك"
+
+#. module: deferred_checks
+#: selection:check.operation.transfer.backtoorigin.wizard,origin_type:0
+msgid "User Request"
+msgstr "User Request"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:569
+#, python-format
+msgid "Vendor Payment"
+msgstr "Vendor Payment"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:567
+#, python-format
+msgid "Vendor Refund"
+msgstr "Vendor Refund"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_withdraw_wizard_form_view
+msgid "Withdraw"
+msgstr "Withdraw"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_withdraw_wizard_withdraw_account
+msgid "Withdraw From Bank"
+msgstr "Withdraw From Bank"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_check_operation_withdraw_wizard_withdraw_user_account
+msgid "Withdraw To Account"
+msgstr "Withdraw To Account"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.issue_check_operation_form_view
+msgid "Withdraw To Bank"
+msgstr "Withdraw To Bank"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_withdraw_user_account
+msgid "Withdraw User Account"
+msgstr "Withdraw User Account"
+
+#. module: deferred_checks
+#: selection:account.move.line,check_state:0
+#: selection:check.operation,state:0
+#: selection:check.operation,state_search:0
+#: selection:check.operation.details,state:0
+#: selection:checks.paid,state:0
+#: selection:receive.check.log,state:0
+#: selection:report.differed.check,state:0
+#: selection:selected.check.operation.details,state:0
+#: selection:wizard.check.report,state:0
+msgid "Withdraw from bank"
+msgstr "صرف شيك "
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/check_operation.py:110
+#, python-format
+msgid "You Can Not Delete."
+msgstr "You Can Not Delete."
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/check_operation.py:118
+#, python-format
+msgid "You Can Not Edit On this Confirm Stage"
+msgstr "You Can Not Edit On this Confirm Stage"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/payment_form.py:689
+#: code:addons/deferred_checks/models/payment_form.py:783
+#, python-format
+msgid "You can not deposit check before it's due date"
+msgstr "You can not deposit check before it's due date"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/wizard/transfer_check.py:185
+#, python-format
+msgid "can't deposit check (%s)"
+msgstr "can't deposit check (%s)"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/wizard/transfer_check.py:235
+#, python-format
+msgid "can't redeposit check (%s) ,Just rejected checks can be redeposit"
+msgstr "can't redeposit check (%s) ,Just rejected checks can be redeposit"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_account_payment_ch_amount
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_ch_amount
+msgid "ch amount"
+msgstr "ch amount"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_ch_number
+msgid "check Number"
+msgstr "check Number"
+
+#. module: deferred_checks
+#: model:ir.actions.client,name:deferred_checks.action_check_search
+msgid "check Search"
+msgstr "check Search"
+
+#. module: deferred_checks
+#: model:ir.model,name:deferred_checks.model_check_operation
+msgid "check.operation"
+msgstr "check.operation"
+
+#. module: deferred_checks
+#: model:ir.model,name:deferred_checks.model_check_operation_deposit_wizard
+msgid "check.operation.deposit.wizard"
+msgstr "check.operation.deposit.wizard"
+
+#. module: deferred_checks
+#: model:ir.model,name:deferred_checks.model_check_operation_details
+msgid "check.operation.details"
+msgstr "check.operation.details"
+
+#. module: deferred_checks
+#: model:ir.model,name:deferred_checks.model_check_operation_redeposit_wizard
+msgid "check.operation.redeposit.wizard"
+msgstr "check.operation.redeposit.wizard"
+
+#. module: deferred_checks
+#: model:ir.model,name:deferred_checks.model_check_operation_reject_wizard
+msgid "check.operation.reject.wizard"
+msgstr "check.operation.reject.wizard"
+
+#. module: deferred_checks
+#: model:ir.model,name:deferred_checks.model_check_operation_transfer_backtoorigin_wizard
+msgid "check.operation.transfer.backtoorigin.wizard"
+msgstr "check.operation.transfer.backtoorigin.wizard"
+
+#. module: deferred_checks
+#: model:ir.model,name:deferred_checks.model_check_operation_transfer_wizard
+msgid "check.operation.transfer.wizard"
+msgstr "check.operation.transfer.wizard"
+
+#. module: deferred_checks
+#: model:ir.model,name:deferred_checks.model_check_operation_withdraw_wizard
+msgid "check.operation.withdraw.wizard"
+msgstr "check.operation.withdraw.wizard"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_account_move_line_check_id
+msgid "check_id"
+msgstr "check_id"
+
+#. module: deferred_checks
+#: model:ir.model,name:deferred_checks.model_checks_paid_deposit
+msgid "checks.paid.deposit"
+msgstr "checks.paid.deposit"
+
+#. module: deferred_checks
+#: model:ir.model,name:deferred_checks.model_checks_paid_reject
+msgid "checks.paid.reject"
+msgstr "checks.paid.reject"
+
+#. module: deferred_checks
+#: model:ir.model,name:deferred_checks.model_checks_paid_transfer
+msgid "checks.paid.transfer"
+msgstr "checks.paid.transfer"
+
+#. module: deferred_checks
+#: model:ir.model,name:deferred_checks.model_cridit_debit_note_wiz
+msgid "cridit.debit.note.wiz"
+msgstr "cridit.debit.note.wiz"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_form_view
+msgid "draw cash"
+msgstr "draw cash"
+
+#. module: deferred_checks
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_deposit_wizard_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_redeposit_wizard_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_reject_wizard_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_transfer_back_wizard_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_transfer_wizard_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.check_operation_withdraw_wizard_form_view
+#: model:ir.ui.view,arch_db:deferred_checks.due_date_wizard_form
+#: model:ir.ui.view,arch_db:deferred_checks.wizard_form
+#: model:ir.ui.view,arch_db:deferred_checks.wizard_payment_form
+msgid "or"
+msgstr "أو"
+
+#. module: deferred_checks
+#: model:ir.model.fields,field_description:deferred_checks.field_checks_paid_payment_type
+msgid "payment_type"
+msgstr "payment_type"
+
+#. module: deferred_checks
+#: model:ir.model,name:deferred_checks.model_receive_check_log
+msgid "receive.check.log"
+msgstr "receive.check.log"
+
+#. module: deferred_checks
+#: model:ir.model,name:deferred_checks.model_selected_check_operation_details
+msgid "selected.check.operation.details"
+msgstr "selected.check.operation.details"
+
+#. module: deferred_checks
+#: model:ir.model,name:deferred_checks.model_wizard_payment
+msgid "wizard.payment"
+msgstr "wizard.payment"
+
+#. module: deferred_checks
+#: code:addons/deferred_checks/models/check_operation.py:260
+#, python-format
+msgid "you can't cancel transfer to customer"
+msgstr "you can't cancel transfer to customer"
+

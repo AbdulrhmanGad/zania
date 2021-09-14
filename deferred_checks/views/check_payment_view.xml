@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model='ir.ui.view' id='wizard_payment_form'>
+            <field name="name">wizard.payment.form</field>
+            <field name="model">wizard.payment</field>
+            <field name="arch" type="xml">
+                <form string="Payment">
+                    <group>
+                        <field name="payment_journal" widget='selection'/>
+                    </group>
+                    <footer>
+                        <button name="create_payment" string="Pay" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model='ir.actions.act_window' id='wizard_payment_act'>
+            <field name="name">Payment</field>
+            <field name="res_model">wizard.payment</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_payment_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.ui.view" id="checks_paid_form_erpsmart">
+            <field name="name">checks.paid.form</field>
+            <field name="model">checks.paid</field>
+            <field name="arch" type="xml">
+                <form string="Checks Form" create="false" delete="false">
+                    <header>
+                        <button name="transfer_check" type="object" states="received" string="Transfer"
+                                class="oe_highlight"/>
+                        <button name="deposit_check" type="object" states="transferred" string="Deposit"
+                                class="oe_highlight"/>
+                        <button name="reject_check" type="object" states="transferred" string="Reject"
+                                class="oe_highlight"/>
+                        <button name="%(wizard_payment_act)d" type="action" states="rejected" string="Payment"
+                                class="oe_highlight"
+                                context="{'differed_check':id}"/>
+                        <button name="permanent_reject" type="object" states="rejected" string="Return"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="received,transferred"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="action_view_payment"
+                                    string="Payment" type="object" icon="fa-pencil-square-o">
+                            </button>
+                            <field name="move_line_ids" invisible="1"/>
+                            <button class="oe_stat_button" name="action_view_transactions"
+                                    string="Journal Items" type="object"
+                                    attrs="{'invisible':[('move_line_ids','=',[])]}" icon="fa-bars">
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Check Details">
+                                <field name="received_date" readonly="1"/>
+                                <field name="payment_form" invisible="1"/>
+                                <field name="check_type" readonly="1"/>
+                                <field name="issuer_names" attrs="{'invisible': [('check_type','=','outbound')]}"
+                                       readonly="1"/>
+                                <field name="bank_account" readonly="1"/>
+                                <field name="branch_name" readonly="1"/>
+                                <field name="bank_name" readonly="1"/>
+                                <field name="due_date" attrs="{'readonly': [('state','not in',['received'])]}"/>
+                                <field name="amount" readonly="1"/>
+                            </group>
+                            <group string="Transfer and Deposit Details">
+                                <field name="transfer_date" readonly="1"/>
+                                <field name="deposit_date" readonly="1"/>
+                                <field name="transfer_bank" attrs="{'readonly':[('state','not in',('received'))]}"/>
+                                <field name="deposit_accnt"
+                                       attrs="{'readonly':[('state','not in',('received','transferred'))]}"/>
+                                <field name="deposited_journal" widget='selection'
+                                       attrs="{'readonly':[('state','not in',('received','transferred'))]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="note"/>
+                        </group>
+                        <field name="receive_checks">
+                            <tree editable="bottom" create="false" delete="false" edit="false">
+                                <field name="date"/>
+                                <field name="creation_date"/>
+
+                                <field name="state"/>
+                                <field name="transaction"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="checks_paid_search_erpsmart">
+            <field name="name">checks.paid.search</field>
+            <field name="model">checks.paid</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Differed Check"/>
+                    <field name="state"/>
+                    <field name="due_date"/>
+                    <field name="issuer_names"/>
+                    <field name="received_date"/>
+                    <field name="bank_name"/>
+                    <field name="payment_form"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Today's Transaction" name="Today 's Transaction"
+                                domain="[('received_date', '=', datetime.datetime.today().strftime('%Y-%m-%d'))]"/>
+                        <filter string="State" domain="[]" name="state" context="{'group_by':'state'}"/>
+                        <filter string="Due Date" domain="[]" name="due_date" context="{'group_by':'due_date'}"/>
+                        <filter string="Received Date" domain="[]" name="received_date"
+                                context="{'group_by':'received_date'}"/>
+                        <filter string="Issuer Name" domain="[]" name="issuer_date"
+                                context="{'group_by':'issuer_names'}"/>
+                        <filter string="Bank" domain="[]" name="bank" context="{'group_by':'bank_name'}"/>
+                        <filter string="Payment" domain="[]" name="payment" context="{'group_by':'payment_form'}"/>
+                        <filter string="Expired Checks" name="=expire_checks"
+                                domain="[('due_date', '&lt;', datetime.datetime.today())]"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="checks_paid_search_erpsmart1">
+            <field name="name">checks.paid.search1</field>
+            <field name="model">checks.paid</field>
+            <field name="arch" type="xml">
+                <search string="Search Differed Checks">
+                    <field name="name" string="Differed Check"/>
+                    <field name="due_date"/>
+                    <field name="payment_form"/>
+                    <field name="bank_name"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Due Date" name="due_date" domain="[]" context="{'group_by':'due_date'}"/>
+                        <filter string="Payment" name="payment" domain="[]" context="{'group_by':'payment_form'}"/>
+                        <filter string="Bank" name="bank" domain="[]" context="{'group_by':'bank_name'}"/>
+                        <filter string="Expired Checks" name="expired_checks" domain="[('due_date', '&lt;', datetime.datetime.today())]"/>
+                        <filter string="Today's Transaction" name="Today 's Transaction"
+                                domain="[('received_date', '=', datetime.datetime.today().strftime('%Y-%m-%d'))]"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="checks_paid_form_erpsmart1">
+            <field name="name">checks.paid.form1</field>
+            <field name="model">checks.paid</field>
+            <field name="arch" type="xml">
+                <form string="Checks Form" delete="false">
+                    <header>
+                        <!--                		<button name="transfer_check" type="object" states="received" string="Transfer" class="oe_highlight"/>-->
+                        <!--                        <button name="deposit_check" type="object" states="transferred" string="Deposit" class="oe_highlight"/>-->
+                        <!--                        <button name="reject_check" type="object" states="transferred" string="Reject" class="oe_highlight"/>-->
+                        <!--                        <button name="%(wizard_payment_act)d" type="action" states="rejected" string="Payment" class="oe_highlight"-->
+                        <!--                                        context="{'differed_check':id}"/>-->
+                        <button name="permanent_reject" type="object" states="rejected" string="Return"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="withdraw_from_bank,rejected"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="action_view_payment"
+                                    string="Payment" type="object" icon="fa-pencil-square-o">
+                            </button>
+                            <field name="move_line_ids" invisible="1"/>
+                            <button class="oe_stat_button" name="action_view_transactions"
+                                    string="Journal Items" type="object"
+                                    attrs="{'invisible':[('move_line_ids','=',[])]}" icon="fa-bars">
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="received_date" string="Issued date"/>
+                                <field name="payment_form" invisible="1"/>
+                                <field name="check_type"/>
+                                <field name="branch_name"/>
+                                <field name="bank_name"/>
+                            </group>
+                            <group>
+                                <field name="bank_account"/>
+                                <field name="deposited_journal" widget='selection'/>
+                                <field name="due_date"/>
+                                <field name="amount"/>
+                                <field name="transfer_date" readonly="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="note"/>
+                        </group>
+                        <field name="receive_checks">
+                            <tree editable="bottom">
+                                <field name="date"/>
+                                <field name="creation_date"/>
+
+                                <field name="state"/>
+                                <field name="transaction"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="checks_paid_tree_view1">
+            <field name="name">checks.paid.tree1</field>
+            <field name="model">checks.paid</field>
+            <field name="arch" type="xml">
+                <tree name="Issued Checks" decoration-info="state == 'transferred'"
+                      decoration-success="state == 'success'" decoration-danger="state == 'rejected'"
+                      decoration-muted="state == 'returned'" delete="true">
+                    <field name="name"/>
+                    <field name="branch_name"/>
+                    <field name="bank_name"/>
+                    <field name="bank_account"/>
+                    <field name="transfer_bank"/>
+                    <field name="due_date"/>
+                    <field name="amount" sum='Total'/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="checks_paid_tree_view">
+            <field name="name">checks.paid.tree</field>
+            <field name="model">checks.paid</field>
+            <field name="arch" type="xml">
+                <tree name="Received Checks" decoration-info="state == 'transferred'"
+                      decoration-success="state == 'success'" decoration-danger="state == 'rejected'"
+                      decoration-muted="state == 'returned'" delete="true">
+                    <field name="name"/>
+                    <field name="issuer_names"/>
+                    <field name="branch_name"/>
+                    <field name="bank_name"/>
+                    <field name="bank_account"/>
+                    <field name="transfer_bank"/>
+                    <field name="due_date"/>
+                    <field name="amount" sum='Total'/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_received_checks" model="ir.actions.act_window">
+            <field name="name">Received Checks</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">checks.paid</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="checks_paid_search_erpsmart"/>
+            <field name="domain">['|',('check_type', '=', 'inbound'),('state', 'in', ('issue',))]</field>
+            <field name="context">{
+                'default_check_type': 'inbound',
+                'from_screen': 'from_screen',
+                }
+            </field>
+        </record>
+
+        <record id="action_issued_checks" model="ir.actions.act_window">
+            <field name="name">Issued Checks</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">checks.paid</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('check_type', '=', 'outbound')]</field>
+            <field name="search_view_id" ref="checks_paid_search_erpsmart1"/>
+            <field name="context">{
+                'default_check_type': 'outbound',
+                'default_state':'issue',
+                'from_screen': 'from_screen',
+                }
+            </field>
+            <field name="view_ids"
+                   eval="[(5, 0, 0), (0, 0, {'view_mode': 'tree', 'view_id': ref('checks_paid_tree_view1')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('checks_paid_form_erpsmart1')})]
+                          "/>
+
+        </record>
+
+
+        <record id="account_checks_paid_transfer_view" model="ir.ui.view">
+            <field name="name">checks.paid.transfer.form</field>
+            <field name="model">checks.paid.transfer</field>
+            <field name="arch" type="xml">
+                <form string="Transfer Checks">
+                    <group>
+                        <field name="transfer_bnk"/>
+                    </group>
+                    <footer>
+                        <button string="Transfer" name="check_transfer" type="object" default_focus="1"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="account_checks_paid_deposit_view" model="ir.ui.view">
+            <field name="name">checks.paid.deposit.form</field>
+            <field name="model">checks.paid.deposit</field>
+            <field name="arch" type="xml">
+                <form string="Deposit Checks">
+                    <group>
+                        <group>
+                            <field name="transfer_bnk"/>
+                            <field name="accnt_no"/>
+                        </group>
+                        <group>
+                            <field name="deposit_journal"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Deposit" name="check_deposit" type="object" default_focus="1"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="account_checks_paid_reject_view" model="ir.ui.view">
+            <field name="name">checks.paid.reject.form</field>
+            <field name="model">checks.paid.reject</field>
+            <field name="arch" type="xml">
+                <form string="Reject Checks">
+                    <p class="oe_grey">
+                        Once selected checks are confirmed to reject it will
+                        directly rejected the checks.
+                    </p>
+                    <footer>
+                        <button string="Reject" name="check_reject" type="object" default_focus="1"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!--        <act_window id="action_check_transfer"-->
+        <!--                    multi="True"-->
+        <!--                    key2="client_action_multi"-->
+        <!--                    name="Transfer Checks"-->
+        <!--                    res_model="checks.paid.transfer"-->
+        <!--                    src_model="checks.paid"-->
+        <!--                    view_mode="form" target="new" view_type="form"/>-->
+
+        <act_window id="action_check_transfer"
+                    name="Transfer Checks"
+                    res_model="checks.paid.transfer"
+                    binding_model="checks.paid"
+                    view_mode="form" target="new"/>
+
+
+        <!--        <act_window id="action_check_payment1"-->
+        <!--                    multi="True"-->
+        <!--                    key2="client_action_multi" name="Deposit Checks"-->
+        <!--                    res_model="checks.paid.deposit" src_model="checks.paid"-->
+        <!--                    view_mode="form" target="new" view_type="form"/>-->
+        <act_window id="action_check_payment1"
+                    name="Deposit Checks"
+                    res_model="checks.paid.deposit"
+                    binding_model="checks.paid"
+                    view_mode="form" target="new"/>
+
+
+        <!--        <act_window id="action_check_payment_reject"-->
+        <!--                    multi="True"-->
+        <!--                    key2="client_action_multi" name="Reject Checks"-->
+        <!--                    res_model="checks.paid.reject" src_model="checks.paid"-->
+        <!--                    view_mode="form" target="new" view_type="form"/>-->
+        <!--        -->
+        <act_window id="action_check_payment_reject"
+                    name="Reject Checks"
+                    res_model="checks.paid.reject"
+                    binding_model="checks.paid"
+                    view_mode="form" target="new"/>
+
+
+        <menuitem name="Received Checks" parent="account.menu_finance_receivables" id="received_checks_menu"
+                  sequence="4"
+                  action="action_received_checks"/>
+        <menuitem name="Issued Checks" parent="account.menu_finance_payables" id="issued_checks_menu" sequence="3"
+                  action="action_issued_checks"/>
+
+    </data>
+</odoo>

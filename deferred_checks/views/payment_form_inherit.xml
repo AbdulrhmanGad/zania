@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_partner_property_form_inherited" model="ir.ui.view">
+            <field name="name">res.partner.form.inherited</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <field name="currency_id" position="after">
+                    <field name="max_check_amount" widget="monetary"/>
+                </field>
+            </field>
+        </record>
+
+
+        <record id="account_check_printing.view_account_payment_form_inherited" model="ir.ui.view">
+            <field name="name">account.payment.form.inherited</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date']" position="replace">
+                    <field name="admin_check_field" invisible="1"/>
+                    <field name="date" attrs="{'readonly': [('admin_check_field', '!=', True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='currency_id']" position="replace"></xpath>
+                <xpath expr="//field[@name='journal_id']" position="replace">
+                    <label for="journal_id"/>
+                    <xpath expr="//form/sheet/group/group[1]/div" position="replace">
+                        <div name="journal_id" class="o_row">
+                            <field name="journal_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="currency_id" options="{'no_create': True, 'no_open': True}"
+                                   groups="base.group_multi_currency" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+
+                        </div>
+                    </xpath>
+                </xpath>
+
+
+                <field name="journal_id" position="after">
+                    <field name="transferred_check" attrs="{'invisible': ['|', ('payment_method_code',
+						'!=', 'check_printing'), ('payment_type', '=', 'inbound')], 'readonly':[('state','!=','draft')]}"/>
+                    <field name='check_number' string='Starting Check Number' invisible="1"/>
+                    <field name='due_date' invisible="1"/>
+                    <field name='customer_bank_acc' invisible="1"/>
+                    <field name='branch_name' invisible="1"/>
+                    <field name='branch_no' invisible="1"/>
+                    <field name='bank_account' invisible="1"/>
+                    <field name='ch_amount' invisible="1"/>
+                </field>
+                <field name="ref" position="after">
+                    <field name="avg_days"/>
+                    <field name="sales_person"/>
+                </field>
+                <sheet position="inside">
+                    <notebook>
+                        <page string="Transferred Checks" attrs="{'invisible': [('transferred_check', '=',False)]}">
+                            <field name="transferred_checks" attrs="{'readonly':[('state','!=','draft')]}">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name='customer_bank_acc'/>
+                                    <field name="bank_account"/>
+                                    <!--domain="[('company_id','in',[company_id.id])]-->
+                                    <field name='branch_no'/>
+                                    <field name="branch_name"/>
+                                    <field name="amount"/>
+                                    <field name="due_date"/>
+                                    <field name="received_date"/>
+                                    <field name="issuer_names"/>
+                                    <field name="issuer_name" attrs="{'invisible': [('check_type','=','outbound')]}"/>
+                                    <field name="check_type"/>
+                                    <field name="check_type_test" invisible="1"/>
+                                    <field name="state" invisible="1"/>
+                                    <field name='states' readonly='1'/>
+                                    <field name="bank_name" invisible="1"/>
+                                    <field name='ch_number' invisible="1"/>
+                                    <field name='customer_bank_acc_rel' invisible="1"/>
+                                    <field name='ch_number' invisible="1"/>
+                                    <field name='ch_amount' invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Check Payments"
+                              attrs="{'invisible': ['|', ('payment_method_code', '!=','check_printing'), ('transferred_check', '=', True)]}">
+
+                            <field name="checks_paid" attrs="{'readonly':[('state','!=','draft')]}"
+                                   context="{'c_ids':checks_paid}">
+                                <tree editable="bottom">
+                                    <field name="payment_form" invisible="1"/>
+                                    <field name="name"/>
+                                    <field name='customer_bank_acc'
+                                           attrs="{'invisible': [('check_type','!=','transfer'),('payment_type','=', 'outbound')]}"/>
+
+                                    <field name="bank_account" context="{'filter_comapny_id':True}"/>
+                                    <field name='branch_no'/>
+                                    <field name="branch_name"/>
+                                    <field name="amount"/>
+                                    <field name="due_date"/>
+                                    <field name="issuer_names"/>
+                                    <field name="issuer_name" attrs="{'invisible': [('check_type','=','outbound')]}"/>
+                                    <field name="check_type"/>
+                                    <field name="check_type_test" invisible="1"/>
+                                    <field name="state" invisible="1"/>
+                                    <field name='states' readonly='1'/>
+                                    <field name="bank_name" invisible="1"/>
+                                    <field name='ch_number' invisible="1"/>
+                                    <field name='customer_bank_acc_rel' invisible="1"/>
+                                    <field name='ch_number' invisible="1"/>
+                                    <field name='payment_type' invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+
+                </sheet>
+                <xpath expr="//sheet" position="after">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" help="Follow this salesteam
+							to automatically track the events associated to users of this team."/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+        <record id="account.action_account_payments" model="ir.actions.act_window">
+            <field name="name">Payments</field>
+            <field name="res_model">account.payment</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="context">{'default_payment_type': 'inbound', 'default_partner_type': 'customer'}</field>
+            <field name="domain">[('partner_type', 'in', ['customer','employee'])]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to register a payment
+                </p>
+                <p>
+                    Payments are used to register liquidity movements (send, collect or transfer money).
+                    You can then process those payments by your own means or by using installed facilities.
+                </p>
+            </field>
+        </record>
+        <record id="account_check_printing.view_account_payment_form_inherited" model="ir.ui.view">
+            <field name="name">account.payment.form.inherited1</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <sheet position="inside">
+                    <notebook>
+                        <page string="Check Payments" attrs="{'invisible': [('payment_method_code', '!=',
+							'check_printing')]}">
+                            <field name="checks_paid" attrs="{'readonly':[('state','!=','draft')]}"
+                                   context="{'c_ids':checks_paid}">
+                                <tree editable="bottom">
+                                    <field name="payment_form" invisible="1"/>
+                                    <field name="name"/>
+                                    <field name="bank_account"/>
+                                    <field name="check_type_test" invisible="1"/>
+                                    <field name="check_type"/>
+                                    <field name="issuer_name" attrs="{'invisible': [('check_type','=','outbound')]}"/>
+                                    <field name="bank_name"/>
+                                    <field name="branch_name"/>
+                                    <field name="due_date"/>
+                                    <field name="amount"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </field>
+        </record>
+        <!--record id="res_bank_form_inherited1" model="ir.ui.view">
+            <field name="name">res.bank.form.inherited1</field>
+            <field name="model">res.bank</field>
+            <field name="inherit_id" ref="base.view_res_bank_form" />
+            <field name="arch" type="xml">
+                <field name="active" position="after">
+                <field name="branch_name" required='1'/>
+                </field>
+                <field name="bic" position="attributes">
+                    <attribute name="required">1</attribute>
+                </field>
+            </field>
+        </record-->
+
+    </data>
+</odoo>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="check_operation_transfer_wizard_form_view" model="ir.ui.view">
+            <field name="name">Check.Transfer.Form.view</field>
+            <field name="model">check.operation.transfer.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Check Transfer To">
+                    <sheet>
+                    <group>
+
+                        <field name="trans_user_account"/>
+                        <field name="transfer_account" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button string="Transfer" name="transfer_check" type="object" class="btn-primary"/>
+                        or
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="check_operation_transfer_wizard_action" model="ir.actions.act_window">
+            <field name="name">Check Transfer To</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">check.operation.transfer.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="check_operation_transfer_back_wizard_form_view" model="ir.ui.view">
+            <field name="name">Check.Transfer.Back.Form.view</field>
+            <field name="model">check.operation.transfer.backtoorigin.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Select Reason">
+                    <sheet>
+                    <group>
+                        <field name="origin_type"/>
+                    </group>
+                    <footer>
+                        <button string="Select" name="back_to_origin" type="object" class="btn-primary"/>
+                        or
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="check_operation_transfer_back_wizard_action" model="ir.actions.act_window">
+            <field name="name">Check Back to origin Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">check.operation.transfer.backtoorigin.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+		<record id="check_operation_withdraw_wizard_form_view" model="ir.ui.view">
+            <field name="name">Check.withdraw.Form.view</field>
+            <field name="model">check.operation.withdraw.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Check Transfer To">
+                    <sheet>
+                    <group>
+
+                        <field name="withdraw_user_account" />
+                        <field name="withdraw_account" invisible="1"/>
+                        
+                        
+                    </group>
+                    <footer>
+                        <button string="Withdraw" name="withdraw_check" type="object" class="btn-primary"/>
+                        or
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="check_operation_withdraw_wizard_action" model="ir.actions.act_window">
+            <field name="name">Check Withdraw To</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">check.operation.withdraw.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        <record id="check_operation_deposit_wizard_form_view" model="ir.ui.view">
+            <field name="name">Check.deposit.Form.view</field>
+            <field name="model">check.operation.deposit.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Check deposit To">
+                    <sheet>
+                    <group col="4">
+                        <field name="deposite_journal_id" invisible="1" />
+                        <field name="deposite_bank_account"/>
+                        <field name="deposite_account" invisible='1'/>
+                    </group>
+                    <footer>
+                        <button string="Deposit" name="check_deposit" type="object" class="btn-primary"/>
+                        or
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="check_operation_redeposit_wizard_form_view" model="ir.ui.view">
+            <field name="name">Check.redeposit.Form.view</field>
+            <field name="model">check.operation.redeposit.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Check Redeposit To">
+                    <sheet>
+                    <group col="4">
+                        <field name="deposite_journal_id" invisible="1"/>
+                        <field name="deposite_bank_account"/>
+                        <field name="deposite_account" invisible='1'/>
+                    </group>
+                    <footer>
+                        <button string="Redeposit" name="check_redeposit" type="object" class="btn-primary"/>
+                        or
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="check_operation_deposit_wizard_action" model="ir.actions.act_window">
+            <field name="name">Check deposit To</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">check.operation.deposit.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+         <record id="check_operation_redeposit_wizard_action" model="ir.actions.act_window">
+            <field name="name">Check redeposit To</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">check.operation.redeposit.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <record id="check_operation_reject_wizard_form_view" model="ir.ui.view">
+            <field name="name">Check.reject.Form.view</field>
+            <field name="model">check.operation.reject.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Check reject To">
+                    <sheet>
+                    <h4>Are you Want to Sure Reject All the Check as on the List.</h4>
+                    <footer>
+                        <button string="Reject" name="check_reject" type="object" class="btn-primary"/>
+                        or
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="check_operation_reject_wizard_action" model="ir.actions.act_window">
+            <field name="name">Check reject</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">check.operation.reject.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

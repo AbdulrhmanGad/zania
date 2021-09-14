@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+
+        <record model="ir.ui.view" id="check_operation_form_view">
+            <field name="name">check.operation.form</field>
+            <field name="model">check.operation</field>
+            <field name="arch" type="xml">
+                <form string="Check Operation Form" >
+                	<header>
+                		<!-- <button name='transfer_to_bank' type='object' string="Transfer To Bank" class='oe_highlight'/> -->
+                        <button name='%(check_operation_transfer_wizard_action)d' type='action' string="Transfer To Bank" class='oe_highlight'
+                            attrs="{'invisible': [('state','in',['confirm'])]}"/>
+                        <button name='%(check_operation_deposit_wizard_action)d' type='action' string="Deposit To Account" class='oe_highlight'
+                            attrs="{'invisible': [('state','in',['confirm'])]}"/>
+                		<!-- <button name='deposit_to_account' type='object' string="Deposit To Account" class='oe_highlight'/> -->
+                		<button name='%(check_operation_redeposit_wizard_action)d' type='action' string="Redeposit" class='oe_highlight'
+                            attrs="{'invisible': [('state','in',['confirm'])]}"/>
+                		<button name='validate_request' type='object' string="Back To Origin" class='oe_highlight'
+                            attrs="{'invisible': [('state','in',['confirm'])]}"/>
+                        <button name='act_confirm' type='object' string="Confirm Operations" class='oe_highlight'
+                            attrs="{'invisible': [('state','in',['confirm'])]}" />
+                        <button name='rejects_check' type='object' string="Rejects" class='oe_highlight'
+                           attrs="{'invisible': [('state','in',['confirm'])]}"/>
+                        <button name='draw_cash' type='object' string="draw cash" class='btn btn-danger'
+                           attrs="{'invisible': [('state','in',['confirm'])]}"/>
+                        <button name='recollect_check' type='object' string="Recollect" class='btn btn-warning '
+                           attrs="{'invisible': [('state','in',['confirm'])]}"/>
+                        <button name='cancel_bank_transfer'   type='object' string="C.Bank.Transfer" class="btn btn-info" groups="base.group_system" attrs="{'invisible': [('state','in',['confirm'])]}"/>
+                        <button name='cancel_vendor_transfer'   type='object' string="C.Vendor.Transfer"  class="btn btn-info" groups="base.group_system" attrs="{'invisible': [('state','in',['confirm'])]}"/>
+                            <field name="state" widget="statusbar"/>
+                        </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="admin_check_field" invisible="1"/>
+              
+                                
+                                <field name="date_transaction"  attrs="{'readonly': [('admin_check_field', '!=', True)]}" />
+
+                                
+                                
+                                <field name="check_number"/>
+                                <field name="bank_id" invisible="0"/>
+                                <field name="amount"/>
+                                <field name="acc_number"/>
+                                <field name="check_type" invisible="1"/>
+                                <field name="transfered_bank" />
+                              
+                                <!--<field name="branch_name"/>-->
+                            </group>
+                            <group>
+                            
+                                <field name="due_date"/>
+                                
+                                <field name="vendor_id" /> <!-- domain="[('customer', '=', False)]" -->
+                                <field name="issuer_id" />
+                                <field name="state_search"/>
+                                <button class='search_btn' name='search_check_data' type='object' string="Search"/>
+                            </group>
+                        <field name="select_all"/>    
+                        </group>
+                        <field name='checks_paid_ids' attrs="{'readonly': [('state','in',['confirm'])]}">                       
+                        		<tree editable="bottom" create="false">
+                        			<field name="selected_check"/>
+                        			<field name="check_name" readonly="1"/>
+                                    <field name="acc_number" readonly="1"/>
+                                    <field name="received_date" readonly="1"/>
+									<field name="issuer_names" readonly="1"  />
+									<field name="branch_name" readonly="1"/>			
+									<field name='bank_id' readonly="1"/>	
+									<field name="due_date" readonly="1"/>
+									<field name="amount" readonly="1"/>
+                                    <field name="currency_code" />
+									<field name="state" readonly="1"/>
+								</tree>
+                        </field>
+                        
+                        <button name='add_to_selected_list' type='object' string="Add to list" class='oe_highlight'
+                             attrs="{'invisible': [('state','in',['confirm'])]}" />
+                        
+                        <group string="Selected Checkes" name="Selected Checkes"/>
+                        <field name='selected_checks_detail_ids' attrs="{'readonly': [('state','in',['confirm'])]}">
+                    	<tree editable="bottom" create="false" delete="false">
+									<field name="check_name" readonly="1"/>
+                                    <field name="acc_number" readonly="1"/>
+                                    <field name="received_date" readonly="1"/>	
+									<field name="issuer_names"  readonly="1"/>
+									<field name="branch_name" readonly="1"/>			
+									<field name='bank_id' readonly="1"/>
+									<field name="due_date" readonly="1"/>
+                                    <field name="amount" widget="monetary" options="{'display_currency':'currency_code'}" readonly="1"/>
+									<field name="currency_code" readonly="1"/>
+									<field name="state"/>
+									<button name='delete_selected_list' type='object' string="Delete" icon="fa fa-trash-o" />
+                        
+								</tree>
+                        </field>
+                        <group class="oe_subtotal_footer oe_right" colspan="3">
+                            <field name="number_check" readonly="1"/>
+                            <field name="total_amount" readonly="1"/>
+                        </group>
+                	</sheet>
+                </form>
+            </field>
+        </record>
+
+        
+		<record model="ir.ui.view" id="issue_check_operation_form_view">
+            <field name="name">check.operation.form</field>
+            <field name="model">check.operation</field>
+            <field name="arch" type="xml">
+                <form string="Check Operation Form" >
+                	<header>
+                        <button name='%(check_operation_withdraw_wizard_action)d' type='action' string="Withdraw To Bank" class='oe_highlight'
+                            attrs="{'invisible': [('state','in',['confirm'])]}" />
+                		<button name='rejects_check' type='object' string="Rejects" class='oe_highlight'
+                           attrs="{'invisible': [('state','in',['confirm'])]}"/>
+                        <button name='act_confirm' type='object' string="Confirm Operations" class='oe_highlight'
+                             attrs="{'invisible': [('state','in',['confirm'])]}" />
+                            <field name="state" widget="statusbar"/>
+                        </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                    <field name="user_id"  invisible="1"/>
+                                
+                                   <field name="date_transaction"  attrs="{'readonly': [('user_id', '!=', 1)]}" />
+                                   <field name="transfered_bank"/>
+                                    <field name="check_number"/>
+                                    <field name="bank_id" invisible="0"/>
+                                    <field name="amount"/>
+                                    <field name="acc_number"/>
+                                
+                                    <!--<field name="branch_name"/>-->
+                                </group>
+                                <group>
+                                    <field name="due_date"/>
+                                    <field name="partner_id" /> <!-- domain="[('customer', '=', True)]" -->
+                                    <field name="issuer_id"/>
+                                    <button name='search_issue_check_data' attrs="{'invisible': [('state','in',['confirm'])]}" type='object' string="Search"/>
+                                </group>
+                        </group>
+                        <field name='checks_paid_ids' attrs="{'readonly': [('state','in',['confirm'])]}">
+                        		<tree editable="bottom" create="false">
+                        			<field name="selected_check"/>
+                        			<field name="check_name" readonly="1"/>
+                                    <field name="acc_number"/>
+									<field name="issuer_names" />
+									<field name="branch_name" readonly="1"/>			
+									<field name='bank_id' readonly="1"/>	
+									<field name="due_date" readonly="1"/>
+									<field name="currency_code" readonly="1"/>
+									<field name="amount" widget="monetary" options="{'display_currency':'currency_code'}" readonly="1"/>
+									<field name="state"/>
+								</tree>
+                                
+                        </field>
+                        
+                        <button name='add_to_selected_list' type='object' string="Add to list" class='oe_highlight'
+                           attrs="{'invisible': [('state','in',['confirm'])]}"/>
+                        <group string="Selected Checkes" name="Selected Checkes"/>
+                        <field name='selected_checks_detail_ids' attrs="{'readonly': [('state','in',['confirm'])]}">
+                    		<tree editable="bottom" create="false" delete="false">
+									<field name="check_name" readonly="1"/>
+									<field name="issuer_names"  />
+									<field name="branch_name" readonly="1"/>			
+									<field name='bank_id' readonly="1"/>	
+									<field name="due_date" readonly="1"/>
+                                    <field name="currency_code" readonly="1"/>
+									<field name="amount" widget="monetary" options="{'currency_field':'currency_code'}" readonly="1"/>
+									<field name="state"/>
+									<button name='delete_selected_list' type='object' string="Delete" icon="fa fa-trash-o" />
+								</tree>
+                        </field>
+                        <group class="oe_subtotal_footer oe_right" colspan="3">
+                            <field name="number_check" readonly="1"/>
+                            <field name="total_amount" readonly="1"/>
+                        </group>
+                	</sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="check_operation_tree_view">
+            <field name="name">check.operation.tree</field>
+            <field name="model">check.operation</field>
+            <field name="arch" type="xml">
+                <tree name="Check Operation">
+                    <field name="user_id"  invisible="1"/>
+                    <field name="date_transaction"  attrs="{'readonly': [('user_id', '!=', 1)]}" />
+					<field name="number_check" />
+					<field name="total_amount"/>			
+					<field name='transfer_bank'/>	
+                </tree>
+            </field>
+        </record>
+		
+        <record model="ir.ui.view" id="check_operation_search_view">
+            <field name="name">check.operation.search</field>
+            <field name="model">check.operation</field>
+            <field name="arch" type="xml">
+                <search string="Search Check Operation">
+                    <field name="user_id" invisible="1" />
+                    <field name="date_transaction" /> <!-- attrs="{'readonly': [('check_field', '=', True)]}" -->
+					<field name="number_check" />
+					<field name="total_amount"/>			
+					<field name='transfered_bank'/>
+               </search>
+            </field>
+        </record>
+        
+
+        <record id="action_check_operation" model="ir.actions.act_window">
+            <field name="name">Check Operation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">check.operation</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_check_type':'inbound'}</field>
+            <field name="domain">[('check_type','=','inbound')]</field>
+        </record>
+<!--        <record id="action_receive_check_operation_tree_view" model="ir.actions.act_window.view">-->
+<!--            <field eval="1" name="sequence"/>-->
+<!--            <field name="view_mode">tree</field>-->
+<!--            <field name="view_id" ref="check_operation_tree_view"/>-->
+<!--            <field name="act_window_id" ref="action_check_operation"/>-->
+<!--        </record>-->
+        <!-- <field name="domain">[('check_type','=','invoice')]</field>   this is for up -->
+<!--            <field name="context">{'default_check_type':'inbound'}</field>-->
+
+
+<!--         <record id="action_receive_check_operation_form_view" model="ir.actions.act_window.view">-->
+<!--            <field eval="2" name="sequence"/>-->
+<!--            <field name="view_mode">form</field>-->
+<!--            <field name="view_id" ref="check_operation_form_view"/>-->
+<!--            <field name="act_window_id" ref="action_check_operation"/>-->
+<!--            <field name="context">{'default_check_type':'inbound'}</field>-->
+<!--            </record>-->
+        
+        <menuitem name="Check Operation" parent="account.menu_finance_receivables" id="check_operation_menu" sequence="4"
+                        action="action_check_operation"/>
+
+         <record id="action_issue_check_operation" model="ir.actions.act_window">
+            <field name="name"> Check Operation</field>
+            <field name="res_model">check.operation</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('check_type','=','outbound')]</field>
+            <field name="context">{'default_check_type':'outbound'}</field>
+        </record>
+<!--        <record id="action_issue_check_operation_tree_view" model="ir.actions.act_window.view">-->
+<!--            <field eval="1" name="sequence"/>-->
+<!--            <field name="view_mode">tree</field>-->
+<!--            <field name="view_id" ref="check_operation_tree_view"/>-->
+<!--            <field name="act_window_id" ref="action_issue_check_operation"/>-->
+<!--            <field name="domain">[('check_type','=','outbound')]</field>-->
+<!--            <field name="context">{'default_check_type':'outbound'}</field>-->
+<!--        </record>-->
+<!--        <record id="action_issue_check_operation_form_view" model="ir.actions.act_window.view">-->
+<!--            <field eval="2" name="sequence"/>-->
+<!--            <field name="view_mode">form</field>-->
+<!--            <field name="view_id" ref="issue_check_operation_form_view"/>-->
+<!--            <field name="act_window_id" ref="action_issue_check_operation"/>-->
+<!--            <field name="context">{'default_check_type':'outbound'}</field>-->
+<!--        </record>-->
+        
+		<menuitem name="Check Operation" parent="account.menu_finance_payables" id="issued_check_operation_menu" sequence="4"
+                        action="action_issue_check_operation"/>
+
+        <record id="action_check_search" model="ir.actions.client">
+            <field name="name">check Search</field>
+            <field name="tag">check_search_okay</field>
+            <field name="target">main</field>
+        </record>
+        
+    </data>
+</odoo>

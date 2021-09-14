@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="checks_paid_tree_view_updated" model="ir.ui.view">
+            <field name="name">view.checks.paid.update.tree</field>
+            <field name="model">checks.paid</field>
+            <field name="inherit_id" ref="deferred_checks.checks_paid_tree_view" />
+            <field name="arch" type="xml">
+                
+                <xpath expr="//field[@name='bank_account']" position="after">
+                    <field name="transfer_bank"/>
+                </xpath>
+                <xpath expr="//field[@name='bank_name']" position="replace">
+                    <field name="bank_name" invisible="1"/>
+                </xpath>
+                
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="check_list_action">
+            <field name="name">Received Checks</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">checks.paid</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+
+    </data>
+</odoo>
+
+
+
