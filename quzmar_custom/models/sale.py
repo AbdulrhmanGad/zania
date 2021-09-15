@@ -17,9 +17,10 @@ class SaleOrderLine(models.Model):
     def _onchange_new_price(self):
         self.price_unit = self.new_price * self.total_size
 
-    @api.onchange('new_quantity')
+    @api.onchange('new_quantity', 'total_size')
     def _onchange_new_quantity(self):
-        self.product_uom_qty = 1
+        # self.product_uom_qty = 1
+        self.product_uom_qty = self.total_size
 
     @api.depends('quzmar_length', 'quzmar_width', 'quzmar_height', 'new_quantity', 'quzmar_type')
     def compute_size(self):
