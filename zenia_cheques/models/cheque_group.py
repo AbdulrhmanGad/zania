@@ -8,7 +8,6 @@ from odoo.exceptions import ValidationError
 class AccountPaymentGroup(models.Model):
     _name = 'account.payment.group'
 
-    @api.onchange('cheque_ids', 'cheques_total')
     @api.constrains('cheque_ids', 'cheques_total')
     def change_cheque_ids(self):
         if self.state == 'confirm':
@@ -34,6 +33,8 @@ class AccountPaymentGroup(models.Model):
         return super(AccountPaymentGroup, self).create(vals)
 
     name = fields.Char('Group Name')
+    type = fields.Selection( string='Type', selection=[('receivable', 'Receivable'),  ('send', 'Send'), ])
+
     cheques_no = fields.Integer("Cheques Numbers", required=True)
     cheques_total = fields.Float("Total Amount", required=True)
     partner_id = fields.Many2one('res.partner', string='Customer')
@@ -61,8 +62,6 @@ class AccountPaymentGroup(models.Model):
             line.reset_to_draft()
         self.state = 'draft'
 
-
-
     def confirm_group(self):
         if self.cheques_total <= 0:
             raise ValidationError(_('Enter Positive Amount'))
@@ -71,8 +70,8 @@ class AccountPaymentGroup(models.Model):
         total = 0
         for i in range(count):
             payment = self.env['account.payment'].create({
-                'partner_type': 'customer',
-                'cheque_type': 'receivable',
+                'partner_type': 'customer' if self.type == 'receivable' else 'supplier',
+                'cheque_type': 'receivable' if self.type == 'receivable' else 'send',
                 'partner_id': self.partner_id.id,
                 'journal_id': self.journal_id.id,
                 'cheque_bank_id': self.cheque_bank_id.id,
@@ -80,15 +79,12 @@ class AccountPaymentGroup(models.Model):
                 'ref': self.ref,
                 'amount': round(self.cheques_total / self.cheques_no, 2),
             })
-            print(self.cheques_total / self.cheques_no)
             total += round(self.cheques_total / self.cheques_no, 2)
             payment_ids.append(payment.id)
-            print(">>>>>>>>>>>>>>>>> ", payment)
-        print(self.cheques_total, "==", total, "Differe>> ", self.cheques_total - total)
         if (self.cheques_total - total) > 0:
             payment = self.env['account.payment'].create({
-                'partner_type': 'customer',
-                'cheque_type': 'receivable',
+                'partner_type': 'customer' if self.type == 'receivable' else 'supplier',
+                'cheque_type': 'receivable' if self.type == 'receivable' else 'send',
                 'partner_id': self.partner_id.id,
                 'journal_id': self.journal_id.id,
                 'date': self.date,
