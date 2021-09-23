@@ -27,7 +27,7 @@ class ConstructionInvoice(models.Model):
     invoice_number = fields.Char('Invoice Number')
     date = fields.Date('Date', default=fields.Date.context_today,)
     due_date = fields.Date('Due Date')
-    ref = fields.Chart("Reference")
+    ref = fields.Char("Reference")
     contract_id = fields.Many2one(comodel_name='contract', string="Contract", )
     move_id = fields.Many2one(comodel_name='account.move', string="Move")
     next_id = fields.Many2one(comodel_name='construction.invoice', string="Next")
