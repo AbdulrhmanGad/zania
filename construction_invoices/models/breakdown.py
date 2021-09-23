@@ -135,7 +135,7 @@ class BreakDown(models.Model):
     def _onchange_indirect_type(self):
         for rec in self:
             if rec.indirect_type == 'amount':
-                if rec.cost_price_total_all > 0
+                if rec.cost_price_total_all > 0:
                     rec.indirect_percentage = (rec.indirect_amount / rec.cost_price_total_all) * 100
             else:
                 self.indirect_amount = (rec.cost_price_total_all * rec.indirect_percentage) / 100
