@@ -10,11 +10,13 @@ class AccountPayment(models.Model):
 
     def unlink(self):
         for rec in self:
-            if rec.cheque_state !='draft':
-                raise  ValidationError(_("TO Delete cheque, State Must Be Draft !!"))
+            if rec.cheque_state != 'draft':
+                raise ValidationError(_("TO Delete cheque, State Must Be Draft !!"))
         return super(AccountPayment, self).unlink()
 
     cheque_group_id = fields.Many2one('account.payment.group')
+    endorsement_partner_id = fields.Many2one('res.partner')
+    endorsement_date = fields.Date('Endorsement Date')
     cheque_type = fields.Selection(
         string=' Cheque Type ',
         selection=[('receivable', 'Receivable'),
@@ -23,12 +25,13 @@ class AccountPayment(models.Model):
         string=' Cheque Status ',
         selection=[('draft', 'Draft'),
                    ('confirm', 'Confirm'),
+                   ('endorsement', 'Endorsement'),
                    ('received', 'Received'),
                    ('under_collect', 'Under Collect'),
                    ('collect', 'Collect'),
                    ('return', 'Returned'),
                    ('reject', 'Rejected'),
-                   ], default='draft')
+                   ], default='draft', copy=False)
     cheque_no = fields.Char('رقم الشيك')
     due_date = fields.Date('Due Date')
     cheque_bank_id = fields.Many2one("res.bank", string="Bank")
@@ -216,6 +219,20 @@ class AccountPayment(models.Model):
             'context': {}
         }
 
+    def open_endorsement(self):
+        view_ref = self.env.ref('zenia_cheques.open_endorsement_view', False)
+        return {
+            'name': ('Endorsement Cheque'),
+            'view_mode': 'form',
+            'view_id': False,
+            'res_model': 'account.payment',
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+            'res_id': self.id,
+            'views': [(view_ref and view_ref.id or False, 'form')],
+            'context': {}
+        }
+
     def under_collect(self):
         if self.cheque_type == 'receivable':
             move_id = self.env['account.move'].create({
@@ -262,7 +279,7 @@ class AccountPayment(models.Model):
             self.env['account.move.line'].with_context(check_move_validity=False).create({
                 "move_id": move_id.id,
                 'payment_cheque_id': self.id,
-                "account_id": self.under_collect_journal_id.default_account_id.id,
+                "account_id": self.under_collect_journal_id.default_account_id.id or self.journal_id.default_account_id.id,
                 "name": self.under_collect_journal_id.name,
                 "ref": self.under_collect_journal_id.name,
                 "debit": 0,
@@ -313,9 +330,6 @@ class AccountPayment(models.Model):
         self.cheque_state = 'collect'
 
     def transfer(self):
-        pass
-
-    def reject(self):
         pass
 
     def open_return(self):
@@ -404,7 +418,7 @@ class AccountPayment(models.Model):
             self.env['account.move.line'].with_context(check_move_validity=False).create({
                 "move_id": move_id.id,
                 'payment_cheque_id': self.id,
-                "account_id": self.under_collect_journal_id.default_account_id.id,
+                "account_id": self.under_collect_journal_id.default_account_id.id or self.journal_id.default_account_id.id,
                 "name": self.under_collect_journal_id.name,
                 "ref": self.under_collect_journal_id.name,
                 "debit": 0,
@@ -444,3 +458,38 @@ class AccountPayment(models.Model):
             self.cheque_state = 'confirm'
         self.current_journal_id = self.reject_journal_id.id
         self.cheque_state = 'reject'
+
+    def endorsement_cheque(self):
+        if self.cheque_type == 'receivable':
+            if self.amount <= 0:
+                raise ValidationError(_("Enter Positive Amount"))
+            move_id = self.env['account.move'].create({
+                'payment_cheque_id': self.id,
+                'journal_id': self.journal_id.id,
+                "partner_id": self.partner_id.id,
+                'move_type': 'entry',
+                'ref': self.name
+            })
+            self.env['account.move.line'].with_context(check_move_validity=False).create({
+                "move_id": move_id.id,
+                'payment_cheque_id': self.id,
+                "account_id": self.partner_id.property_account_payable_id.id,
+                "name": self.partner_id.name,
+                "ref": self.partner_id.name,
+                "credit": 0,
+                "debit": self.amount,
+                "partner_id": self.partner_id.id,
+            })
+            self.env['account.move.line'].with_context(check_move_validity=False).create({
+                "move_id": move_id.id,
+                'payment_cheque_id': self.id,
+                "account_id": self.journal_id.default_account_id.id,
+                "name": self.journal_id.name,
+                "ref": self.journal_id.name,
+                "debit": 0,
+                "credit": self.amount,
+            })
+            self.current_journal_id = self.journal_id.id
+            move_id.action_post()
+            self.move_id = move_id.id
+            self.cheque_state = 'endorsement'

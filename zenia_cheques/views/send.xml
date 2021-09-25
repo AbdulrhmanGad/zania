@@ -33,7 +33,7 @@
 
 
                         <button name="open_reject" type="object" string="Reject"
-                                attrs="{'invisible':[('cheque_state','=','draft')]}"/>
+                                attrs="{'invisible':[('cheque_state','in', ['draft', 'reject'])]}"/>
                         <button name="reset_to_draft" type="object" string="Reset To Draft"
                                 attrs="{'invisible':[('cheque_state','=','draft')]}"/>
                         <field name="state" invisible="1" widget="statusbar"/>

@@ -80,6 +80,23 @@
                 </form>
             </field>
         </record>
+        <record id="open_endorsement_view" model="ir.ui.view">
+            <field name="name">open_endorsement_view</field>
+            <field name="model">account.payment</field>
+            <field name="arch" type="xml">
+                <form string="under_collect_view_form">
+                    <group>
+                        <field name="endorsement_partner_id"  required="1"/>
+                        <field name="endorsement_date" required="1"/>
+                    </group>
+                    <footer>
+                        <button name="endorsement_cheque" type="object" string="Endorsement" class="oe_highlight"/>
+                        OR
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
         <record id="under_collect_view" model="ir.ui.view">
             <field name="name">under_collect_view_view_form</field>
             <field name="model">account.payment</field>
@@ -135,11 +152,13 @@
                                 attrs="{'invisible':[('cheque_state','not in' ,['confirm', 'under_collect'])]}"/>
                         <button name="open_return" type="object" string="Return" class="oe_highlight"
                                 attrs="{'invisible':[('cheque_state','!=','confirm')]}"/>
+                        <button name="open_endorsement" type="object" string="تظهير الشيك " class="oe_highlight"
+                                attrs="{'invisible':[('cheque_state','!=','confirm')]}"/>
                         <!--                        <button name="transfer" type="object" string="Transfer" class="oe_highlight"-->
                         <!--                                attrs="{'invisible':[('cheque_state','!=','confirm')]}"/>-->
 
                         <button name="open_reject" type="object" string="Reject"
-                                attrs="{'invisible':[('cheque_state','=','draft')]}"/>
+                                attrs="{'invisible':[('cheque_state','in', ['draft', 'reject'])]}"/>
                         <button name="reset_to_draft" type="object" string="Reset To Draft"
                                 attrs="{'invisible':[('cheque_state','=','draft')]}"/>
                         <field name="state" invisible="1"/>

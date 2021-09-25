@@ -3,6 +3,7 @@ import datetime
 from datetime import datetime, timedelta
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
+from dateutil.relativedelta import relativedelta
 
 
 class AccountPaymentGroup(models.Model):
@@ -40,7 +41,8 @@ class AccountPaymentGroup(models.Model):
     partner_id = fields.Many2one('res.partner', string='Customer')
     cheque_bank_id = fields.Many2one('res.bank', string='Bank')
     journal_id = fields.Many2one('account.journal', string='Journal')
-    date = fields.Date('Date')
+    date = fields.Date('Date', default=fields.Date.today())
+    due_date = fields.Date('Due Date', default=fields.Date.today())
     ref = fields.Char('Ref')
     cheque_ids = fields.One2many(comodel_name='account.payment', inverse_name='cheque_group_id', )
     currency_id = fields.Many2one('res.currency', string='Currency', required=True,
@@ -68,26 +70,31 @@ class AccountPaymentGroup(models.Model):
         payment_ids = []
         count = self.cheques_no
         total = 0
+        month = 0
         for i in range(count):
+            month += 1
             payment = self.env['account.payment'].create({
                 'partner_type': 'customer' if self.type == 'receivable' else 'supplier',
                 'cheque_type': 'receivable' if self.type == 'receivable' else 'send',
                 'partner_id': self.partner_id.id,
                 'journal_id': self.journal_id.id,
                 'cheque_bank_id': self.cheque_bank_id.id,
-                'date': self.date,
+                'date': self.date ,
+                'due_date': self.due_date + relativedelta(months=month),
                 'ref': self.ref,
                 'amount': round(self.cheques_total / self.cheques_no, 2),
             })
             total += round(self.cheques_total / self.cheques_no, 2)
             payment_ids.append(payment.id)
         if (self.cheques_total - total) > 0:
+            month += 1
             payment = self.env['account.payment'].create({
                 'partner_type': 'customer' if self.type == 'receivable' else 'supplier',
                 'cheque_type': 'receivable' if self.type == 'receivable' else 'send',
                 'partner_id': self.partner_id.id,
                 'journal_id': self.journal_id.id,
                 'date': self.date,
+                'due_date': self.due_date + relativedelta(months=month),
                 'ref': self.ref,
                 'amount': self.cheques_total - total,
             })
