@@ -1,0 +1,53 @@
+<odoo>
+    <data>
+        <record id="sms_integration_res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="crm.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='group_use_lead']/../../.." position="after">
+                    <h2>SMS Integration</h2>
+                    <div class="row mt16 o_settings_container" name="one_days_login_setting_container">
+
+                        <div class="row o_settings_container">
+                            <div class="col-12 col-lg-10 o_setting_box" title="CRM SMS Integration" name="sms_integration">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+<!--                                    <div class="text-muted">-->
+<!--                                        User Name-->
+<!--                                    </div>-->
+                                    <div class="mt16 col-10" >
+                                        <label  for="enable_sms_integration" class="oe_inline" string="Enable" style="color:red"/>
+                                        <field name="enable_sms_integration" class="oe_inline" placeholder="Enable Integration"/>
+                                    </div>
+                                    <div class="mt16 col-10" attrs="{'invisible': [('enable_sms_integration', '!=', True)]}">
+                                        <label for="user_name" string="User Name" />
+                                        <field name="user_name" class="oe_inline" placeholder="User Name..."/>
+                                    </div>
+                                    <div class="mt16 col-10" attrs="{'invisible': [('enable_sms_integration', '!=', True)]}">
+                                        <label for="user_pass" string="Password" />
+                                        <field name="user_pass" class="oe_inline" placeholder="Password"/>
+                                    </div>
+                                    <div class="mt16 col-10" attrs="{'invisible': [('enable_sms_integration', '!=', True)]}">
+                                        <label for="sender" string="Sender" />
+                                        <field name="sender" class="oe_inline" placeholder="Sender"/>
+                                    </div>
+                                    <div class="mt16 col-10" attrs="{'invisible': [('enable_sms_integration', '!=', True)]}">
+                                        <label for="mobile" string="Mobile" />
+                                        <field name="mobile" class="oe_inline" placeholder="Mobile"/>
+                                    </div>
+                                    <div class="mt16 col-10" attrs="{'invisible': [('enable_sms_integration', '!=', True)]}">
+                                        <label for="message" string="Message..." />
+                                        <field name="message" class="oe_inline" placeholder="Message..."/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

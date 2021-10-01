@@ -3,11 +3,29 @@ import datetime
 from datetime import datetime, timedelta
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
+from odoo.exceptions import RedirectWarning, UserError, ValidationError, AccessError
 
 
 class AccountPayment(models.Model):
     _inherit = 'account.payment'
 
+    def get_default_journal(self):
+        print("self.env.context ",self.env.context)
+        print("self.env.context ",self._context)
+        if 'default_cheque_type' in self.env.context:
+            print(">>>>>>>>>>>>>>> ",self.cheque_type)
+            print(">>>>>>>>>>>>>>> ",self.env.context['default_cheque_type'])
+            if self.env.context['default_cheque_type'] == 'receivable':
+                print("XXXXXXXXXXrec")
+                return self.env['account.journal'].search([('receive_cheque', '=', True)])
+            elif self.env.context['default_cheque_type'] == 'send':
+                print("seeeeeeeeeeend")
+                return self.env['account.journal'].search([('send_cheque', '=', True)])
+        else:
+            print(">>>>>>>>>>> ", self._get_default_journal())
+            self._get_default_journal().id
+
+    journal_id = fields.Many2one('account.journal', required=True,  string="Journal",default=get_default_journal)
     def unlink(self):
         for rec in self:
             if rec.cheque_state != 'draft':
@@ -31,6 +49,7 @@ class AccountPayment(models.Model):
                    ('collect', 'Collect'),
                    ('return', 'Returned'),
                    ('reject', 'Rejected'),
+                   ('return_customer', 'Returned'),
                    ], default='draft', copy=False)
     cheque_no = fields.Char('رقم الشيك')
     due_date = fields.Date('Due Date')
@@ -44,8 +63,10 @@ class AccountPayment(models.Model):
     under_collect_journal_id = fields.Many2one("account.journal", string="Journal")
     under_collect_date = fields.Date(string='Date')
 
-    collect_journal_id = fields.Many2one("account.journal", string="Journal")
-    collect_date = fields.Date(string='Date')
+    collect_journal_id = fields.Many2one("account.journal", string="Collect Journal")
+    collect_date = fields.Date(string='Collect Date')
+    return_journal_id = fields.Many2one("account.journal", string="Return Journal")
+    return_date = fields.Date(string='Return Date')
 
     return_journal_id = fields.Many2one("account.journal", string="Journal")
     return_date = fields.Date(string='Date')
@@ -190,6 +211,74 @@ class AccountPayment(models.Model):
             move_id.action_post()
             self.move_id = move_id.id
             self.cheque_state = 'confirm'
+
+    def return_to_customer(self):
+        if self.cheque_type == 'send':
+            if self.amount <= 0:
+                raise ValidationError(_("Enter Positive Amount"))
+            move_id = self.env['account.move'].create({
+                'payment_cheque_id': self.id,
+                'journal_id': self.return_journal_id.id,
+                "partner_id": self.partner_id.id,
+                'move_type': 'entry',
+                'ref': "Return to Customer Cheque, " + self.name if self.name else ""
+            })
+            self.env['account.move.line'].with_context(check_move_validity=False).create({
+                "move_id": move_id.id,
+                'payment_cheque_id': self.id,
+                "account_id": self.partner_id.property_account_payable_id.id,
+                "name": self.partner_id.name,
+                "ref": self.partner_id.name,
+                "debit": 0,
+                "credit": self.amount,
+                "partner_id": self.partner_id.id,
+            })
+            self.env['account.move.line'].with_context(check_move_validity=False).create({
+                "move_id": move_id.id,
+                'payment_cheque_id': self.id,
+                "account_id": self.return_journal_id.default_account_id.id,
+                "name": self.return_journal_id.name,
+                "ref": self.return_journal_id.name,
+                "credit": 0,
+                "debit": self.amount,
+            })
+            move_id.action_post()
+            self.move_id = move_id.id
+            self.cheque_state = 'return_customer'
+        if self.cheque_type == 'receivable':
+            if self.amount <= 0:
+                raise ValidationError(_("Enter Positive Amount"))
+            move_id = self.env['account.move'].create({
+                'payment_cheque_id': self.id,
+                'journal_id': self.return_journal_id.id,
+                "partner_id": self.partner_id.id,
+                'move_type': 'entry',
+                'ref': "Return to Customer Cheque, " + self.name if self.name else ""
+            })
+            print("<<<<<<<<<<<<<<<<<<<<< ", move_id)
+            self.env['account.move.line'].with_context(check_move_validity=False).create({
+                "move_id": move_id.id,
+                'payment_cheque_id': self.id,
+                "account_id": self.partner_id.property_account_receivable_id.id,
+                "name": self.partner_id.name,
+                "ref": self.partner_id.name,
+                "credit": 0,
+                "debit": self.amount,
+                "partner_id": self.partner_id.id,
+            })
+            self.env['account.move.line'].with_context(check_move_validity=False).create({
+                "move_id": move_id.id,
+                'payment_cheque_id': self.id,
+                "account_id": self.return_journal_id.default_account_id.id,
+                "name": self.return_journal_id.name,
+                "ref": self.return_journal_id.name,
+                "debit": 0,
+                "credit": self.amount,
+            })
+            self.current_journal_id = self.return_journal_id.id
+            move_id.action_post()
+            self.move_id = move_id.id
+            self.cheque_state = 'return_customer'
 
     def open_under_collect(self):
         view_ref = self.env.ref('zenia_cheques.under_collect_view', False)
@@ -384,6 +473,19 @@ class AccountPayment(models.Model):
         view_ref = self.env.ref('zenia_cheques.open_reject_view', False)
         return {
             'name': ('Reject Cheque'),
+            'view_mode': 'form',
+            'view_id': False,
+            'res_model': 'account.payment',
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+            'res_id': self.id,
+            'views': [(view_ref and view_ref.id or False, 'form')],
+            'context': {}
+        }
+    def open_return_to_customer(self):
+        view_ref = self.env.ref('zenia_cheques.open_return_view', False)
+        return {
+            'name': ('Return Cheque'),
             'view_mode': 'form',
             'view_id': False,
             'res_model': 'account.payment',

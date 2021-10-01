@@ -51,6 +51,23 @@
             <field name="arch" type="xml">
                 <form string="under_collect_view_form">
                     <group>
+                        <field name="return_journal_id" domain="[('cheque_reject', '=', True)]" required="1"/>
+                        <field name="return_date" required="1"/>
+                    </group>
+                    <footer>
+                        <button name="return_to_customer" type="object" string="Reject" class="oe_highlight"/>
+                        OR
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="open_return_view" model="ir.ui.view">
+            <field name="name">under_collect_view_view_form</field>
+            <field name="model">account.payment</field>
+            <field name="arch" type="xml">
+                <form string="under_collect_view_form">
+                    <group>
                         <field name="return_journal_id" domain="[('cheque_return', '=', True)]" required="1"/>
                         <field name="return_date" required="1"/>
                     </group>
@@ -86,7 +103,7 @@
             <field name="arch" type="xml">
                 <form string="under_collect_view_form">
                     <group>
-                        <field name="endorsement_partner_id"  required="1"/>
+                        <field name="endorsement_partner_id" required="1"/>
                         <field name="endorsement_date" required="1"/>
                     </group>
                     <footer>
@@ -147,13 +164,15 @@
                         <button name="confirm" type="object" string="confirm" class="oe_highlight"
                                 attrs="{'invisible':[('cheque_state','!=','draft')]}"/>
                         <button name="open_under_collect" type="object" string="Under Collect" class="oe_highlight"
-                                attrs="{'invisible':[('cheque_state','not in' ,['confirm'])]}"/>
+                                attrs="{'invisible':[('cheque_state','not in' ,['confirm', 'reject'])]}"/>
                         <button name="open_collect" type="object" string="Collect" class="oe_highlight"
                                 attrs="{'invisible':[('cheque_state','not in' ,['confirm', 'under_collect'])]}"/>
                         <button name="open_return" type="object" string="Return" class="oe_highlight"
                                 attrs="{'invisible':[('cheque_state','!=','confirm')]}"/>
                         <button name="open_endorsement" type="object" string="تظهير الشيك " class="oe_highlight"
                                 attrs="{'invisible':[('cheque_state','!=','confirm')]}"/>
+                        <button name="open_return_to_customer" type="object" string="Return to Customer"
+                                attrs="{'invisible':[('cheque_state','!=','reject')]}"/>
                         <!--                        <button name="transfer" type="object" string="Transfer" class="oe_highlight"-->
                         <!--                                attrs="{'invisible':[('cheque_state','!=','confirm')]}"/>-->
 
@@ -213,7 +232,9 @@
             <field name="res_model">account.payment</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[('cheque_type', '=', 'receivable'),('partner_type', '=', 'customer')]</field>
-            <field name="context">{'default_cheque_type': 'receivable', 'default_partner_type': 'customer'}</field>
+            <field name="context">{'default_cheque_type': 'receivable', 'default_name': False, 'default_partner_type':
+                'customer'}
+            </field>
             <field name="view_ids" eval="[(5, 0, 0),
             (0, 0, {'view_mode': 'tree', 'view_id': ref('receivable_view_tree')}),
             (0, 0, {'view_mode': 'form', 'view_id': ref('receivable_view_form')})]"/>
