@@ -20,7 +20,7 @@
             <field name="res_model">cheque.cheque</field>
             <field name="view_mode">tree,form</field>
         </record>
-<!--        <menuitem id="cheque_cheque_root" action="cheque_cheque_action" name="cheque_cheque_action" />-->
+        <!--        <menuitem id="cheque_cheque_root" action="cheque_cheque_action" name="cheque_cheque_action" />-->
 
         <record id="receivable_group_view_tree" model="ir.ui.view">
             <field name="name">receivable_group_view_tree</field>
@@ -69,9 +69,9 @@
                                        domain="[('receive_cheque', '=', True)]"/>
                                 <field name="cheques_no" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
                                 <field name="cheques_total" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
-                                <!--   <field name="cheque_no" attrs="{'readonly':[('state', '!=', 'draft')]}"/>-->
-                                <field name="cheque_book" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
-                                <field name="cheque_cheque_id" domain="[('book_id', '=', cheque_book ),('done', '=', False )]" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                <field name="cheque_no" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                <!--                                <field name="cheque_book" attrs="{'readonly':[('state', '!=', 'draft')]}"/>-->
+                                <!--                                <field name="cheque_cheque_id" domain="[('book_id', '=', cheque_book ),('done', '=', False )]" attrs="{'readonly':[('state', '!=', 'draft')]}"/>-->
                             </group>
                             <group>
                                 <field name="date" required="1" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
@@ -87,8 +87,8 @@
                                     <field name="name" readonly="1"/>
                                     <field name="journal_id" invisible="1"/>
                                     <field name="cheque_bank_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
-                                    <!--   <field name="cheque_no" attrs="{'readonly':[('state', '!=', 'draft')]}"/>-->
-                                    <field name="cheque_cheque_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                    <field name="cheque_no" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                    <!--                                    <field name="cheque_cheque_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>-->
                                     <field name="amount" attrs="{'readonly':[('state', '=', 'confirm_cheque')]}"
                                            required="1" sum="total"/>
                                     <field name="currency_id" attrs="{'readonly':[('state', '!=', 'draft')]}"
@@ -159,6 +159,12 @@
                                 <field name="partner_id" required="1" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
                                 <field name="journal_id" required="1" attrs="{'readonly':[('state', '!=', 'draft')]}"
                                        domain="[('send_cheque', '=', True)]"/>
+                                <!--                                <field name="cheques_no" attrs="{'readonly':[('state', '!=', 'draft')]}"/>-->
+                                <field name="cheque_book" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                <field name="cheque_cheque_id"
+                                       domain="[('book_id', '=', cheque_book ),('done', '=', False )]"
+                                       attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                <field name="cheque_no" invisible="1" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
                                 <field name="cheques_no" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
                                 <field name="cheques_total" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
                             </group>
@@ -177,7 +183,8 @@
                                     <field name="name" readonly="1"/>
                                     <field name="journal_id" invisible="1"/>
                                     <field name="cheque_bank_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
-                                    <field name="cheque_no" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                    <field name="cheque_cheque_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                    <field name="cheque_no" invisible="1" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
                                     <field name="amount" attrs="{'readonly':[('state', '=', 'confirm_cheque')]}"
                                            required="1" sum="total"/>
                                     <field name="currency_id" attrs="{'readonly':[('state', '!=', 'draft')]}"

@@ -80,15 +80,14 @@ class AccountPaymentGroup(models.Model):
             ('id', '>=', self.cheque_cheque_id.id),
             ('done', '=', False),
         ],order='id asc')
-        print("cheque_cheque_ids >>>> ",cheque_cheque_ids)
+        # print("cheque_cheque_ids >>>> ",cheque_cheque_ids)
         for i in range(count):
-            print(i,">>>>>>>>>>>>>>. ", cheque_cheque_ids[i].id, cheque_cheque_ids[i].name)
+            # print(i,">>>>>>>>>>>>>>. ", cheque_cheque_ids[i].id, cheque_cheque_ids[i].name)
             month += 1
             payment = self.env['account.payment'].create({
                 'partner_type': 'customer' if self.type == 'receivable' else 'supplier',
                 'cheque_type': 'receivable' if self.type == 'receivable' else 'send',
                 'name': '/',
-                'cheque_cheque_id': cheque_cheque_ids[i].id,
                 'partner_id': self.partner_id.id,
                 'journal_id': self.journal_id.id,
                 'cheque_bank_id': self.cheque_bank_id.id,
@@ -98,7 +97,9 @@ class AccountPaymentGroup(models.Model):
                 'cheque_no': cheque_no,
                 'amount': round(self.cheques_total / self.cheques_no, 2),
             })
-            payment.cheque_cheque_id.payment_id = self.id
+            if self.type == 'send':
+                payment.write({'cheque_cheque_id': cheque_cheque_ids[i].id})
+                payment.cheque_cheque_id.payment_id = self.id
             cheque_no += 1
             total += round(self.cheques_total / self.cheques_no, 2)
             payment_ids.append(payment.id)
@@ -116,6 +117,9 @@ class AccountPaymentGroup(models.Model):
                 'cheque_no': cheque_no,
                 'amount': self.cheques_total - total,
             })
+            if self.type == 'send':
+                payment.write({'cheque_cheque_id': cheque_cheque_ids[i].id})
+                payment.cheque_cheque_id.payment_id = self.id
             payment_ids.append(payment.id)
         self.cheque_ids = [(6, 0, payment_ids)]
         self.state = 'confirm'
