@@ -20,7 +20,7 @@
             <field name="res_model">cheque.cheque</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <menuitem id="cheque_cheque_root" action="cheque_cheque_action" name="cheque_cheque_action" />
+<!--        <menuitem id="cheque_cheque_root" action="cheque_cheque_action" name="cheque_cheque_action" />-->
 
         <record id="receivable_group_view_tree" model="ir.ui.view">
             <field name="name">receivable_group_view_tree</field>
