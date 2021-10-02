@@ -26,7 +26,7 @@ class AccountPaymentGroup(models.Model):
             line.unlink()
         # if self.cheque_ids:
         #     raise ValidationError(_('Delete All Payments First'))
-        return  super(AccountPaymentGroup, self).unlink()
+        return super(AccountPaymentGroup, self).unlink()
 
     @api.model
     def create(self, vals):
@@ -34,8 +34,8 @@ class AccountPaymentGroup(models.Model):
         return super(AccountPaymentGroup, self).create(vals)
 
     name = fields.Char('Group Name')
-    type = fields.Selection( string='Type', selection=[('receivable', 'Receivable'),  ('send', 'Send'), ])
-
+    type = fields.Selection(string='Type', selection=[('receivable', 'Receivable'), ('send', 'Send'), ])
+    cheque_no = fields.Integer('رقم الشيك')
     cheques_no = fields.Integer("Cheques Numbers", required=True)
     cheques_total = fields.Float("Total Amount", required=True)
     partner_id = fields.Many2one('res.partner', string='Customer')
@@ -47,6 +47,9 @@ class AccountPaymentGroup(models.Model):
     cheque_ids = fields.One2many(comodel_name='account.payment', inverse_name='cheque_group_id', )
     currency_id = fields.Many2one('res.currency', string='Currency', required=True,
                                   default=lambda self: self.env.user.company_id.currency_id)
+
+    cheque_book = fields.Many2one('cheque.book', string="Cheque Ledger")
+    cheque_cheque_id = fields.Many2one('cheque.cheque', string="Cheque Number")
     state = fields.Selection(
         string='Status ', selection=[
             ('draft', 'Draft'),
@@ -69,21 +72,34 @@ class AccountPaymentGroup(models.Model):
             raise ValidationError(_('Enter Positive Amount'))
         payment_ids = []
         count = self.cheques_no
-        total = 0
-        month = 0
+        total = month = 0
+        cheque_no = self.cheque_no
+        # cheque_cheque_ids = self.cheque_book.cheque_ids.filtered(lambda x: x.done is False)
+        cheque_cheque_ids = self.env['cheque.cheque'].search([
+            ('book_id', '=', self.cheque_book.id),
+            ('id', '>=', self.cheque_cheque_id.id),
+            ('done', '=', False),
+        ],order='id asc')
+        print("cheque_cheque_ids >>>> ",cheque_cheque_ids)
         for i in range(count):
+            print(i,">>>>>>>>>>>>>>. ", cheque_cheque_ids[i].id, cheque_cheque_ids[i].name)
             month += 1
             payment = self.env['account.payment'].create({
                 'partner_type': 'customer' if self.type == 'receivable' else 'supplier',
                 'cheque_type': 'receivable' if self.type == 'receivable' else 'send',
+                'name': '/',
+                'cheque_cheque_id': cheque_cheque_ids[i].id,
                 'partner_id': self.partner_id.id,
                 'journal_id': self.journal_id.id,
                 'cheque_bank_id': self.cheque_bank_id.id,
-                'date': self.date ,
+                'date': self.date,
                 'due_date': self.due_date + relativedelta(months=month),
                 'ref': self.ref,
+                'cheque_no': cheque_no,
                 'amount': round(self.cheques_total / self.cheques_no, 2),
             })
+            payment.cheque_cheque_id.payment_id = self.id
+            cheque_no += 1
             total += round(self.cheques_total / self.cheques_no, 2)
             payment_ids.append(payment.id)
         if (self.cheques_total - total) > 0:
@@ -91,14 +107,15 @@ class AccountPaymentGroup(models.Model):
             payment = self.env['account.payment'].create({
                 'partner_type': 'customer' if self.type == 'receivable' else 'supplier',
                 'cheque_type': 'receivable' if self.type == 'receivable' else 'send',
+                'name': '/',
                 'partner_id': self.partner_id.id,
                 'journal_id': self.journal_id.id,
                 'date': self.date,
                 'due_date': self.due_date + relativedelta(months=month),
                 'ref': self.ref,
+                'cheque_no': cheque_no,
                 'amount': self.cheques_total - total,
             })
             payment_ids.append(payment.id)
         self.cheque_ids = [(6, 0, payment_ids)]
         self.state = 'confirm'
-

@@ -62,7 +62,7 @@
                 </form>
             </field>
         </record>
-        <record id="open_return_view" model="ir.ui.view">
+        <record id="open_retucheque_norn_view" model="ir.ui.view">
             <field name="name">under_collect_view_view_form</field>
             <field name="model">account.payment</field>
             <field name="arch" type="xml">
@@ -211,8 +211,8 @@
                                 <field name="amount"/>
                                 <field name="current_journal_id" invisible="1"/>
                                 <field name="currency_id"/>
-                                <field name="cheque_no"/>
-                                <field name="due_date"/>
+                                <field name="cheque_no" required="True"/>
+                                <field name="due_date" required="True"/>
                                 <field name="date"/>
                                 <field name="ref"/>
                             </group>

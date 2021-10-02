@@ -11,14 +11,12 @@ class AccountPayment(models.Model):
     cheque_book = fields.Many2one('cheque.book', string="Cheque Ledger")
     cheque_cheque_id = fields.Many2one('cheque.cheque', string="Cheque Number")
 
-    @api.onchange('cheque_book', 'cheque_cheque_id')
+    @api.onchange('cheque_book')
     def change_cheque_book(self):
-        res = {}
-        lines = []
-        for line in self.cheque_book.cheque_ids:
-            lines.append(line.id)
-        res['domain'] = {'cheque_cheque_id': [('id', 'in', lines)]}
-        return res
+        self.cheque_cheque_id = self.env['cheque.cheque'].search([
+            ('done', '=', False),
+            ('book_id', '=', self.cheque_book.id),
+        ], limit=1, order='id asc')
 
     def cancel_cheque(self):
         if self.cheque_type == 'send':

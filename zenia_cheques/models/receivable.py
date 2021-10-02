@@ -51,7 +51,7 @@ class AccountPayment(models.Model):
                    ('reject', 'Rejected'),
                    ('return_customer', 'Returned'),
                    ], default='draft', copy=False)
-    cheque_no = fields.Char('رقم الشيك')
+    cheque_no = fields.Integer('رقم الشيك')
     due_date = fields.Date('Due Date')
     cheque_bank_id = fields.Many2one("res.bank", string="Bank")
     move_ids = fields.One2many(comodel_name='account.move', inverse_name='payment_cheque_id')
@@ -124,14 +124,9 @@ class AccountPayment(models.Model):
     #         print(">>>>>>>>>>>>>", payment_method)
     #         values['payment_method_id'] = payment_method.id
     #     return res
-
+    #
     # def create(self, vals):
     #     print("XXXXXXXXXXXXXXXXXXXX ", vals)
-    #     if vals['cheque_type'] in ['receivable', 'send']:
-    #         print("XXXXXXXXXXXXXXXXXXXX ", vals['cheque_type'])
-    #         vals['payment_method_id'] = self.env['account.payment.method'].search([
-    #         ('name', '=', 'Checks')
-    #     ], limit=1).id
     #     return super(AccountPayment, self).create(vals)
 
     def action_view_moves_lines(self):
@@ -153,7 +148,7 @@ class AccountPayment(models.Model):
                 'journal_id': self.journal_id.id,
                 "partner_id": self.partner_id.id,
                 'move_type': 'entry',
-                'ref': "Send Cheque, " + self.name if self.name else ""
+                'ref': self.ref or "Send Cheque, " + self.name if self.name else ""
             })
             self.env['account.move.line'].with_context(check_move_validity=False).create({
                 "move_id": move_id.id,
@@ -176,6 +171,7 @@ class AccountPayment(models.Model):
             })
             move_id.action_post()
             self.move_id = move_id.id
+            self.cheque_cheque_id.done = True
             self.cheque_state = 'confirm'
         if self.cheque_type == 'receivable':
             if self.amount <= 0:
@@ -185,7 +181,7 @@ class AccountPayment(models.Model):
                 'journal_id': self.journal_id.id,
                 "partner_id": self.partner_id.id,
                 'move_type': 'entry',
-                'ref': self.name
+                'ref': self.ref
             })
             print("<<<<<<<<<<<<<<<<<<<<< ", move_id)
             self.env['account.move.line'].with_context(check_move_validity=False).create({
