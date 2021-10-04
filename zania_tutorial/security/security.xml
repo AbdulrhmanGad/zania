@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="zania_crm_admin" model="res.groups">
+            <field name="name">CRM Tutorial Admin</field>
+        </record>
+    </data>
+</odoo>

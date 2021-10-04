@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_crm_tutorial_user,crm_tutorial_user,model_crm_tutorial,base.group_user,1,0,0,0
+access_crm_tutorial_admin,crm_tutorial_admin,model_crm_tutorial,zania_tutorial.zania_crm_admin,1,1,1,1

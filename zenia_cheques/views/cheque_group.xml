@@ -7,7 +7,7 @@
             <field name="arch" type="xml">
                 <tree string="_tree">
                     <field name="book_id"/>
-                    <field name="payment_id"/>
+<!--                    <field name="payment_id"/>-->
                     <field name="name"/>
                     <field name="done"/>
                 </tree>

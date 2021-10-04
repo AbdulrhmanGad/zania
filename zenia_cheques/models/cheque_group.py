@@ -98,7 +98,8 @@ class AccountPaymentGroup(models.Model):
                 'amount': round(self.cheques_total / self.cheques_no, 2),
             })
             if self.type == 'send':
-                payment.write({'cheque_cheque_id': cheque_cheque_ids[i].id})
+                if cheque_cheque_ids[i]:
+                    payment.write({'cheque_cheque_id': cheque_cheque_ids[i].id})
                 # payment.cheque_cheque_id.payment_id = self.id
             cheque_no += 1
             total += round(self.cheques_total / self.cheques_no, 2)
@@ -118,7 +119,8 @@ class AccountPaymentGroup(models.Model):
                 'amount': self.cheques_total - total,
             })
             if self.type == 'send':
-                payment.write({'cheque_cheque_id': cheque_cheque_ids[i].id})
+                if cheque_cheque_ids[i]:
+                    payment.write({'cheque_cheque_id': cheque_cheque_ids[i].id})
                 # payment.cheque_cheque_id.payment_id = self.id
             payment_ids.append(payment.id)
         self.cheque_ids = [(6, 0, payment_ids)]

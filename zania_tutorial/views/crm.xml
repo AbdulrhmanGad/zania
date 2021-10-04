@@ -1,0 +1,59 @@
+<odoo>
+    <data>
+        <template id="assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript"
+                        src="/zania_tutorial/static/src/js/website_sale_video_field_preview.js"></script>
+            </xpath>
+        </template>
+
+        <record id="crm_tutorial_view_tree" model="ir.ui.view">
+            <field name="name">crm_tutorial_view_tree</field>
+            <field name="model">crm.tutorial</field>
+            <field name="arch" type="xml">
+                <tree string="crm_tutorial_tree">
+                    <field name="name"/> 
+                </tree>
+            </field>
+        </record>
+
+        <record id="crm_tutorial_view_form" model="ir.ui.view">
+            <field name="name">crm_tutorial_view_form</field>
+            <field name="model">crm.tutorial</field>
+            <field name="arch" type="xml">
+                <form string="crm_tutorial_form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="video_url" widget="url" groups="zania_tutorial.zania_crm_admin"/>
+                            </group>
+                        </group>
+                        <div class="col" attrs="{'invisible': [('video_url', 'in', ['', False])]}">
+                            <div class="o_video_container p-2">
+                                <field name="embed_code" class="mt-2" widget="video_preview"/>
+                                <h4 class="o_invalid_warning text-muted text-center"
+                                    attrs="{'invisible': [('embed_code', '!=', False)]}">
+                                    Please enter a valid Video URL.
+                                </h4>
+                            </div>
+                        </div>
+
+                        <group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="crm_tutorial_action" model="ir.actions.act_window">
+            <field name="name">Crm Tutorial</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">crm.tutorial</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="crm_tutorial_menu_root" name="Tutorial" action="crm_tutorial_action" parent="crm.crm_menu_config"
+                  sequence="99"/>
+    </data>
+</odoo>

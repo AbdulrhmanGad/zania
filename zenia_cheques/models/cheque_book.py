@@ -8,7 +8,7 @@ from odoo.exceptions import ValidationError
 class ChequeCheque(models.Model):
     _name = 'cheque.cheque'
     book_id = fields.Many2one('cheque.book')
-    payment_id = fields.Many2one('account.payment')
+    # payment_id = fields.Many2one('account.payment')
     name = fields.Char('Name')
     done = fields.Boolean('Done')
 
