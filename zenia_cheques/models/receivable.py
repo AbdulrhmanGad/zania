@@ -13,16 +13,11 @@ class AccountPayment(models.Model):
         print("self.env.context ",self.env.context)
         print("self.env.context ",self._context)
         if 'default_cheque_type' in self.env.context:
-            print(">>>>>>>>>>>>>>> ",self.cheque_type)
-            print(">>>>>>>>>>>>>>> ",self.env.context['default_cheque_type'])
             if self.env.context['default_cheque_type'] == 'receivable':
-                print("XXXXXXXXXXrec")
                 return self.env['account.journal'].search([('receive_cheque', '=', True)])
             elif self.env.context['default_cheque_type'] == 'send':
-                print("seeeeeeeeeeend")
                 return self.env['account.journal'].search([('send_cheque', '=', True)])
         else:
-            print(">>>>>>>>>>> ", self._get_default_journal())
             self._get_default_journal().id
 
     journal_id = fields.Many2one('account.journal', required=True,  string="Journal",default=get_default_journal)
@@ -52,7 +47,7 @@ class AccountPayment(models.Model):
                    ('return_customer', 'Returned'),
                    ], default='draft', copy=False)
     cheque_no = fields.Integer('رقم الشيك')
-    due_date = fields.Date('Due Date')
+    due_date = fields.Date('Due Date', required=True)
     cheque_bank_id = fields.Many2one("res.bank", string="Bank")
     move_ids = fields.One2many(comodel_name='account.move', inverse_name='payment_cheque_id')
     move_count = fields.Integer('Count', compute="compute_move_count")
@@ -536,7 +531,7 @@ class AccountPayment(models.Model):
             self.env['account.move.line'].with_context(check_move_validity=False).create({
                 "move_id": move_id.id,
                 'payment_cheque_id': self.id,
-                "account_id": self.partner_id.property_account_receivable_id.id,
+                "account_id": self.partner_id.property_account_payable_id.id,
                 "name": self.partner_id.name,
                 "ref": self.partner_id.name,
                 "debit": 0,
@@ -553,7 +548,6 @@ class AccountPayment(models.Model):
                 "debit": self.amount,
             })
             move_id.action_post()
-            self.cheque_state = 'confirm'
         self.current_journal_id = self.reject_journal_id.id
         self.cheque_state = 'reject'
 

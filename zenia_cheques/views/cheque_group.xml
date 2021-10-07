@@ -156,7 +156,7 @@
                         </h1>
                         <group>
                             <group>
-                                <field name="partner_id" required="1" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                <field name="partner_id" string="Vendor" required="1" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
                                 <field name="journal_id" required="1" attrs="{'readonly':[('state', '!=', 'draft')]}"
                                        domain="[('send_cheque', '=', True)]"/>
                                 <!--                                <field name="cheques_no" attrs="{'readonly':[('state', '!=', 'draft')]}"/>-->

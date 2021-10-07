@@ -9,6 +9,13 @@ from dateutil.relativedelta import relativedelta
 class AccountPaymentGroup(models.Model):
     _name = 'account.payment.group'
 
+    @api.onchange('cheque_book')
+    def change_cheque_book(self):
+        self.cheque_cheque_id = self.env['cheque.cheque'].search([
+            ('done', '=', False),
+            ('book_id', '=', self.cheque_book.id),
+        ], limit=1, order='id asc')
+
     @api.constrains('cheque_ids', 'cheques_total')
     def change_cheque_ids(self):
         if self.state == 'confirm':
