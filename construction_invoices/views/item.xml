@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="construction_item_view_tree" model="ir.ui.view">
+            <field name="name">Item</field>
+            <field name="model">construction.item</field>
+            <field name="arch" type="xml">
+                <tree string="construction_project_tree">
+                    <field name="name"/>
+                    <field name="uom_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="construction_item_view_form" model="ir.ui.view">
+            <field name="name">Item</field>
+            <field name="model">construction.item</field>
+            <field name="arch" type="xml">
+                <form string="construction_project_form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="uom_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="construction_item_action" model="ir.actions.act_window">
+            <field name="name">Items</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.item</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="construction_item_menu"
+                  name="Tender Items"
+                  sequence="2"
+                  parent="configuration_menu"
+                  action="construction_item_action"/>
+        <record id="construction_item_action" model="ir.actions.act_window">
+            <field name="name">Items</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.item</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="construction_product_menu"
+                  name="Products"
+                  sequence="3"
+                  parent="configuration_menu"
+                  action="stock.product_template_action_product"/>
+    </data>
+</odoo>

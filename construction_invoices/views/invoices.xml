@@ -1,0 +1,302 @@
+<odoo>
+    <data>
+
+        <record id="construction_view_sub_invoice_tree" model="ir.ui.view">
+            <field name="name">Construction Invoices</field>
+            <field name="model">construction.invoice</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="state == 'confirm'" decoration-success="state == 'journal'"
+                      decoration-danger="state == 'draft'"
+                      string="construction_tree">
+                    <field name="name"/>
+                    <field name="invoice_number"/>
+                    <field name="construction_project_id"/>
+                    <field name="contract_id"/>
+                    <field name="partner_id"/>
+                    <field name="subcontractor_id"/>
+                    <field name="construction_type"/>
+                    <field name="partner_id"/>
+                    <field name="state"/>
+                    <field name="due_amount"/>
+                    <field name="amount_paid"/>
+                    <field name="amount_difference"/>
+                    <field name="payment_state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="construction_view_owner_invoice_tree" model="ir.ui.view">
+            <field name="name">Construction Invoices</field>
+            <field name="model">construction.invoice</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="state == 'confirm'" decoration-success="state == 'journal'"
+                      decoration-danger="state == 'draft'"
+                      string="construction_tree">
+                    <field name="name"/>
+                    <field name="invoice_number"/>
+                    <field name="construction_project_id"/>
+                    <field name="contract_id"/>
+                    <field name="partner_id"/>
+                    <field name="state"/>
+                    <field name="due_amount"/>
+                    <field name="amount_paid"/>
+                    <field name="amount_difference"/>
+                    <field name="payment_state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="invoice_owner_view_form" model="ir.ui.view">
+            <field name="name">invoice_view_form</field>
+            <field name="model">construction.invoice</field>
+            <field name="arch" type="xml">
+                <form string="Construction Invoices">
+                    <header>
+                        <button name="reset_draft" string="Reset To Draft" type="object"
+                                attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                        <button name="action_post" string="Confirm" class="oe_highlight" type="object"
+                                attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                        <button name="create_journal" string="Create Journal" class="oe_highlight" type="object"
+                                attrs="{'invisible': [('state', '!=', 'confirm')]}"/>
+                        <button name="cancel" string="Cancel" type="object"
+                                attrs="{'invisible': [('state', '=', 'cancel')]}"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="expense_button_box">
+                            <button class="oe_stat_button" type="object" icon="fa-usd" name="action_view_payment">
+                                <field name="payment_count" string="Payment" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="invoice_number"/>
+                                <field name="construction_type" invisible="1"/>
+                                <field name="contract_id" domain="[('type', '=', construction_type)]"/>
+                                <field name="construction_project_id"/>
+                                <field name="type"/>
+                                <field name="attachment"/>
+                            </group>
+                            <group>
+                                <field name="date" />
+                                <field name="due_date" />
+                                <field name="partner_id"/>
+                                <field name="subcontractor_id"
+                                       attrs="{'invisible':[('construction_type', '!=', 'subcontractor')]}"/>
+                                <field name="move_id" readonly="1"/>
+                                <field name="ref" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="line" string="lines">
+                                <field name="invoice_line_ids" widget="section_and_note_one2many" mode="tree,kanban">
+                                    <tree editable="bottom">
+                                        <field name="product_id" options="{'no_create': True}"/>
+                                        <field name="name"/>
+                                        <field name="contract_qty"/>
+                                        <field name="last_qty" sum="total"/>
+                                        <field name="quantity" sum="total"/>
+                                        <field name="total_qty" sum="total"/>
+                                        <field name="price_unit"/>
+                                        <field name="total_subtotal" sum="total"/>
+                                        <field name="percentage"/>
+                                        <field name="last_value" sum="total"/>
+                                        <field name="current_value" sum="total"/>
+                                        <field name="total_value" sum="total"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="invoice_total">
+                                    <!--                                    <field name="total_value" class="oe_read_only"/>-->
+                                    <!--                                    <field name="last_value" class="oe_read_only"/>-->
+                                    <!--                                    <field name="current_value" class="oe_read_only"/>-->
+                                    <field name="due_amount"/>
+                                    <field name="amount_paid"/>
+                                    <field name="amount_difference"/>
+                                    <field name="payment_state"/>
+                                </group>
+                            </page>
+                            <page string="Addition">
+                                <field name="addition_line_ids">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="account_id"/>
+                                        <field name="percentage"/>
+                                        <field name="percentage_amount"/>
+                                        <field name="last_value" sum="Total" readonly="1"/>
+                                        <field name="value" sum="Total"/>
+                                        <field name="total_value" sum="Total"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Deduction">
+                                <field name="deduction_line_ids">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="account_id"/>
+                                        <field name="percentage"/>
+                                        <field name="percentage_amount"/>
+                                        <field name="last_value" sum="Total" readonly="1"/>
+                                        <field name="value" sum="Total"/>
+                                        <field name="total_value" sum="Total"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="invoice_sub_view_form" model="ir.ui.view">
+            <field name="name">invoice_view_form</field>
+            <field name="model">construction.invoice</field>
+            <field name="arch" type="xml">
+                <form string="Construction Invoices">
+                    <header>
+                        <button name="reset_draft" string="Reset To Draft" type="object"
+                                attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                        <button name="action_post" string="Confirm" class="oe_highlight" type="object"
+                                attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                        <button name="create_journal" string="Create Journal" class="oe_highlight" type="object"
+                                attrs="{'invisible': [('state', '!=', 'confirm')]}"/>
+                        <button name="cancel" string="Cancel" type="object"
+                                attrs="{'invisible': [('state', '=', 'cancel')]}"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="expense_button_box">
+                            <button class="oe_stat_button" type="object" icon="fa-usd" name="action_view_payment">
+                                <field name="payment_count" string="Payment" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="next_id"
+                                       context="{'form_view_ref': 'construction_invoices.invoice_sub_view_form'}"
+                                       invisible="1"/>
+                                <field name="parent_id"
+                                       context="{'form_view_ref': 'construction_invoices.invoice_sub_view_form'}"
+                                       invisible="1"/>
+                                <field name="invoice_number"/>
+                                <field name="construction_type" invisible="1"/>
+                                <field name="contract_id" domain="[('type', '=', construction_type)]"
+                                       context="{'form_view_ref': 'construction_invoices.contract_sub_view_form'}"/>
+                                <field name="construction_project_id"/>
+                                <field name="type"/>
+                                <field name="attachment"/>
+                            </group>
+                            <group>
+                                <field name="date" />
+                                <field name="due_date" />
+                                <field name="partner_id"/>
+                                <field name="subcontractor_id"
+                                       attrs="{'invisible':[('construction_type', '!=', 'subcontractor')]}"/>
+                                <field name="move_id" readonly="1"/>
+                                <field name="ref" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="line" string="lines">
+                                <field name="invoice_line_ids" widget="section_and_note_one2many" mode="tree,kanban">
+                                    <tree editable="bottom">
+                                        <field name="product_id" options="{'no_create': True}"/>
+                                        <field name="wbs_line_id" domain="[('type', '=', 'child')]" options="{'no_create': True}"/>
+                                        <field name="name"/>
+                                        <field name="contract_qty"/>
+                                        <field name="last_qty" sum="total"/>
+                                        <field name="quantity" sum="total"/>
+                                        <field name="total_qty" sum="total"/>
+                                        <field name="competition_per" />
+                                        <field name="remaining_qty" />
+                                        <field name="price_unit"/>
+                                        <field name="total_subtotal" sum="total"/>
+                                        <field name="percentage"/>
+                                        <field name="last_value" sum="total"/>
+                                        <field name="current_value" sum="total"/>
+                                        <field name="total_value" sum="total"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="invoice_total">
+                                    <!--                                    <field name="total_value" class="oe_read_only"/>-->
+                                    <!--                                    <field name="last_value" class="oe_read_only"/>-->
+                                    <field name="current_value"/>
+                                    <field name="due_amount"/>
+                                    <field name="invoice_total" invisible="0"/>
+                                    <field name="amount_paid"/>
+                                    <field name="amount_difference"/>
+                                    <field name="payment_state"/>
+                                </group>
+                            </page>
+                            <page string="Addition">
+                                <field name="addition_line_ids">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="account_id"/>
+                                        <field name="percentage"/>
+                                        <field name="percentage_amount"/>
+                                        <field name="last_value" sum="Total" readonly="1"/>
+                                        <field name="value" sum="Total"/>
+                                        <field name="total_value" sum="Total"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Deduction">
+                                <field name="deduction_line_ids">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="account_id"/>
+                                        <field name="percentage"/>
+                                        <field name="percentage_amount"/>
+                                        <field name="last_value" sum="Total" readonly="1"/>
+                                        <field name="value" sum="Total"/>
+                                        <field name="total_value" sum="Total"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="invoice_sub_action_view" model="ir.actions.act_window">
+            <field name="name">Subcontractor Invoice</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.invoice</field>
+            <field name="domain">[('construction_type', '=', 'subcontractor')]</field>
+            <field name="context">{'default_construction_type': 'subcontractor'}</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('construction_view_sub_invoice_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('invoice_sub_view_form')})]"/>
+        </record>
+        <record id="invoice_owner_action_view" model="ir.actions.act_window">
+            <field name="name">Owner Invoice</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.invoice</field>
+            <field name="domain">[('construction_type', '=', 'owner')]</field>
+            <field name="context">{'default_construction_type': 'owner'}</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('construction_view_owner_invoice_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('invoice_owner_view_form')})]"/>
+        </record>
+        <menuitem id="invoice_menu" name="Invoice" parent="construction_project_root"/>
+        <menuitem id="invoice_owner_menu" name="Owner" parent="invoice_menu"
+                  action="invoice_owner_action_view"/>
+        <menuitem id="invoice_sub_menu" name="Subcontractor" parent="invoice_menu" action="invoice_sub_action_view"/>
+    </data>
+</odoo>
