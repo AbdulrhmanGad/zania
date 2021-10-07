@@ -9,5 +9,5 @@ class ResConfigSettings(models.TransientModel):
     user_name = fields.Char(string="User Name", config_parameter='base_setup.user_name')
     user_pass = fields.Char(string="Password", config_parameter='base_setup.user_pass')
     sender = fields.Char(string="sender", config_parameter='base_setup.sender')
-    mobile = fields.Char(string="mobile", config_parameter='base_setup.mobile')
-    message = fields.Char(string="message", config_parameter='base_setup.message')
+    # mobile = fields.Char(string="mobile", config_parameter='base_setup.mobile')
+    # message = fields.Char(string="message", config_parameter='base_setup.message')

@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+
+        <record id="sms_crm_view_tree" model="ir.ui.view">
+            <field name="name">sms_crm_view_tree</field>
+            <field name="model">crm.sms</field>
+            <field name="arch" type="xml">
+                <tree string="sms_crm_tree">
+                    <field name="mobile"/>
+                    <field name="name"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="crm_sms_view_form" model="ir.ui.view">
+            <field name="name">crm_sms_view_form</field>
+            <field name="model">crm.sms</field>
+            <field name="arch" type="xml">
+                <form string="crm_sms_form">
+                    <header>
+                        <button name="send_mobile_sms" type="object" string="Send" states="draft"
+                        style="background-color:green;color:white" />
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="mobile" required="True"/>
+                                <field name="name" size="70" required="True"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="crm_sms_action" model="ir.actions.act_window">
+            <field name="name">Send SMS</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">crm.sms</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="crm_sms_root" name="Send SMS" action="crm_sms_action" parent="crm.crm_menu_root"/>
+    </data>
+</odoo>

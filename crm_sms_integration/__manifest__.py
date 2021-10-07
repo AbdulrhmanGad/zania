@@ -10,7 +10,8 @@
     "description": """ CRM SMS Integration """,
     "depends": ['crm'],
     "data": [
-        'views/crm.xml',
+        'security/ir.model.access.csv',
+        'views/crm_sms.xml',
         'views/settings.xml',
     ],
     "installable": True,

@@ -32,14 +32,14 @@
                                         <label for="sender" string="Sender" />
                                         <field name="sender" class="oe_inline" placeholder="Sender"/>
                                     </div>
-                                    <div class="mt16 col-10" attrs="{'invisible': [('enable_sms_integration', '!=', True)]}">
-                                        <label for="mobile" string="Mobile" />
-                                        <field name="mobile" class="oe_inline" placeholder="Mobile"/>
-                                    </div>
-                                    <div class="mt16 col-10" attrs="{'invisible': [('enable_sms_integration', '!=', True)]}">
-                                        <label for="message" string="Message..." />
-                                        <field name="message" class="oe_inline" placeholder="Message..."/>
-                                    </div>
+<!--                                    <div class="mt16 col-10" attrs="{'invisible': [('enable_sms_integration', '!=', True)]}">-->
+<!--                                        <label for="mobile" string="Mobile" />-->
+<!--                                        <field name="mobile" class="oe_inline" placeholder="Mobile"/>-->
+<!--                                    </div>-->
+<!--                                    <div class="mt16 col-10" attrs="{'invisible': [('enable_sms_integration', '!=', True)]}">-->
+<!--                                        <label for="message" string="Message..." />-->
+<!--                                        <field name="message" class="oe_inline" placeholder="Message..."/>-->
+<!--                                    </div>-->
                                 </div>
                             </div>
                         </div>

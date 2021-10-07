@@ -1,2 +1,2 @@
 from . import settings
-from . import crm
+from . import crm_sms
