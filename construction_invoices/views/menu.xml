@@ -1,7 +1,0 @@
-<odoo>
-    <data>
-        <menuitem id="construction_project_root" name="Construction"/>
-        <menuitem id="configuration_report_menu" name="Reports" parent="construction_project_root" sequence="99"/>
-        <menuitem id="configuration_menu" name="Configuration" parent="construction_project_root" sequence="100"/>
-    </data>
-</odoo>
