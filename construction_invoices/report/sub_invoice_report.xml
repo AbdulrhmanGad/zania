@@ -64,6 +64,7 @@
             <field name="domain">[('construction_type', '=', 'subcontractor')]</field>
             <field name="view_mode">tree,search,pivot,graph</field>
             <field name="search_view_id" ref="sub_invoice_report_search_view"/>
+            <field name="context">{"search_default_construction_project_id":True}</field>
             <field name="view_ids" eval="[(5, 0, 0),
             (0, 0, {'view_mode': 'tree', 'view_id': ref('sub_invoice_report_view_tree')}),
         ]"/>

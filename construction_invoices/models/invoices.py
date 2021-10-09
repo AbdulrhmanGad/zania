@@ -22,23 +22,23 @@ class ConstructionInvoice(models.Model):
     _name = 'construction.invoice'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    name = fields.Char('Name')
+    name = fields.Char('Name', store=1)
     construction_type = fields.Selection(string='Type',
                                          selection=[('owner', 'Owner'), ('subcontractor', 'Subcontractor')], )
     type = fields.Selection(string='Type', selection=[
         ('1', 'Processing'),
         ('2', 'Final')
     ])
-    invoice_number = fields.Char('Invoice Number')
-    date = fields.Date('Date', default=fields.Date.context_today,)
-    due_date = fields.Date('Due Date')
+    invoice_number = fields.Char('Invoice Number', store=1)
+    date = fields.Date('Date', default=fields.Date.context_today, store=1,)
+    due_date = fields.Date('Due Date', store=1,)
     ref = fields.Char("Reference")
-    contract_id = fields.Many2one(comodel_name='contract', string="Contract", required=True)
+    contract_id = fields.Many2one(comodel_name='contract', string="Contract", store=1, required=True)
     move_id = fields.Many2one(comodel_name='account.move', string="Move")
     next_id = fields.Many2one(comodel_name='construction.invoice', string="Next")
     parent_id = fields.Many2one(comodel_name='construction.invoice', string="Parent")
-    construction_project_id = fields.Many2one(related="contract_id.construction_project_id", string="Project")
-    partner_id = fields.Many2one(related="contract_id.partner_id", string="Customer")
+    construction_project_id = fields.Many2one(related="contract_id.construction_project_id", store=1, string="Project")
+    partner_id = fields.Many2one(related="contract_id.partner_id", string="Customer", store=1)
     subcontractor_id = fields.Many2one('res.partner', related="contract_id.subcontractor_id", string="Subcontractor")
     addition_line_ids = fields.One2many(comodel_name='addition.line', inverse_name='move_id')
     deduction_line_ids = fields.One2many(comodel_name='deduction.line', inverse_name='move_id')
@@ -155,7 +155,7 @@ class ConstructionInvoice(models.Model):
             ('not_paid', 'Not Paid'),
             ('partial', 'Partially Paid'),
             ('paid', 'Paid'),
-        ], compute="compute_payment_state")
+        ], compute="compute_payment_state", store=1)
 
     @api.depends('payment_ids', 'due_amount')
     def compute_paid(self):
