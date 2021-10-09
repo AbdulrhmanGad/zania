@@ -22,27 +22,34 @@ class ConstructionInvoice(models.Model):
     _name = 'construction.invoice'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    name = fields.Char('Name', store=1)
+    name = fields.Char('Name')
     construction_type = fields.Selection(string='Type',
                                          selection=[('owner', 'Owner'), ('subcontractor', 'Subcontractor')], )
     type = fields.Selection(string='Type', selection=[
         ('1', 'Processing'),
         ('2', 'Final')
     ])
-    invoice_number = fields.Char('Invoice Number', store=1)
-    date = fields.Date('Date', default=fields.Date.context_today, store=1,)
-    due_date = fields.Date('Due Date', store=1,)
+    invoice_number = fields.Char('Invoice Number')
+    date = fields.Date('Date', default=fields.Date.context_today,)
+    due_date = fields.Date('Due Date',)
     ref = fields.Char("Reference")
-    contract_id = fields.Many2one(comodel_name='contract', string="Contract", store=1, required=True)
+    contract_id = fields.Many2one(comodel_name='contract', string="Contract", required=True)
     move_id = fields.Many2one(comodel_name='account.move', string="Move")
     next_id = fields.Many2one(comodel_name='construction.invoice', string="Next")
     parent_id = fields.Many2one(comodel_name='construction.invoice', string="Parent")
-    construction_project_id = fields.Many2one(related="contract_id.construction_project_id", store=1, string="Project")
-    partner_id = fields.Many2one(related="contract_id.partner_id", string="Customer", store=1)
-    subcontractor_id = fields.Many2one('res.partner', related="contract_id.subcontractor_id", string="Subcontractor")
+    construction_project_id = fields.Many2one('construction.project2', readonly=1,  store=1, string="Project")
+    partner_id = fields.Many2one('res.partner', string="Customer",readonly=1, store=1)
+    subcontractor_id = fields.Many2one('res.partner', readonly=1, store=1, string="Subcontractor")
     addition_line_ids = fields.One2many(comodel_name='addition.line', inverse_name='move_id')
     deduction_line_ids = fields.One2many(comodel_name='deduction.line', inverse_name='move_id')
     invoice_line_ids = fields.One2many(comodel_name='construction.invoice.line', inverse_name='invoice_id')
+    @api.onchange('contract_id')
+    def _onchange_contract_id(self):
+        for rec in self:
+            rec.construction_project_id = rec.contract_id.construction_project_id.id
+            rec.partner_id = rec.contract_id.partner_id.id
+            rec.subcontractor_id = rec.contract_id.subcontractor_id.id
+
     state = fields.Selection(string='State', selection=[
         ('draft', 'Draft'),
         ('confirm', 'Confirm'),
@@ -67,6 +74,7 @@ class ConstructionInvoice(models.Model):
     @api.depends('invoice_line_ids', 'deduction_line_ids')
     def compute_total_current(self):
         for rec in self:
+            print("ssssss12512525sdcdv")
             price = qty = deduction = addition = 0.0
             for line in rec.invoice_line_ids:
                 price += line.price_unit
@@ -90,6 +98,7 @@ class ConstructionInvoice(models.Model):
     @api.depends('invoice_line_ids', 'deduction_line_ids', 'addition_line_ids')
     def compute_due_amount(self):
         for rec in self:
+            print("sss1254sss125125sdcdv")
             inv_tot = rec.due_amount = last_val = 0
             total_value = 0
             for line in rec.invoice_line_ids:
@@ -110,6 +119,7 @@ class ConstructionInvoice(models.Model):
                 total -= ded.value
 
             rec.due_amount = total
+
 
     # @api.depends('invoice_line_ids', 'deduction_line_ids', 'addition_line_ids')
     # def compute_due_amount(self):
@@ -142,7 +152,8 @@ class ConstructionInvoice(models.Model):
     @api.depends('amount_paid', 'amount_difference')
     def compute_payment_state(self):
         for rec in self:
-            print(rec.amount_paid, ">>>>>>>>>>>>> ", rec.amount_difference)
+            print("ssssss125120155sdcdv")
+            rec.amount_paid = False
             if rec.amount_paid == 0:
                 rec.payment_state = 'not_paid'
             elif rec.amount_paid > 0 and rec.amount_paid < rec.due_amount:
@@ -160,6 +171,7 @@ class ConstructionInvoice(models.Model):
     @api.depends('payment_ids', 'due_amount')
     def compute_paid(self):
         for rec in self:
+            print("sssssfbss125125sdcdv")
             total = 0
             for line in rec.payment_ids:
                 if line.state == 'posted':
@@ -221,7 +233,11 @@ class ConstructionInvoice(models.Model):
     @api.depends('payment_ids')
     def compute_payment_count(self):
         for rec in self:
-            rec.payment_count = len(rec.payment_ids.ids)
+            print("ssssss125125s125dcdv")
+            if rec.payment_ids:
+                rec.payment_count = len(rec.payment_ids.ids)
+            else:
+                rec.payment_count = 0
 
     def action_view_payment(self):
         self.ensure_one()
@@ -508,7 +524,7 @@ class ConstructionInvoiceLine(models.Model):
     @api.depends('total_qty', 'contract_qty')
     def compute_remaining_qty(self):
         for rec in self:
-            rec.remaining_qty = rec.contract_qty -  rec.total_qty
+            rec.remaining_qty = rec.contract_qty - rec.total_qty
 
     @api.depends('total_qty', 'contract_qty')
     def compute_competition_per(self):
@@ -535,10 +551,10 @@ class ConstructionInvoiceLine(models.Model):
     @api.depends('last_value', 'percentage', 'total_qty')
     def computes_total(self):
         for rec in self:
+            print("sss4158sss125125sdcdv")
             print(rec.total_qty, " XXX ", rec.price_unit, "  >>>> ", rec.percentage)
             rec.total_value = rec.total_qty * rec.price_unit * rec.percentage / 100
             rec.current_value = rec.total_value - rec.last_value
-
 
     @api.onchange('product_id')
     def change_product_id_domain(self):
@@ -552,12 +568,14 @@ class ConstructionInvoiceLine(models.Model):
     @api.depends('product_id')
     def compute_contract_qty_price(self):
         for rec in self:
+            print("ssssss1526125125sdcdv")
             rec.contract_qty = 0
             rec.price_unit = 0
-            for line in rec.invoice_id.contract_id.line_ids:
-                if rec.product_id == line.product_id:
-                    rec.contract_qty = line.quantity
-                    rec.price_unit = line.price_unit
+            if rec.invoice_id:
+                for line in rec.invoice_id.contract_id.line_ids:
+                    if rec.product_id == line.product_id:
+                        rec.contract_qty = line.quantity
+                        rec.price_unit = line.price_unit
 
     @api.onchange('product_id')
     def change_product_id(self):
@@ -572,11 +590,13 @@ class ConstructionInvoiceLine(models.Model):
     @api.depends('quantity')
     def compute_price_subtotal(self):
         for rec in self:
+            print("ssssss125125sdcdv")
             rec.price_subtotal = 0
 
     @api.depends('last_qty', 'quantity')
     def compute_qty(self):
         for rec in self:
+            print("sssss456ssdcdv")
             rec.total_qty = rec.last_qty + rec.quantity
 
     @api.onchange('quantity')
@@ -588,4 +608,5 @@ class ConstructionInvoiceLine(models.Model):
     @api.depends('total_qty', 'price_unit')
     def compute_total_subtotal(self):
         for rec in self:
+            print("sssssssdcdv")
             rec.total_subtotal = rec.total_qty * rec.price_unit
