@@ -221,6 +221,6 @@
             <field name="res_model">break.down</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <menuitem id="breakdown_menu" name="Break Down" action="breakdown_action"/>
+<!--        <menuitem id="breakdown_menu" name="Break Down" action="breakdown_action" />-->
     </data>
 </odoo>
