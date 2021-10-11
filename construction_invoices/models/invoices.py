@@ -67,7 +67,7 @@ class ConstructionInvoice(models.Model):
     @api.depends('invoice_line_ids', 'deduction_line_ids')
     def compute_total_current(self):
         for rec in self:
-            price = qty = ded = add = 0
+            price = qty = ded = add = 0.0
             for line in rec.invoice_line_ids:
                 price += line.price_unit
                 qty += line.quantity
