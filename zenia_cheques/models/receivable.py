@@ -102,7 +102,7 @@ class AccountPayment(models.Model):
             rec.move_line_count = len(rec.move_line_ids.ids)
 
     def action_view_moves(self):
-        action = self.env.ref("zenia_cheques.action_move_journal_line_new").read()[0]
+        action = self.env.ref("zenia_cheques.action_move_journal_line_new").sudo().read()[0]
         action["domain"] = [("id", "in", self.move_ids.ids)]
         return action
 
@@ -125,7 +125,7 @@ class AccountPayment(models.Model):
     #     return super(AccountPayment, self).create(vals)
 
     def action_view_moves_lines(self):
-        action = self.env.ref("account.action_account_moves_all").read()[0]
+        action = self.env.ref("account.action_account_moves_all").sudo().read()[0]
         action["domain"] = [("id", "in", self.move_line_ids.ids)]
         return action
 
