@@ -1,0 +1,60 @@
+<odoo>
+    <data>
+
+        <record id="cheques_view_res_bank_form" model="ir.ui.view">
+            <field name="name">res.bank</field>
+            <field name="model">res.bank</field>
+            <field name="inherit_id" ref="base.view_res_bank_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']/.." position="before">
+                    <div class="oe_button_box" name="expense_button_box">
+                        <button class="oe_stat_button" name="action_view_branches" type="object" icon="fa-list-ol">
+                            <field string="Branches" name="branch_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="bank_branch_view_tree" model="ir.ui.view">
+            <field name="name">bank_branch_view_tree</field>
+            <field name="model">res.bank.branch</field>
+            <field name="arch" type="xml">
+                <tree >
+                    <field name="bank_id"/>
+                    <field name="name"/>
+                    <field name="branch_no"/>
+                    <field name="Location"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="bank_branch_view_form" model="ir.ui.view">
+            <field name="name">bank_branch_view_form</field>
+            <field name="model">res.bank.branch</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="bank_id"/>
+                                <field name="name"/>
+                                <field name="branch_no"/>
+                                <field name="Location"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="bank_branch_action" model="ir.actions.act_window">
+            <field name="name">Bank Branch</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.bank.branch</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="bank_branch_menu" name="bank Branch" action="bank_branch_action" parent="bank_list_root"/>
+
+    </data>
+</odoo>

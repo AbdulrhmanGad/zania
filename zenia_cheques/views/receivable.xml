@@ -181,7 +181,9 @@
                         <button name="reset_to_draft" type="object" string="Reset To Draft"
                                 attrs="{'invisible':[('cheque_state','=','draft')]}"/>
                         <field name="state" invisible="1"/>
-                        <field name="cheque_state" widget="statusbar"/>
+                        <field name="cheque_state" widget="statusbar"
+                               decoration-info="cheque_state == 'draft'" decoration-success="cheque_state == 'confirm'"
+                               decoration-danger="cheque_state == 'reject'"/>
                     </header>
 
                     <sheet>
@@ -218,9 +220,13 @@
                             </group>
                             <group>
                                 <field name="journal_id" domain="[('receive_cheque', '=', True)]"/>
-                                <field name="cheque_bank_id"/>
                             </group>
                         </group>
+                        <field name="cheque_bank_id"/>
+                        <field name="bank_branch_id" options="{'no_create': True}"
+                               domain="[('bank_id', '=', cheque_bank_id)]"/>
+                        <field name="customer_account_no" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+
                     </sheet>
                 </form>
             </field>
@@ -239,7 +245,8 @@
             (0, 0, {'view_mode': 'tree', 'view_id': ref('receivable_view_tree')}),
             (0, 0, {'view_mode': 'form', 'view_id': ref('receivable_view_form')})]"/>
         </record>
-        <menuitem id="receivable_menu" name="Cheque Receivable" action="receivable_action" parent="cheque_root"/>
+        <menuitem id="receivable_root" name="Receivable" parent="cheque_root"/>
+        <menuitem id="receivable_menu" name="Cheque Receivable" action="receivable_action" parent="receivable_root"/>
 
     </data>
 </odoo>

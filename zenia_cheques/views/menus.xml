@@ -54,7 +54,8 @@
         </record>
 
         <menuitem id="cheque_root" name="Cheques" parent="account.menu_finance"/>
-        <menuitem id="bank_list_menu" name="banks" action="banks_action" parent="cheque_root"/>
+        <menuitem id="bank_list_root" name="banks" parent="cheque_root"/>
+        <menuitem id="bank_list_menu" name="banks" action="banks_action" parent="bank_list_root"/>
 
     </data>
 </odoo>

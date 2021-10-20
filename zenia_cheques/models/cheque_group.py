@@ -43,10 +43,11 @@ class AccountPaymentGroup(models.Model):
     name = fields.Char('Group Name')
     type = fields.Selection(string='Type', selection=[('receivable', 'Receivable'), ('send', 'Send'), ])
     cheque_no = fields.Integer('رقم الشيك')
-    cheques_no = fields.Integer("Cheques Numbers", required=True)
+    cheques_no = fields.Integer("Number of Cheques", required=True)
     cheques_total = fields.Float("Total Amount", required=True)
     partner_id = fields.Many2one('res.partner', string='Customer')
     cheque_bank_id = fields.Many2one('res.bank', string='Bank')
+    bank_branch_id = fields.Many2one("res.bank.branch", string="Branches")
     journal_id = fields.Many2one('account.journal', string='Journal')
     date = fields.Date('Date', default=fields.Date.today())
     due_date = fields.Date('Due Date', default=fields.Date.today())
@@ -98,6 +99,7 @@ class AccountPaymentGroup(models.Model):
                 'partner_id': self.partner_id.id,
                 'journal_id': self.journal_id.id,
                 'cheque_bank_id': self.cheque_bank_id.id,
+                'bank_branch_id': self.bank_branch_id.id,
                 'date': self.date,
                 'due_date': self.due_date + relativedelta(months=month),
                 'ref': self.ref,

@@ -96,7 +96,8 @@
             (0, 0, {'view_mode': 'tree', 'view_id': ref('send_view_tree')}),
             (0, 0, {'view_mode': 'form', 'view_id': ref('send_view_form')})]"/>
         </record>
-        <menuitem id="send_menu" name="Cheque send" action="send_action" parent="cheque_root"/>
+        <menuitem id="send_root" name="Send" parent="cheque_root"/>
+        <menuitem id="send_menu" name="Cheque send" action="send_action" parent="send_root"/>
 
         <record id="account.action_account_payments_payable" model="ir.actions.act_window">
             <field name="name">Payments</field>

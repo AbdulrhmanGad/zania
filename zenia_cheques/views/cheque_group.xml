@@ -20,7 +20,6 @@
             <field name="res_model">cheque.cheque</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <!--        <menuitem id="cheque_cheque_root" action="cheque_cheque_action" name="cheque_cheque_action" />-->
 
         <record id="receivable_group_view_tree" model="ir.ui.view">
             <field name="name">receivable_group_view_tree</field>
@@ -78,15 +77,18 @@
                                 <field name="due_date" required="1" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
                                 <field name="ref" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
                                 <field name="cheque_bank_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                <field name="bank_branch_id" options="{'no_create': True}" domain="[('bank_id', '=', cheque_bank_id)]"  attrs="{'readonly':[('state', '!=', 'draft')]}"/>
                                 <field name="currency_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
                             </group>
                             <field name="cheque_ids">
-                                <tree editable="bottom">
+                                <tree editable="bottom" default_order='cheque_no'>
                                     <field name="state" invisible="1"/>
                                     <field name="suitable_journal_ids" invisible="1"/>
                                     <field name="name" readonly="1"/>
                                     <field name="journal_id" invisible="1"/>
                                     <field name="cheque_bank_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                    <field name="bank_branch_id" domain="[('bank_id', '=', cheque_bank_id)]" options="{'no_create': True}"  attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                    <field name="customer_account_no"  attrs="{'readonly':[('state', '!=', 'draft')]}"/>
                                     <field name="cheque_no" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
                                     <!--                                    <field name="cheque_cheque_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>-->
                                     <field name="amount" attrs="{'readonly':[('state', '=', 'confirm_cheque')]}"
@@ -177,7 +179,7 @@
                             </group>
 
                             <field name="cheque_ids">
-                                <tree editable="bottom">
+                                <tree editable="bottom" default_order='cheque_no'>
                                     <field name="state" invisible="1"/>
                                     <field name="suitable_journal_ids" invisible="1"/>
                                     <field name="name" readonly="1"/>
@@ -211,8 +213,8 @@
         </record>
 
         <menuitem id="receivable_group_menu" name="Group Cheque Receivable" action="receivable_group_action"
-                  sequence="98" parent="cheque_root"/>
+                  sequence="98" parent="receivable_root"/>
         <menuitem id="send_group_menu" name="Group Cheque Send" action="send_group_action"
-                  sequence="99" parent="cheque_root"/>
+                  sequence="99" parent="send_root"/>
     </data>
 </odoo>

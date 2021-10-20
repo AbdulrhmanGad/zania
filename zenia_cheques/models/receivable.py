@@ -49,6 +49,7 @@ class AccountPayment(models.Model):
     cheque_no = fields.Integer('رقم الشيك')
     due_date = fields.Date('Due Date', required=True)
     cheque_bank_id = fields.Many2one("res.bank", string="Bank")
+    bank_branch_id = fields.Many2one("res.bank.branch", string="Branches")
     move_ids = fields.One2many(comodel_name='account.move', inverse_name='payment_cheque_id')
     move_count = fields.Integer('Count', compute="compute_move_count")
     move_line_ids = fields.One2many(comodel_name='account.move.line', inverse_name='payment_cheque_id')
@@ -65,6 +66,7 @@ class AccountPayment(models.Model):
 
     return_journal_id = fields.Many2one("account.journal", string="Journal")
     return_date = fields.Date(string='Date')
+    customer_account_no = fields.Char(string='Customer Account No2')
 
     reject_journal_id = fields.Many2one("account.journal", string="Journal")
     reject_date = fields.Date(string='Date')

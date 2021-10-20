@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_cheque_book,cheque_book,model_cheque_book,,1,1,1,1
 access_cheque_cheque,cheque_cheque,model_cheque_cheque,,1,1,1,1
 access_account_payment_group,account_payment_group,model_account_payment_group,,1,1,1,1
+access_res_bank_branch,res_bank_branch,model_res_bank_branch,,1,1,1,1
