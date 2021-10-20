@@ -1,0 +1,65 @@
+<odoo>
+    <data>
+
+
+        <record id="deduction_addition_form" model="ir.ui.view">
+            <field name="name">construction_project_view_form</field>
+            <field name="model">construction.deduction.addition</field>
+            <field name="arch" type="xml">
+                <form string="construction_project_form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <group>
+                                <field name="type"/>
+                                <field name="to"/>
+                                <field name="account_id"/>
+                                <field name="percentage"/>
+                                <field name="value"/>
+                                <!--                                <field name="down_payment"/>-->
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="ded_add_tree_view" model="ir.ui.view">
+            <field name="name">construction.deduction.addition</field>
+            <field name="model">construction.deduction.addition</field>
+            <field name="arch" type="xml">
+                <tree string="construction_project_tree">
+                    <field name="name"/>
+                    <field name="account_id"/>
+                    <field name="type"/>
+                    <field name="to"/>
+                    <field name="value"/>
+                    <field name="percentage"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="deduction_action" model="ir.actions.act_window">
+            <field name="name">Deduction</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.deduction.addition</field>
+            <field name="domain">[('type', '=', 'deduction')]</field>
+            <field name="context">{'default_type': 'deduction'}</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="addition_action" model="ir.actions.act_window">
+            <field name="name">Addition</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.deduction.addition</field>
+            <field name="domain">[('type', '=', 'addition')]</field>
+            <field name="context">{'default_type': 'addition'}</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="addition_deduction_menu" name="Accounts" parent="configuration_menu"/>
+        <menuitem id="deduction_menu" name="Deduction" parent="addition_deduction_menu" action="deduction_action"/>
+        <menuitem id="addition_menu" name="Addition" parent="addition_deduction_menu" action="addition_action"/>
+    </data>
+</odoo>

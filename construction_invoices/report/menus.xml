@@ -1,0 +1,6 @@
+<odoo>
+    <data>
+        <menuitem id="partner_ledger_menu_id" name="Partner Ledger" parent="configuration_report_menu"
+                  action="account.action_account_moves_ledger_partner" sequence="100"/>
+    </data>
+</odoo>

@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+
+        <record id="construction_project_type_view_tree" model="ir.ui.view">
+            <field name="name">construction_project_view_tree</field>
+            <field name="model">construction.project2.type</field>
+            <field name="arch" type="xml">
+                <tree string="construction_project_tree">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="construction_project_type_view_form" model="ir.ui.view">
+            <field name="name">construction type</field>
+            <field name="model">construction.project2.type</field>
+            <field name="arch" type="xml">
+                <form string="construction_project_form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="construction_project_type_action" model="ir.actions.act_window">
+            <field name="name">Construction Project Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.project2.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="construction_project_type_menu"
+                  name="Construction Project Type"
+                  sequence="10"
+                  parent="configuration_menu"
+                  action="construction_project_type_action"/>
+    </data>
+</odoo>
