@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <act_window id="update_cheque_transfer"
+                name="Cheques Transfers"
+                binding_model="account.payment"
+                res_model="wizard.cheque.transfers"
+                context="{ 'default_res_ids': active_ids }"
+                view_mode="form" target="new"/>
+
+    <record id="open_cheque_transfer_view" model="ir.ui.view">
+        <field name="name">wizard.cheque.transfers</field>
+        <field name="model">wizard.cheque.transfers</field>
+        <field name="arch" type="xml">
+            <form string="Cheque Transfers Groups">
+                <div>
+                    YOU Will Change Cheques to an other state
+                </div>
+                <field name="cheque_state" />
+                <field name="cheque_type" />
+                <field name="res_ids" widget="many2many_tags" invisible="0"/>
+                <footer>
+                    <span attrs="{'invisible':[('cheque_type','!=','receivable')]}">
+                        <button name="confirm" type="object" string="confirm" class="oe_highlight"
+                                attrs="{'invisible':[('cheque_state','!=','draft')]}"/>
+                        <button name="open_under_collect" type="object" string="Under Collect" class="oe_highlight"
+                                attrs="{'invisible':[('cheque_state','not in' ,['confirm', 'reject'])]}"/>
+                        <button name="open_collect" type="object" string="Collect" class="oe_highlight"
+                                attrs="{'invisible':[('cheque_state','not in' ,['confirm', 'under_collect'])]}"/>
+                        <button name="open_return" type="object" string="Return" class="oe_highlight"
+                                attrs="{'invisible':[('cheque_state','!=','confirm')]}"/>
+                        <button name="open_endorsement" type="object" string="تظهير الشيك " class="oe_highlight"
+                                attrs="{'invisible':[('cheque_state','!=','confirm')]}"/>
+                        <button name="open_return_to_customer" type="object" string="Return to Customer"
+                                attrs="{'invisible':[('cheque_state','!=','reject')]}"/>
+                        <!--                        <button name="transfer" type="object" string="Transfer" class="oe_highlight"-->
+                        <!--                                attrs="{'invisible':[('cheque_state','!=','confirm')]}"/>-->
+
+                        <button name="open_reject" type="object" string="Reject"
+                                attrs="{'invisible':[('cheque_state','in', ['draft', 'reject'])]}"/>
+                        <button name="reset_to_draft" type="object" string="Reset To Draft"
+                                attrs="{'invisible':[('cheque_state','=','draft')]}"/>
+<!--                        <field name="cheque_type" />-->
+<!--                        <field name="cheque_state" widget="statusbar"-->
+<!--                               decoration-info="cheque_state == 'draft'" decoration-success="cheque_state == 'confirm'"-->
+<!--                               decoration-danger="cheque_state == 'reject'"/>-->
+                    </span>
+                    <span attrs="{'invisible':[('cheque_type','!=','send')]}">
+                        <button name="confirm" type="object" string="confirm"
+                                class="oe_highlight"
+                                attrs="{'invisible':[('cheque_state','!=','draft')]}"/>
+                        <button name="open_collect" type="object" string="Collect"
+                                class="oe_highlight"
+                                attrs="{'invisible':[('cheque_state','not in' ,['confirm'])]}"/>
+                        <button name="open_reject" type="object" string="Reject"
+                                attrs="{'invisible':[('cheque_state','in', ['draft', 'reject'])]}"/>
+                        <button name="reset_to_draft" type="object" string="Reset To Draft"
+                                attrs="{'invisible':[('cheque_state','=','draft')]}"/>
+<!--                        <field name="cheque_type" />-->
+<!--                        <field name="cheque_state" widget="statusbar" statusbar_visible="draft,confirm,collect,reject"/>-->
+                    </span>
+
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

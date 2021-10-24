@@ -73,9 +73,10 @@
                                 <field name="journal_id" domain="[('send_cheque', '=', True)]"/>
                                 <field name="collect_journal_id" domain="[('cheque_collection', '=', True)]"
                                        string="Collect Journal"/>
-                                <field name="amount"/>
-                                <field name="current_journal_id" invisible="1"/>
                                 <field name="currency_id"/>
+                                <field name="amount"/>
+                                <field name="amount_in_currency" readonly="1" force_save="1"/>
+                                <field name="current_journal_id" invisible="1"/>
                                 <field name="due_date"/>
                                 <field name="ref"/>
                             </group>

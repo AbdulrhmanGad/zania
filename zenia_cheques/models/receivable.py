@@ -71,6 +71,14 @@ class AccountPayment(models.Model):
     reject_journal_id = fields.Many2one("account.journal", string="Journal")
     reject_date = fields.Date(string='Date')
     current_journal_id = fields.Many2one("account.journal", string="Current Journal")
+    amount_in_currency = fields.Float("Amount in Company Currency", compute='compute_amount_in_currency', digits=(16, 4), )
+
+    @api.depends('currency_id', 'amount' )
+    def compute_amount_in_currency(self):
+        for rec in self:
+            rec.amount_in_currency = 0
+            if rec.currency_id and len(rec.currency_id.rate_ids.ids)>0:
+                rec.amount_in_currency = 1 / rec.currency_id.rate_ids[0].rate * rec.amount
 
     # @api.onchange('journal_id')
     # def change_journal_id1(self):

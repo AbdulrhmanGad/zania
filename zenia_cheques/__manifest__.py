@@ -18,6 +18,7 @@
         'views/journal.xml',
         'views/cheque_group.xml',
         'views/cheque_book.xml',
+        'wizard/cheque_transfers.xml',
     ],
     'installable': True,
     'application': False,

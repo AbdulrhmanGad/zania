@@ -55,7 +55,7 @@ class AccountPaymentGroup(models.Model):
     cheque_ids = fields.One2many(comodel_name='account.payment', inverse_name='cheque_group_id', )
     currency_id = fields.Many2one('res.currency', string='Currency', required=True,
                                   default=lambda self: self.env.user.company_id.currency_id)
-
+    amount_in_currency = fields.Float("Amount in Company Currency", compute='compute_amount_in_currency', digits=(16, 4), )
     cheque_book = fields.Many2one('cheque.book', string="Cheque Ledger")
     cheque_cheque_id = fields.Many2one('cheque.cheque', string="Cheque Number")
     state = fields.Selection(
@@ -134,3 +134,10 @@ class AccountPaymentGroup(models.Model):
             payment_ids.append(payment.id)
         self.cheque_ids = [(6, 0, payment_ids)]
         self.state = 'confirm'
+
+    @api.depends('currency_id', 'cheques_total' )
+    def compute_amount_in_currency(self):
+        for rec in self:
+            rec.amount_in_currency = 0
+            if rec.currency_id and len(rec.currency_id.rate_ids.ids)>0:
+                rec.amount_in_currency = 1 / rec.currency_id.rate_ids[0].rate * rec.cheques_total

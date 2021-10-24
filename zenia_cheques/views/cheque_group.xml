@@ -79,6 +79,7 @@
                                 <field name="cheque_bank_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
                                 <field name="bank_branch_id" options="{'no_create': True}" domain="[('bank_id', '=', cheque_bank_id)]"  attrs="{'readonly':[('state', '!=', 'draft')]}"/>
                                 <field name="currency_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                <field name="amount_in_currency" readonly="1" force_save="1"/>
                             </group>
                             <field name="cheque_ids">
                                 <tree editable="bottom" default_order='cheque_no'>
@@ -176,6 +177,7 @@
                                 <field name="ref" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
                                 <field name="cheque_bank_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
                                 <field name="currency_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                <field name="amount_in_currency" readonly="1" force_save="1"/>
                             </group>
 
                             <field name="cheque_ids">
@@ -189,8 +191,8 @@
                                     <field name="cheque_no" invisible="1" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
                                     <field name="amount" attrs="{'readonly':[('state', '=', 'confirm_cheque')]}"
                                            required="1" sum="total"/>
-                                    <field name="currency_id" attrs="{'readonly':[('state', '!=', 'draft')]}"
-                                           readonly="1"/>
+                                    <field name="currency_id" attrs="{'readonly':[('state', '!=', 'draft')]}" readonly="1"/>
+<!--                                    <field name="amount_in_currency" force_save="1" readonly="1"/>-->
                                     <field name="due_date" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
                                     <field name="date" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
                                 </tree>

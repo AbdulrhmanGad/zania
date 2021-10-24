@@ -147,6 +147,7 @@
                     <field name="journal_id" invisible="1"/>
                     <field name="partner_id" string="Customer"/>
                     <field name="amount"/>
+                    <field name="amount_in_currency" readonly="1" force_save="1"/>
                     <field name="cheque_state"/>
                     <field name="due_date"/>
                     <field name="date"/>
@@ -210,9 +211,6 @@
                                 <field name="cheque_type" invisible="1"/>
                                 <field name="partner_type" attrs="{'readonly':[('cheque_state','!=','draft')]}"/>
                                 <field name="partner_id" required="1" string="Customer"/>
-                                <field name="amount"/>
-                                <field name="current_journal_id" invisible="1"/>
-                                <field name="currency_id"/>
                                 <field name="cheque_no" required="True"/>
                                 <field name="due_date" required="True"/>
                                 <field name="date"/>
@@ -220,6 +218,10 @@
                             </group>
                             <group>
                                 <field name="journal_id" domain="[('receive_cheque', '=', True)]"/>
+                                <field name="amount"/>
+                                <field name="currency_id"/>
+                                <field name="current_journal_id" invisible="1"/>
+                                <field name="amount_in_currency" readonly="1" force_save="1"/>
                             </group>
                         </group>
                         <field name="cheque_bank_id"/>
