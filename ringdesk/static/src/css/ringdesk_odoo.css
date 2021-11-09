@@ -1,0 +1,16 @@
+#ringdesk-container {
+    line-height: normal;
+}
+.ringdesk-dropdown-tab .dropdown-item.d-flex.align-items-center.headers div:last-child {
+    color: #000 !important;
+}
+.ringdesk-dropdown-tab .dropdown-item.d-flex.align-items-center div:last-child {
+    color: #000 !important;
+}
+#ringdesk-container > div > div.main-container > div.container-fluid {
+    width: 100%;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: auto;
+    margin-left: auto;
+}

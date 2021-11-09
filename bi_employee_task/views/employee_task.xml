@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+
+    <record id="view_hr_emp_inherit_form" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+            <div class="oe_button_box" name="button_box" position="inside">
+                <button name="compute_tasks_count" type="object" class="oe_stat_button" icon="fa-file-text" groups="bi_employee_task.group_employee_task" attrs = "{'invisible':[('task_count','=',0)]}">
+                    <field name="task_count" string="Tasks" widget="statinfo"/>
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <record id="view_hr_emp_inherit_kanban" model="ir.ui.view">
+        <field name="name">hr.employee.kanban.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.hr_kanban_view_employees" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_kanban_details']/ul" position="inside">
+                <li t-if="record.task_count.raw_value" groups="bi_employee_task.group_employee_task"><span>Tasks: <field name="task_count" string="Tasks"/></span></li>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_view_task_inherit" model="ir.actions.act_window">
+            <field name="name">Employee Task</field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">tree,form,kanban,calendar,pivot,graph</field>
+            <field name="context">{'group_by':'stage_id'}</field>
+            <field name="domain"></field>
+            <field name="search_view_id" ref="project.view_task_search_form"/>
+            <field name="help" type="html">
+                <p>
+                    Odoo's project management allows you to manage the pipeline of your tasks efficiently. You can track progress, discuss on tasks, attach documents, etc.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

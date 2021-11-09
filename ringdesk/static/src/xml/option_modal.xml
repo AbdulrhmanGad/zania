@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="ringdesk.options_menu">
+        <li>
+            <div id="ringdesk-container" name="ringdesk_holder" style="height:425px; width: 400px"></div>
+            <script type="text/javascript" src="/ringdesk/static/src/js/ringdesk_main.js"/>
+            <script type="text/javascript" src="/ringdesk/static/src/js/ringdesk_init.js"/>
+            <link rel="stylesheet" href="/ringdesk/static/src/css/ringdesk_odoo.css"/>
+        </li>
+    </t>
+</templates>
+ 

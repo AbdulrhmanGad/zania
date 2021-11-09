@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="ringdesk_options_common_js" name="Customize Js" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/ringdesk/static/src/js/ringdesk_widget.js"/>
+            <script type="text/javascript" src="https://sdk.ringdesk.com/dist/ringdesk-kit.js"/>
+             <link rel="stylesheet" type="text/scss" href="/ringdesk/static/src/css/ringdesk_override.scss"/>
+        </xpath>
+    </template>
+</odoo>

@@ -29,6 +29,32 @@ class ChequesTransfersWizard(models.TransientModel):
     cheque_type = fields.Selection(string=' Cheque Type ',
                                    selection=[('receivable', 'Receivable'), ('send', 'Send')], compute="compute_cheque_type")
 
+    def get_default_journal(self):
+        print("self.env.context ",self.env.context)
+        print("self.env.context ",self._context)
+        if 'default_cheque_type' in self.env.context:
+            if self.env.context['default_cheque_type'] == 'receivable':
+                return self.env['account.journal'].search([('receive_cheque', '=', True)])
+            elif self.env.context['default_cheque_type'] == 'send':
+                return self.env['account.journal'].search([('send_cheque', '=', True)])
+        else:
+            self.env['account.payment'].search([],limit=1)._get_default_journal().id
+    journal_id = fields.Many2one('account.journal', required=True,  string="Journal",default=get_default_journal)
+    current_journal_id = fields.Many2one("account.journal", string="Current Journal")
+
+    under_collect_bank_id = fields.Many2one("res.bank", string="Bank")
+    under_collect_journal_id = fields.Many2one("account.journal", string="Journal")
+    under_collect_date = fields.Date(string='Date')
+
+    collect_journal_id = fields.Many2one("account.journal", string="Collect Journal")
+    collect_date = fields.Date(string='Collect Date')
+
+    return_journal_id = fields.Many2one("account.journal", string="Return Journal")
+    return_date = fields.Date(string='Return Date')
+
+    reject_journal_id = fields.Many2one("account.journal", string="Journal")
+    reject_date = fields.Date(string='Date')
+
     @api.depends('res_ids')
     def compute_cheque_type(self):
         for rec in self:

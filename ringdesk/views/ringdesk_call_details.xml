@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ringdesk_calldetails_form_view" model="ir.ui.view">
+        <field name="name">ringdesk.calldetails.form</field>
+        <field name="model">ringdesk.calldetails</field>
+        <field name="arch" type="xml">
+            <form duplicate="false" delete="false">
+                 <header >
+                    <button name="create_contact" string="Create Contact"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible': ['|',('parent_type', '=', 'Lead'), ('parent_type', '=', 'Contact')]}"/>
+                     <button  string="Create Lead"
+                        name="create_lead"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible': ['|',('parent_type', '=', 'Lead'), ('parent_type', '!=', 'Contact')]}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="peer_name"/>      
+                            <field name="from_name"/>
+                            <field name="to_name"/>
+                            <field name="call_start_time"/>
+                            <field name="call_end_time" />
+                             <field name="phone" widget="phone" options="{'enable_sms': True}"/>
+                        </group>
+                        <group>
+                            <field name="phone_status"/>
+                            <field name="call_id" arch="Call ID"/>
+                            <field name="call_duration"/>
+                            <field name="parent_type"/>
+                            <field name="parent_id"/>
+                        </group>
+                        
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="notes" widget="html"  />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="ringdesk_calldetails_tree_view" model="ir.ui.view">
+        <field name="name">ringdesk.calldetails.tree</field>
+        <field name="model">ringdesk.calldetails</field>
+        <field name="arch" type="xml">
+            <tree duplicate="false" delete="false">
+                <field name="call_id"/>
+                <field name="from_name"/>
+                <field name="to_name"/>
+                <field name="phone" widget="phone" options="{'enable_sms': True}"/>
+                <field name="phone_status"/>
+                <field name="call_start_time"/>
+                <field name="call_end_time" />
+                <field name="call_duration"/>
+                <field name="peer_name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_list_calldetails">
+        <field name="name">Call Details</field>
+        <field name="res_model">ringdesk.calldetails</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="ringdesk.ringdesk_calldetails_tree_view"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+             Make a phonecall from Ringdesk Plugin to add call details
+          </p><p>
+            Ringdesk plugin helps you to easily logs all call activities related to a customer.
+          </p>
+        </field>
+    </record>
+
+     <menuitem name="Ringdesk"
+        id="ringdesk_calldetails_menu_root"
+        sequence="2"
+        web_icon="ringdesk,static/description/icon.png"
+       />
+
+    <menuitem id="ringdesk_calldetails_list" parent="ringdesk_calldetails_menu_root" name="Call Details" sequence="1"
+            action="action_list_calldetails" />
+</odoo>
+
+   
+
+

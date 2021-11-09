@@ -15,9 +15,28 @@
                 <div>
                     YOU Will Change Cheques to an other state
                 </div>
-                <field name="cheque_state" />
-                <field name="cheque_type" />
-                <field name="res_ids" widget="many2many_tags" invisible="0"/>
+                <group>
+
+                    <group>
+                        <field name="under_collect_bank_id"/>
+                        <field name="under_collect_journal_id"/>
+                        <field name="under_collect_date"/>
+                        <field name="collect_journal_id"/>
+                        <field name="collect_date"/>
+                        <field name="return_journal_id"/>
+                        <field name="return_date"/>
+                        <field name="return_journal_id"/>
+                        <field name="return_date"/>
+                        <field name="reject_journal_id"/>
+                        <field name="reject_date"/>
+                    </group>
+                    <group>
+                        <field name="cheque_state"/>
+                        <br/>
+                        <field name="cheque_type"/>
+                        <field name="res_ids" widget="many2many_tags" invisible="0"/>
+                    </group>
+                </group>
                 <footer>
                     <span attrs="{'invisible':[('cheque_type','!=','receivable')]}">
                         <button name="confirm" type="object" string="confirm" class="oe_highlight"
@@ -39,10 +58,10 @@
                                 attrs="{'invisible':[('cheque_state','in', ['draft', 'reject'])]}"/>
                         <button name="reset_to_draft" type="object" string="Reset To Draft"
                                 attrs="{'invisible':[('cheque_state','=','draft')]}"/>
-<!--                        <field name="cheque_type" />-->
-<!--                        <field name="cheque_state" widget="statusbar"-->
-<!--                               decoration-info="cheque_state == 'draft'" decoration-success="cheque_state == 'confirm'"-->
-<!--                               decoration-danger="cheque_state == 'reject'"/>-->
+                        <!--                        <field name="cheque_type" />-->
+                        <!--                        <field name="cheque_state" widget="statusbar"-->
+                        <!--                               decoration-info="cheque_state == 'draft'" decoration-success="cheque_state == 'confirm'"-->
+                        <!--                               decoration-danger="cheque_state == 'reject'"/>-->
                     </span>
                     <span attrs="{'invisible':[('cheque_type','!=','send')]}">
                         <button name="confirm" type="object" string="confirm"
@@ -55,8 +74,8 @@
                                 attrs="{'invisible':[('cheque_state','in', ['draft', 'reject'])]}"/>
                         <button name="reset_to_draft" type="object" string="Reset To Draft"
                                 attrs="{'invisible':[('cheque_state','=','draft')]}"/>
-<!--                        <field name="cheque_type" />-->
-<!--                        <field name="cheque_state" widget="statusbar" statusbar_visible="draft,confirm,collect,reject"/>-->
+                        <!--                        <field name="cheque_type" />-->
+                        <!--                        <field name="cheque_state" widget="statusbar" statusbar_visible="draft,confirm,collect,reject"/>-->
                     </span>
 
                     <button string="Cancel" class="btn-secondary" special="cancel"/>

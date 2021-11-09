@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<odoo>
+ <record id="ringdesk_lead_call_log_tab_view" model="ir.ui.view">
+    <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+    <field name="model">crm.lead</field>
+    <field name="arch" type="xml">
+        <notebook>
+            <page string="Call Logs">
+                <field name="call_logs" />
+            </page>
+        </notebook>
+    </field>
+</record>
+ <record id="ringdesk_contact_call_log_tab_view" model="ir.ui.view">
+    <field name="inherit_id" ref="base.view_partner_form"/>
+    <field name="model">res.partner</field>
+    <field name="arch" type="xml">
+        <notebook>
+            <page string="Call Logs">
+                <field name="call_logs"/>
+            </page>
+        </notebook>
+    </field>
+</record>
+</odoo>

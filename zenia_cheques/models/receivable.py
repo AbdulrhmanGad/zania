@@ -54,6 +54,8 @@ class AccountPayment(models.Model):
     move_count = fields.Integer('Count', compute="compute_move_count")
     move_line_ids = fields.One2many(comodel_name='account.move.line', inverse_name='payment_cheque_id')
     move_line_count = fields.Integer('Count', compute="compute_move_count")
+    customer_account_no = fields.Char(string='Customer Account No2')
+    amount_in_currency = fields.Float("Amount in Company Currency", compute='compute_amount_in_currency', digits=(16, 4), )
 
     under_collect_bank_id = fields.Many2one("res.bank", string="Bank")
     under_collect_journal_id = fields.Many2one("account.journal", string="Journal")
@@ -66,12 +68,9 @@ class AccountPayment(models.Model):
 
     return_journal_id = fields.Many2one("account.journal", string="Journal")
     return_date = fields.Date(string='Date')
-    customer_account_no = fields.Char(string='Customer Account No2')
-
     reject_journal_id = fields.Many2one("account.journal", string="Journal")
     reject_date = fields.Date(string='Date')
     current_journal_id = fields.Many2one("account.journal", string="Current Journal")
-    amount_in_currency = fields.Float("Amount in Company Currency", compute='compute_amount_in_currency', digits=(16, 4), )
 
     @api.depends('currency_id', 'amount' )
     def compute_amount_in_currency(self):
